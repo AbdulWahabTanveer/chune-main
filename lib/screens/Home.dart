@@ -355,6 +355,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               }
+              if(state is MusicPlayerLoading){
+                return Center(child: CircularProgressIndicator());
+              }
               return SizedBox.shrink();
             },
           ),

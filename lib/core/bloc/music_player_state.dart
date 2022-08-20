@@ -9,6 +9,11 @@ class MusicPlayerInitial extends MusicPlayerState {
   List<Object> get props => [];
 }
 
+class MusicPlayerLoading extends MusicPlayerState {
+  @override
+  List<Object> get props => [];
+}
+
 class MusicPlayerLoaded extends MusicPlayerState {
   final Duration totalDuration;
   final Duration currentDuration;

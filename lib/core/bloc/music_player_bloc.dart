@@ -30,6 +30,9 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
 
   FutureOr<void> _onSetAudio(
       SetAudioEvent event, Emitter<MusicPlayerState> emit) async {
+    if(state is MusicPlayerInitial) {
+      emit(MusicPlayerLoading());
+    }
     final duration = await player.setUrl(event.post.url);
     player.play();
     emit(

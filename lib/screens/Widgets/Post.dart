@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Post extends StatelessWidget {
   Post(this.post, this.isLiked, this.isSelected);
@@ -15,8 +16,10 @@ class Post extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundImage: AssetImage(post.profilePic),
-                radius: 17,
+                radius: 17.0,
+                backgroundImage:
+                NetworkImage(post.profilePic),
+                backgroundColor: Colors.transparent,
               ),
               SizedBox(
                 width: 10,
@@ -36,8 +39,14 @@ class Post extends StatelessWidget {
           GestureDetector(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
-              child: Image.asset(
+              child: Image.network(
                 post.albumArt,
+                // ignore: missing_return
+                errorBuilder: (BuildContext context, Object exception,
+                    StackTrace stackTrace) {
+                  return Text('Your error widget...');
+                },
+                //post.albumArt,
                 height: 370,
                 width: 370,
               ),
@@ -107,8 +116,6 @@ class Post extends StatelessWidget {
 }
 
 class PostDetails {
-  String url;
-
   PostDetails({
     this.profilePic,
     this.userName,
@@ -119,13 +126,14 @@ class PostDetails {
     this.isLiked,
     this.isSelected,
     this.likeColor,
-    this.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+    this.url
   });
   String profilePic;
   String userName;
   String albumArt;
   String songName;
   String artistName;
+  String url;
   int likeCount;
   bool isLiked;
   bool isSelected;

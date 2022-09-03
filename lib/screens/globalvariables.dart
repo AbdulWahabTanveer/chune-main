@@ -8,6 +8,7 @@ int selectedIndex = 0;
 int likeCount = homePosts.map((post) => post.likeCount).elementAt(selectedPost);
 int whotoFollowlistlength = whoToFollowList.length;
 int homePostListlength = homePosts.length;
+//int chuneListLength = chuneList.length;
 
 List homePosts;
 List<Follow> whoToFollowList;
@@ -17,6 +18,7 @@ void initState() {
   ///super.initState();
   whoToFollowList = [];
   homePosts = [];
+  //chuneList = [];
 
   whoToFollowList.add(
     Follow(
@@ -68,7 +70,6 @@ void initState() {
       artistName: 'J Cole',
       likeCount: 109,
       isLiked: false,
-      url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
     ),
   );
 
@@ -81,14 +82,12 @@ void initState() {
       artistName: 'Loyle Carner',
       likeCount: 79,
       isLiked: false,
-      url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
     ),
   );
   homePosts.add(
     PostDetails(
       profilePic: 'images/chune.jpeg',
       userName: 'chuneapp',
-      url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
       albumArt: 'images/PND.jpg',
       songName: 'Break From Toronto',
       artistName: 'PARTYNEXTDOOR',
@@ -98,7 +97,6 @@ void initState() {
   );
   homePosts.add(
     PostDetails(
-      url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
       profilePic: 'images/chune.jpeg',
       userName: 'chuneapp',
       albumArt: 'images/MIL.jpeg',

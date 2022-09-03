@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newapp/screens/NavScreen.dart';
 import 'UserScreens/Userprofile.dart';
+import 'package:newapp/screens/Profile.dart';
 
 class ShareAChune extends StatefulWidget {
   @override
@@ -100,158 +101,131 @@ class _ShareAChune extends State<ShareAChune> {
   }
 
   Widget build(BuildContext context) {
-    var w = MediaQuery.of(context).size.width;
-    var h = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(
-              context,
-            );
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
           ),
-        ),
-        actions: [
-          GestureDetector(
-            child: IconButton(
-                icon: CircleAvatar(
-                  backgroundImage: AssetImage('images/wizkid.jpeg'),
-                  radius: 17,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => UserProfile()),
-                  );
-                }),
-          ),
-        ],
-        backgroundColor: Colors.white,
-        elevation: 1,
-        toolbarHeight: 70,
-        title: Center(
-          child: Text(
-            'chune',
-            style: TextStyle(
-                color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
-          ),
-        ),
-      ),
-      body: Stack(children: [
-        Container(
-          width: w,
-          height: h,
-          child: Column(
+
+          actions: [
+
+
+
+           // GestureDetector(
+           //      child: IconButton(
+           //          icon: CircleAvatar(
+           //            backgroundImage: AssetImage('images/wizkid.jpeg'),
+           //            radius: 17,
+           //          ),
+           //          onPressed: () {
+           //            Navigator.push(
+           //              context,
+           //              MaterialPageRoute(
+           //                builder: (context) => Profile(),
+           //              ),
+           //            );
+           //          }),
+           //    ),
+
+          ],
+          backgroundColor: Colors.white,
+          toolbarHeight: 200,
+          elevation: 1,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[300],
-                      spreadRadius: 1,
-                      blurRadius: 1,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      //height: 200,
-                      //width: 390,
-                      //color: Colors.grey[50],
-                      child: Column(
-                        //TextField(),
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
-                            child: Column(
-                              children: [
-                                Text('Share A Chune',
-                                    style: TextStyle(
-                                        fontSize: 35,
-                                        fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: SizedBox(
-                              width: 350,
-                              child: TextField(
-                                onSubmitted: (String chune) {},
-                                decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.search),
-                                  hintText: 'Enter artists & songs...',
-                                  focusColor: Colors.grey,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(100),
-                                    ),
-                                  ),
+              Text(
+                'chune',
+                style: TextStyle(
+                    color: Colors.pink,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25),
+              ),
+              SizedBox(height: 8),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Share A Chune',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 35,
+                                fontWeight: FontWeight.bold)),
+                        SizedBox(height: 8),
+                        SizedBox(
+                          width: 300,
+                          child: TextField(
+                            onSubmitted: (String chune) {},
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.search),
+                              hintText: 'Enter artists & songs...',
+                              focusColor: Colors.grey,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(100),
                                 ),
                               ),
                             ),
                           ),
-
-                          SizedBox(height: 5)
-
-                          //Container(height: 1, width: 390, color: Colors.blue)
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                width: w,
-                height: h * 0.655,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: SizedBox(
-                      height: h * 3,
-                      child: ListView.builder(
-                        physics: ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: chuneList.length,
-                        itemBuilder: (context, index) {
-                          return ChuneRow(
-                            chuneList[index],
-                            () => isSelected(index),
-                          );
-                        },
-                      ),
-                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+
+            children: [
+              SizedBox(height: 20),
+              SingleChildScrollView(
+                child: SizedBox(
+                  // height: h * 3,
+                  child: ListView.builder(
+                    physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: chuneList.length,
+                    itemBuilder: (context, index) {
+                      return ChuneRow(
+                        chuneList[index],
+                        () => isSelected(index),
+                      );
+                    },
                   ),
                 ),
               ),
             ],
           ),
         ),
-      ]),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            if (selectedCounter >= 1) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NavScreen()),
-              );
-            }
-          },
-          child: Icon(
-            Icons.send,
-            color: Colors.white,
-          ),
-          backgroundColor: selectedColor),
-    );
+        floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              if (selectedCounter >= 1) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NavScreen()),
+                );
+              }
+            },
+            child: Icon(
+              Icons.send,
+              color: Colors.white,
+            ),
+            backgroundColor: selectedColor));
   }
 
   isSelected(int index) {
@@ -285,8 +259,10 @@ class ChuneRow extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            ///SizedBox(height: 20),
             Row(
               children: [
+                //SizedBox(height: 20),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16.0),
                   child: Image.asset(
@@ -349,3 +325,102 @@ class Chune {
   var artistName;
   bool isSelected;
 }
+
+//
+//
+//
+// leading: IconButton(
+// onPressed: () {
+// Navigator.pop(
+// context,
+// );
+// },
+// icon: Icon(
+// Icons.arrow_back,
+// color: Colors.black,
+// ),
+// ),
+//
+// backgroundColor: Colors.white,
+// elevation: 1,
+// toolbarHeight: 200,
+// title: Column(
+// children: [
+// Center(
+// child: Row(children: [
+// Text(
+// 'chune',
+// style: TextStyle(
+// color: Colors.pink,
+// fontWeight: FontWeight.bold,
+// fontSize: 25),
+// ),
+//
+//
+// GestureDetector(
+// child: IconButton(
+// icon: CircleAvatar(
+// backgroundImage: AssetImage('images/wizkid.jpeg'),
+// radius: 17,
+// ),
+// onPressed: () {
+// Navigator.push(
+// context,
+// MaterialPageRoute(builder: (context) => UserProfile()),
+// );
+// }),
+// ),
+//
+// ]),
+// ),
+// SizedBox(height: 8),
+// Row(
+// crossAxisAlignment: CrossAxisAlignment.start,
+// mainAxisAlignment: MainAxisAlignment.start,
+// children: [
+// Container(
+// //height: 200,
+// //width: 390,
+// //color: Colors.grey[50],
+// child: Column(
+// //TextField(),
+//
+// children: [
+// // Container(
+// //   padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
+// //   child: Column(
+// //     children: [
+// //       Text('Share A Chune',
+// //           style: TextStyle(
+// //               fontSize: 35,
+// //               fontWeight: FontWeight.bold)),
+// //     ],
+// //   ),
+// // ),
+// SizedBox(
+// width: 350,
+// child: TextField(
+// onSubmitted: (String chune) {},
+// decoration: InputDecoration(
+// prefixIcon: Icon(Icons.search),
+// hintText: 'Enter artists & songs...',
+// focusColor: Colors.grey,
+// border: OutlineInputBorder(
+// borderRadius: BorderRadius.all(
+// Radius.circular(100),
+// ),
+// ),
+// ),
+// ),
+// ),
+//
+// SizedBox(height: 5)
+//
+// //Container(height: 1, width: 390, color: Colors.blue)
+// ],
+// ),
+// ),
+// ],
+// ),
+// ],
+// ),

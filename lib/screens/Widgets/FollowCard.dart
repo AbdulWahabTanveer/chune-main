@@ -64,7 +64,8 @@ class FollowCard extends StatelessWidget{
                           const BorderRadius.all(const Radius.circular(100))),
                   child: TextButton(
                       child: Text(card.isFollowing ? 'Following' : 'Follow',
-                          style: TextStyle(fontSize: 21)),
+                          style: TextStyle(fontSize: 21,
+                          color:  Theme.of(context).secondaryHeaderColor )),
                       onPressed: () {
                         isFollowing();
                       }),

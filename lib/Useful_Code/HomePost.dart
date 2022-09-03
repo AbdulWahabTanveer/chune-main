@@ -14,7 +14,7 @@ class _HomePost extends State<HomePostWidget> {
   }
 
   // ignore: non_constant_identifier_names
-  Widget HomePost(profileImage, username, albumArt, songName, artistName) {
+  Widget HomePost(profileImage, username, albumArt, songName, artistName, url) {
     int counter = 0;
     var liked = false;
 

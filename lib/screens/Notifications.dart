@@ -51,36 +51,6 @@ class _Notifications extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 0.0),
-            child: GestureDetector(
-              child: IconButton(
-                  icon: CircleAvatar(
-                    backgroundImage: AssetImage('images/wizkid.jpeg'),
-                    radius: 17,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => UserProfile()),
-                    );
-                  }),
-            ),
-          )
-        ],
-        backgroundColor: Colors.white,
-        elevation: 1,
-        toolbarHeight: 70,
-        title: Center(
-          child: Text(
-            'chune',
-            style: TextStyle(
-                color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
-          ),
-        ),
-      ),
       body: Stack(children: [
         SingleChildScrollView(
           child: Column(
@@ -157,7 +127,7 @@ class _Notifications extends State<Notifications> {
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(12.0),
-                                    child: Image.asset(
+                                    child: Image.network(
                                       '${homePosts.map((post) => post.albumArt).elementAt(selectedPost)}',
                                       height: 50,
                                       width: 50,

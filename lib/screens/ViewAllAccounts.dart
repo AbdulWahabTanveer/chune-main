@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newapp/screens/Profile.dart';
 import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:newapp/screens/globalvariables.dart';
 import 'UserScreens/Userprofile.dart';
@@ -35,7 +36,7 @@ class _ViewAllAccounts extends State<ViewAllAccounts> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => UserProfile()),
+                      MaterialPageRoute(builder: (context) => Profile()),
                     );
                   }),
             ),
@@ -48,7 +49,7 @@ class _ViewAllAccounts extends State<ViewAllAccounts> {
           child: Text(
             'chune',
             style: TextStyle(
-                color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 25),
+                color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
           ),
         ),
       ),

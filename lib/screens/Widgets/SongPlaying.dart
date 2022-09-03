@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newapp/screens/UserScreens/UserProfile.dart';
+import 'package:newapp/screens/Profile.dart';
 import 'package:newapp/screens/globalvariables.dart';
 
 class SongPlaying extends StatelessWidget {
@@ -28,7 +28,7 @@ class SongPlaying extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => UserProfile()),
+                      MaterialPageRoute(builder: (context) => Profile()),
                     );
                   },
                   child: CircleAvatar(

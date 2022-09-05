@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:newapp/screens/NavScreen.dart';
 
 
@@ -11,7 +10,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginScreen extends State<Login> {
-  var varName = dotenv.env['VAR_NAME'];
+  // var varName = dotenv.env['VAR_NAME'];
 
   @override
   Widget build(BuildContext context) {

@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:newapp/screens/Profile.dart';
 
-import '../../screens/Widgets/Post.dart';
+import '../../../screens/ShareAChune.dart';
+import '../../../screens/Widgets/Post.dart';
 
 part 'music_player_event.dart';
 

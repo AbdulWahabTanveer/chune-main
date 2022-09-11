@@ -18,7 +18,7 @@ class MusicPlayerLoaded extends MusicPlayerState {
   final Duration totalDuration;
   final Duration currentDuration;
   final bool playing;
-  final PostDetails post;
+  final Chune post;
 
   MusicPlayerLoaded(
       {this.totalDuration, this.currentDuration, this.playing, this.post});

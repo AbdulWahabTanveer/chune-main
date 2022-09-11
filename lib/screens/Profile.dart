@@ -542,9 +542,4 @@ class _Profile extends State<Profile> {
   }
 }
 
-class Chune {
-  Chune({this.albumArt, this.songName, this.artistName});
-  var albumArt;
-  var songName;
-  var artistName;
-}
+

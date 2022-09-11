@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newapp/core/bloc/login/login_bloc.dart';
 import 'package:newapp/screens/Home.dart';
 import 'package:newapp/screens/Notifications.dart';
 import 'package:newapp/screens/Profile.dart';
@@ -30,6 +32,7 @@ class _NavScreen extends State<NavScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print((context.read<LoginBloc>().state as LoginSuccessState).user.token);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -57,7 +60,7 @@ class _NavScreen extends State<NavScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ShareAChune(),
+              builder: (context) => ShareAChuneWrapper(),
             ),
           );
         },

@@ -5,7 +5,7 @@ abstract class MusicPlayerEvent {
 }
 
 class SetAudioEvent extends MusicPlayerEvent {
-  final PostDetails post;
+  final Chune post;
 
   SetAudioEvent(this.post);
 }

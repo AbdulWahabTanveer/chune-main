@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/screens/NavScreen.dart';
 import '../Useful_Code/utils.dart';
+import '../core/bloc/music_player/music_player_bloc.dart';
 import '../core/bloc/share_a_chune/share_a_chune_bloc.dart';
 import 'UserScreens/Userprofile.dart';
 import 'package:newapp/screens/Profile.dart';
@@ -223,17 +224,18 @@ class _ShareAChune extends State<ShareAChune> {
                           shrinkWrap: true,
                           itemCount: state.model.tracks.items.length,
                           itemBuilder: (context, index) {
-                            final chune = state.model.tracks.items[index];
+                            final item = state.model.tracks.items[index];
+                            Chune chune =Chune(
+                                albumArt: item.album.images[0].url,
+                                songName: item.name,
+                                isSelected: false,
+                                url: item.previewUrl,
+                                artistName: item.artists
+                                    .map((e) => e.name)
+                                    .join(','));
                             return ChuneRow(
-                              Chune(
-                                  albumArt: chune.album.images[0].url,
-                                  songName: chune.name,
-                                  isSelected: false,
-                                  url: chune.previewUrl,
-                                  artistName: chune.artists
-                                      .map((e) => e.name)
-                                      .join(',')),
-                              () => isSelected(index),
+                              chune,
+                              () => isSelected(chune),
                             );
                           },
                         ),
@@ -262,8 +264,7 @@ class _ShareAChune extends State<ShareAChune> {
     );
   }
 
-  isSelected(int index) {
-    final chune = chuneList[index];
+  isSelected(Chune chune) {
 
     setState(
       () {
@@ -276,6 +277,9 @@ class _ShareAChune extends State<ShareAChune> {
             : selectedColor = Colors.grey;
       },
     );
+    context
+        .read<MusicPlayerBloc>()
+        .add(SetAudioEvent(chune));
   }
 }
 

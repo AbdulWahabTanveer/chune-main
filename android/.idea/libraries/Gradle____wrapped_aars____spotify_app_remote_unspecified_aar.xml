@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: __wrapped_aars__::spotify-app-remote:unspecified@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../build/spotify-app-remote/.transforms/098b932c78781b7d3d7d7f9d0c656f2a/transformed/jetified-spotify-app-remote-release-0.7.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../build/spotify-app-remote/.transforms/098b932c78781b7d3d7d7f9d0c656f2a/transformed/jetified-spotify-app-remote-release-0.7.2/res" />
+      <root url="file://$PROJECT_DIR$/../build/spotify-app-remote/.transforms/098b932c78781b7d3d7d7f9d0c656f2a/transformed/jetified-spotify-app-remote-release-0.7.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

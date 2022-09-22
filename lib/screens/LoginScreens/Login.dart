@@ -43,20 +43,31 @@ class _LoginScreen extends State<Login> {
             // onTap: getAuth,
             onTap: () {},
 
-            child: Container(
-              width: 300,
-              height: 100,
-              child: ElevatedButton.icon(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.resolveWith(
-                          (states) => Color(0xff00d157))),
-                  onPressed: () {
-                    context.read<LoginBloc>().add(LoginWithSpotifyEvent());
-                  },
-                  icon: Image.asset('images/spotify.png'),
-                  label: Text('LOGIN WITH SPOTIFY')),
-            ),
+            child: ElevatedButton.icon(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) => Color(0xff00d157))),
+                onPressed: () {
+                  context.read<LoginBloc>().add(LoginWithSpotifyEvent());
+                },
+                icon: Image.asset('images/spotify.png',height: 24,),
+                label: Text('LOGIN WITH SPOTIFY')),
           ),
+          SizedBox(
+            height: 16,
+          ),
+          ElevatedButton.icon(
+            style: ButtonStyle(
+              foregroundColor:  MaterialStateProperty.resolveWith(
+                      (states) => Colors.black),
+                backgroundColor: MaterialStateProperty.resolveWith(
+                    (states) => Colors.white)),
+            onPressed: () {
+              context.read<LoginBloc>().add(LoginWithAppleEvent());
+            },
+            icon: Icon(Icons.apple_outlined),
+            label: Text('LOGIN WITH APPLE'),
+          )
         ],
       ),
     );

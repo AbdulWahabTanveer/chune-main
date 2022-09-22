@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":flutter_web_auth:androidTest" external.linked.project.path="$MODULE_DIR$/../../../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_web_auth-0.4.1/android" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.type="sourceSet" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="4" platform="JVM 1.8" allPlatforms="JVM [1.8]" useProjectSettings="false">
+        <compilerSettings>
+          <option name="additionalArguments" value="-Xallow-no-source-files" />
+        </compilerSettings>
+        <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/../../../../build/flutter_web_auth/tmp/kotlin-classes/debugAndroidTest" />
+          <option name="classpath" value="$MODULE_DIR$/../../../../build/flutter_web_auth/intermediates/compile_library_classes_jar/debug/classes.jar;C:/Users/Birinder/.gradle/caches/transforms-3/b0c140bd6b767c3c394a533a56818be9/transformed/jetified-flutter_embedding_debug-1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3.jar;C:/Users/Birinder/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common-java8/2.2.0/cd3478503da69b1a7e0319bd2d1389943db9b364/lifecycle-common-java8-2.2.0.jar;C:/Users/Birinder/.gradle/caches/transforms-3/d8b97151631f042761a63f54b11648ee/transformed/browser-1.3.0-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/1303c25cc57ee788b4965c7aab72ea56/transformed/fragment-1.1.0-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/5a57c5733b3611cfb2bd22ba55740c5b/transformed/viewpager-1.0.0-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/8aac0a5bbd5f5a213797ee421ce823a5/transformed/loader-1.0.0-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/5dc3be3f8355436b0c214f5179719fa3/transformed/jetified-activity-1.0.0-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/82cdd020bc4d698e222e59cdca9316a0/transformed/customview-1.0.0-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/453dbb4cf00de3f8acc3e4b168de086e/transformed/core-1.6.0-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/5059773cc72e49425987047af37ace29/transformed/lifecycle-runtime-2.2.0-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/111d4ba261e41551ad94717a799434e3/transformed/jetified-savedstate-1.0.0-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/085c41ad5c5bd66a6823dc7caa5b1c20/transformed/lifecycle-livedata-2.0.0-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/2cd7a82a900d67a00b7e167c313462ca/transformed/lifecycle-livedata-core-2.0.0-api.jar;C:/Users/Birinder/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.2.0/4ef09a745007778eef83b92f8f23987a8ea59496/lifecycle-common-2.2.0.jar;C:/Users/Birinder/.gradle/caches/transforms-3/530c8781f050e1aa998c90d70e627e49/transformed/core-runtime-2.0.0-api.jar;C:/Users/Birinder/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-common/2.1.0/b3152fc64428c9354344bd89848ecddc09b6f07e/core-common-2.1.0.jar;C:/Users/Birinder/.gradle/caches/transforms-3/e0a33761f5c6d577705137e68a90e149/transformed/versionedparcelable-1.1.1-api.jar;C:/Users/Birinder/.gradle/caches/modules-2/files-2.1/androidx.collection/collection/1.1.0/1f27220b47669781457de0d600849a5de0e89909/collection-1.1.0.jar;C:/Users/Birinder/.gradle/caches/transforms-3/ebe1f8db4436fe3c7b808ded07b5fae7/transformed/lifecycle-viewmodel-2.1.0-api.jar;C:/Users/Birinder/.gradle/caches/modules-2/files-2.1/androidx.annotation/annotation/1.2.0/57136ff68ee784c6e19db34ed4a175338fadfde1/annotation-1.2.0.jar;C:/Users/Birinder/.gradle/caches/transforms-3/877f81721a38e6d3d2449f5319fd48ed/transformed/jetified-annotation-experimental-1.1.0-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/c8e94277cf6e657de117e23297fe330c/transformed/jetified-tracing-1.0.0-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/a7310c7aa161a8ed244602cb6f771923/transformed/jetified-window-java-1.0.0-beta04-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/75ad9be99b08d817e8863779bdc02d4c/transformed/jetified-window-1.0.0-beta04-api.jar;C:/Users/Birinder/.gradle/caches/transforms-3/261ed253f3e26eab41dbc5e97dade3d3/transformed/jetified-kotlinx-coroutines-android-1.5.2.jar;C:/Users/Birinder/.gradle/caches/transforms-3/57457aecd09aad29af6d89d250cad2c8/transformed/jetified-kotlinx-coroutines-core-jvm-1.5.2.jar;C:/Users/Birinder/.gradle/caches/transforms-3/e0bf2910ab613cfdbf867dffd706c98c/transformed/jetified-kotlin-stdlib-jdk8-1.5.30.jar;C:/Users/Birinder/.gradle/caches/transforms-3/ee246f0376564e94400ddcc06221350f/transformed/jetified-kotlin-stdlib-jdk7-1.5.31.jar;C:/Users/Birinder/.gradle/caches/transforms-3/7e485ec66f058096362de91bd183caaa/transformed/jetified-kotlin-stdlib-1.5.31.jar;C:/Users/Birinder/.gradle/caches/transforms-3/041a9f89c330189811d072c53e047538/transformed/jetified-annotations-13.0.jar;C:/Users/Birinder/.gradle/caches/transforms-3/5cb9f4857cb4f0fa641d81ee79317a49/transformed/jetified-kotlin-stdlib-common-1.5.31.jar;C:/Users/Birinder/.gradle/caches/transforms-3/1f2e1d1bc8dc7b6a96297e3844e9bb46/transformed/jetified-listenablefuture-1.0.jar;C:/Users/Birinder/AppData/Local/Android/sdk/platforms/android-31/android.jar;C:/Users/Birinder/AppData/Local/Android/sdk/build-tools/30.0.3/core-lambda-stubs.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="flutter_web_auth_debug" />
+          <option name="friendPaths">
+            <array>
+              <option value="$MODULE_DIR$/../../../../build/flutter_web_auth/tmp/kotlin-classes/debug" />
+              <option value="$MODULE_DIR$/../../../../build/flutter_web_auth/intermediates/javac/debug/classes" />
+              <option value="$MODULE_DIR$/../../../../build/flutter_web_auth/intermediates/compile_library_classes_jar/debug/classes.jar" />
+            </array>
+          </option>
+          <option name="languageVersion" value="1.5" />
+          <option name="apiVersion" value="1.5" />
+          <option name="pluginOptions">
+            <array />
+          </option>
+          <option name="pluginClasspaths">
+            <array />
+          </option>
+          <option name="errors">
+            <ArgumentParseErrors />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="SELECTED_BUILD_VARIANT" value="debug" />
+        <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileDebugSources" />
+        <afterSyncTasks>
+          <task>generateDebugSources</task>
+        </afterSyncTasks>
+        <option name="ALLOW_USER_CONFIGURATION" value="false" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_web_auth-0.4.1/android/src/main/res;file://$MODULE_DIR$/../../../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_web_auth-0.4.1/android/src/debug/res;file://$MODULE_DIR$/../../../../build/flutter_web_auth/generated/res/rs/debug;file://$MODULE_DIR$/../../../../build/flutter_web_auth/generated/res/resValues/debug" />
+        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_web_auth-0.4.1/android/src/androidTest/res;file://$MODULE_DIR$/../../../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_web_auth-0.4.1/android/src/androidTestDebug/res;file://$MODULE_DIR$/../../../../build/flutter_web_auth/generated/res/rs/androidTest/debug;file://$MODULE_DIR$/../../../../build/flutter_web_auth/generated/res/resValues/androidTest/debug" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
+        <option name="PROJECT_TYPE" value="1" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_web_auth-0.4.1/android/src/androidTest" />
+    <content url="file://$MODULE_DIR$/../../../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_web_auth-0.4.1/android/src/androidTestDebug" />
+    <content url="file://$MODULE_DIR$/../../../../build/flutter_web_auth/generated/aidl_source_output_dir/debugAndroidTest/out" />
+    <content url="file://$MODULE_DIR$/../../../../build/flutter_web_auth/generated/ap_generated_sources/debugAndroidTest/out" />
+    <content url="file://$MODULE_DIR$/../../../../build/flutter_web_auth/generated/renderscript_source_output_dir/debugAndroidTest/out" />
+    <content url="file://$MODULE_DIR$/../../../../build/flutter_web_auth/generated/res/resValues/androidTest/debug" />
+    <content url="file://$MODULE_DIR$/../../../../build/flutter_web_auth/generated/res/rs/androidTest/debug" />
+    <content url="file://$MODULE_DIR$/../../../../build/flutter_web_auth/generated/source/buildConfig/androidTest/debug" />
+    <orderEntry type="jdk" jdkName="Android API 31 Platform" jdkType="Android SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="android.flutter_web_auth.main" scope="TEST" />
+    <orderEntry type="library" scope="TEST" name="Gradle: io.flutter:flutter_embedding_debug:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-common:2.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.annotation:annotation:1.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-common-java8:2.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.arch.core:core-common:2.1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.collection:collection:1.1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.5.31" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.5.31" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.30" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.31" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:listenablefuture:1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-runtime:2.2.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.fragment:fragment:1.1.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.core:core:1.6.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.annotation:annotation-experimental:1.1.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.versionedparcelable:versionedparcelable:1.1.1@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.viewpager:viewpager:1.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.customview:customview:1.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.loader:loader:1.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.arch.core:core-runtime:2.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-viewmodel:2.1.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.activity:activity:1.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.savedstate:savedstate:1.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.tracing:tracing:1.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.window:window-java:1.0.0-beta04@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.window:window:1.0.0-beta04@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.browser:browser:1.3.0@aar" level="project" />
+  </component>
+  <component name="TestModuleProperties" production-module="android.flutter_web_auth.main" />
+</module>

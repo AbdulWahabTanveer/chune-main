@@ -6,6 +6,7 @@ import 'package:newapp/core/bloc/login/login_bloc.dart';
 import 'package:newapp/core/bloc/music_player/music_player_bloc.dart';
 import 'package:newapp/screens/LoginScreens/Login.dart';
 import 'package:newapp/services/injector.dart';
+import 'apple_music.dart';
 import 'screens/NavScreen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +33,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primarySwatch: Colors.pink, secondaryHeaderColor: Colors.blue),
-
         home: Login(),
 
         ///Login(),

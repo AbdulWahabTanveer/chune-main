@@ -269,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: ClipRRect(
                                     borderRadius:
                                     BorderRadius.circular(12.0),
-                                    child: Image.asset(
+                                    child: Image.network(
                                       '${state.post.albumArt}',
                                       height: 50,
                                       width: 50,

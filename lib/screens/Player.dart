@@ -123,7 +123,7 @@ class _PlayerScreen extends State<PlayerScreen> {
                             },
                             child: CircleAvatar(
                               backgroundImage:
-                              AssetImage('${state.post.albumArt}'),
+                              NetworkImage('${state.post.albumArt}'),
                               radius: 35,
                             ),
                           ),
@@ -158,7 +158,7 @@ class _PlayerScreen extends State<PlayerScreen> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12.0),
-                        child: Image.asset(
+                        child: Image.network(
                           '${state.post.albumArt}',
                           height: 370,
                           width: 370,

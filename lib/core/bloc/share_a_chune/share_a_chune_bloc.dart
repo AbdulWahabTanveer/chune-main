@@ -21,7 +21,6 @@ class ShareAChuneBloc extends Bloc<ShareAChuneEvent, ShareAChuneState> {
       SearchChuneEvent event, Emitter<ShareAChuneState> emit) async {
     emit(ChunesLoadingState());
     final model = await spotifyRepo.search(event.s);
-
     emit(ChunesLoadSuccess(model));
   }
 }

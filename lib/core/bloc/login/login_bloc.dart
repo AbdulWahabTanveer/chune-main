@@ -15,6 +15,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc() : super(LoginInitial()) {
     on<LoginWithSpotifyEvent>(_onLoginWithSpotify);
+    on<LoginWithAppleEvent>(_onLoginWithApple);
   }
 
   FutureOr<void> _onLoginWithSpotify(
@@ -23,5 +24,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final user = await authRepo.loginWithSpotify();
       emit(LoginSuccessState(user));
     } catch (e) {}
+  }
+
+  FutureOr<void> _onLoginWithApple(
+      LoginWithAppleEvent event, Emitter<LoginState> emit) async {
+    final user = await authRepo.loginWithApple();
+    print("USer TOKEN +> ${user.token}");
+    emit(LoginSuccessState(user));
   }
 }

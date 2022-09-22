@@ -4,6 +4,5 @@ abstract class LoginEvent {
   const LoginEvent();
 }
 
-class LoginWithSpotifyEvent extends LoginEvent{
-
-}
+class LoginWithSpotifyEvent extends LoginEvent {}
+class LoginWithAppleEvent extends LoginEvent {}

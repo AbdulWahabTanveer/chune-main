@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.misiio:musickitauth:1.1.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/51340e6036367eb3232d37929aad668a/transformed/jetified-musickitauth-1.1.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/51340e6036367eb3232d37929aad668a/transformed/jetified-musickitauth-1.1.2/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/51340e6036367eb3232d37929aad668a/transformed/jetified-musickitauth-1.1.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/60678d1e2e58e3cda72404831ae9a8c7/transformed/jetified-musickitauth-1.1.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/60678d1e2e58e3cda72404831ae9a8c7/transformed/jetified-musickitauth-1.1.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/60678d1e2e58e3cda72404831ae9a8c7/transformed/jetified-musickitauth-1.1.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

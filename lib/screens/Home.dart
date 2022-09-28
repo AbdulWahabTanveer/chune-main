@@ -234,14 +234,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 1,
                             child: SliderTheme(
                               child: Slider(
-                                value: state.currentDuration.inSeconds.toDouble(),
+                                value:
+                                    state.currentDuration.inSeconds.toDouble(),
                                 max: state.totalDuration.inSeconds.toDouble(),
                                 onChanged: null,
                               ),
                               data: SliderTheme.of(context).copyWith(
                                 activeTrackColor: Colors.blue,
                                 inactiveTrackColor:
-                                Colors.white.withOpacity(0.3),
+                                    Colors.white.withOpacity(0.3),
                                 trackShape: SpotifyMiniPlayerTrackShape(),
                                 trackHeight: 2,
                                 thumbShape: RoundSliderThumbShape(
@@ -261,14 +262,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Colors.grey.withOpacity(0.5),
                                         spreadRadius: 2,
                                         blurRadius: 7,
-                                        offset: Offset(0,
-                                            2), // changes position of shadow
+                                        offset: Offset(
+                                            0, 2), // changes position of shadow
                                       ),
                                     ],
                                   ),
                                   child: ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(12.0),
+                                    borderRadius: BorderRadius.circular(12.0),
                                     child: Image.network(
                                       '${state.post.albumArt}',
                                       height: 50,
@@ -278,10 +278,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 SizedBox(width: 12),
                                 Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         '${state.post.songName}',
@@ -302,10 +301,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ]),
                                 Expanded(
                                   child: InkWell(
-                                    onTap: (){
-                                      context.read<MusicPlayerBloc>().add(ChangeStateEvent());
+                                    onTap: () {
+                                      context
+                                          .read<MusicPlayerBloc>()
+                                          .add(ChangeStateEvent(state.playing));
                                     },
-                                    child: Icon(state.playing?Icons.pause:Icons.play_arrow, color: Colors.black),
+                                    child: Icon(
+                                        state.playing
+                                            ? Icons.pause
+                                            : Icons.play_arrow,
+                                        color: Colors.black),
                                   ),
                                 ),
                               ],
@@ -320,7 +325,8 @@ class _HomeScreenState extends State<HomeScreen> {
               return SizedBox.shrink();
             },
           ),
-        )      ]),
+        )
+      ]),
     );
   }
 

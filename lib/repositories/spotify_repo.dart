@@ -15,7 +15,7 @@ class SpotifyRepoImpl extends SpotifyRepository {
 
   @override
   Future<SpotifyModel> search(String s) async {
-    var token = GetIt.I.get<AuthRepository>().token;
+    var token = GetIt.I.get<AuthRepository>().user.token;
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',

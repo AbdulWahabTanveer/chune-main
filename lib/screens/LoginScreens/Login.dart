@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:newapp/models/current_user.dart';
 
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:newapp/screens/NavScreen.dart';
+import 'package:newapp/services/player/audio_player.dart';
 
 import '../../Useful_Code/utils.dart';
 import '../../core/bloc/login/login_bloc.dart';
+import '../../services/player/apple_player.dart';
+import '../../services/player/spotify_player.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -50,7 +55,10 @@ class _LoginScreen extends State<Login> {
                 onPressed: () {
                   context.read<LoginBloc>().add(LoginWithSpotifyEvent());
                 },
-                icon: Image.asset('images/spotify.png',height: 24,),
+                icon: Image.asset(
+                  'images/spotify.png',
+                  height: 24,
+                ),
                 label: Text('LOGIN WITH SPOTIFY')),
           ),
           SizedBox(
@@ -58,8 +66,8 @@ class _LoginScreen extends State<Login> {
           ),
           ElevatedButton.icon(
             style: ButtonStyle(
-              foregroundColor:  MaterialStateProperty.resolveWith(
-                      (states) => Colors.black),
+                foregroundColor:
+                    MaterialStateProperty.resolveWith((states) => Colors.black),
                 backgroundColor: MaterialStateProperty.resolveWith(
                     (states) => Colors.white)),
             onPressed: () {
@@ -74,6 +82,15 @@ class _LoginScreen extends State<Login> {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
+          final get = GetIt.I;
+          if (get.isRegistered<BaseAudioPlayer>()) {
+            get.unregister<BaseAudioPlayer>();
+          }
+          if (state.user.type == UserType.spotify) {
+            get.registerSingleton<BaseAudioPlayer>(SpotifyPlayer());
+          } else if (state.user.type == UserType.apple) {
+            get.registerSingleton<BaseAudioPlayer>(ApplePlayer());
+          }
           pushTo(context, NavScreen(), clear: true);
         }
       },

@@ -11,15 +11,22 @@ class SetAudioEvent extends MusicPlayerEvent {
 }
 
 class ChangePositionEvent extends MusicPlayerEvent {
-  final Duration event;
+  final Duration position;
   final bool playing;
 
-  ChangePositionEvent({this.event, this.playing});
+  final Duration duration;
+
+  ChangePositionEvent({this.position, this.playing, this.duration});
 }
-class ChangeStateEvent extends MusicPlayerEvent{}
-class SetPositionEvent extends MusicPlayerEvent{
+
+class ChangeStateEvent extends MusicPlayerEvent {
+  final bool playing;
+
+  ChangeStateEvent(this.playing);
+}
+
+class SetPositionEvent extends MusicPlayerEvent {
   final Duration duration;
 
   SetPositionEvent({this.duration});
-
 }

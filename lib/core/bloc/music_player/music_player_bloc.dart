@@ -2,46 +2,48 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:newapp/screens/Profile.dart';
+import 'package:get_it/get_it.dart';
 
-import '../../../screens/ShareAChune.dart';
+import '../../../models/chune.dart';
 import '../../../screens/Widgets/Post.dart';
+import '../../../services/audio_service.dart';
 
 part 'music_player_event.dart';
 
 part 'music_player_state.dart';
 
 class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
-  final player = AudioPlayer(); // Create a player
+  final player = GetIt.I<BdiAudioHandler>();
   var lock = false;
+
   MusicPlayerBloc() : super(MusicPlayerInitial()) {
     on<SetAudioEvent>(_onSetAudio);
     on<ChangePositionEvent>(_onChangePosition);
     on<ChangeStateEvent>(_onChangeState);
     on<SetPositionEvent>(_onSetPosition);
-    player.positionStream.listen((event) {
-      if(!lock) {
-        add(ChangePositionEvent(event: event));
+    player.playerState.listen((event) {
+      if (!lock) {
+        add(ChangePositionEvent(
+          position: Duration(milliseconds: event.playbackPosition),
+          duration: event.chune.totalDuration,
+          playing: !event.isPaused,
+        ));
       }
-    });
-    player.playingStream.listen((event) {
-      add(ChangePositionEvent(playing: event));
     });
   }
 
   FutureOr<void> _onSetAudio(
       SetAudioEvent event, Emitter<MusicPlayerState> emit) async {
-    if(state is MusicPlayerInitial) {
+    if (state is MusicPlayerInitial) {
       emit(MusicPlayerLoading());
     }
-    final duration = await player.setUrl(event.post.url);
+    await player.init(chune: event.post);
     player.play();
     emit(
       MusicPlayerLoaded(
-        totalDuration: duration,
+        totalDuration: Duration.zero,
         currentDuration: Duration.zero,
-        playing: player.playing,
+        playing: false,
         post: event.post,
       ),
     );
@@ -52,14 +54,17 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
     if (state is MusicPlayerLoaded) {
       final cast = state as MusicPlayerLoaded;
       emit(
-        cast.copyWith(currentDuration: event.event, state: event.playing),
+        cast.copyWith(
+            currentDuration: event.position,
+            state: event.playing,
+            totalDuration: event.duration),
       );
     }
   }
 
   FutureOr<void> _onChangeState(
       ChangeStateEvent event, Emitter<MusicPlayerState> emit) async {
-    if (player.playing) {
+    if (event.playing) {
       await player.pause();
     } else {
       await player.play();
@@ -67,16 +72,17 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
   }
 
   Timer bounce;
+
   FutureOr<void> _onSetPosition(
       SetPositionEvent event, Emitter<MusicPlayerState> emit) async {
-    add(ChangePositionEvent(event: event.duration));
-    if(!lock){
-      lock=true;
+    add(ChangePositionEvent(position: event.duration));
+    if (!lock) {
+      lock = true;
     }
     bounce?.cancel();
-    bounce = Timer(Duration(milliseconds: 500), ()async {
+    bounce = Timer(Duration(milliseconds: 500), () async {
       await player.seek(event.duration);
-      lock=false;
+      lock = false;
     });
   }
 }

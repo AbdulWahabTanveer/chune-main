@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.spotify.android:auth:2.0.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/303c0f147420829e4412ca67fa8a5e51/transformed/jetified-auth-2.0.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/303c0f147420829e4412ca67fa8a5e51/transformed/jetified-auth-2.0.2/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/303c0f147420829e4412ca67fa8a5e51/transformed/jetified-auth-2.0.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/eb0fa168b7c2bf73b82b9a7838110263/transformed/jetified-auth-2.0.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/eb0fa168b7c2bf73b82b9a7838110263/transformed/jetified-auth-2.0.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/eb0fa168b7c2bf73b82b9a7838110263/transformed/jetified-auth-2.0.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.spotify.android/auth/2.0.2/7edfdee999c6e4c7deaacfeff8099e0c1c441859/auth-2.0.2-javadoc.jar!/" />

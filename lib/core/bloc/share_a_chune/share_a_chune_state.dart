@@ -10,12 +10,12 @@ class ShareAChuneInitial extends ShareAChuneState {
 }
 
 class ChunesLoadSuccess extends ShareAChuneState {
-  final SpotifyModel model;
+  final List<Chune> chunes;
 
-  ChunesLoadSuccess(this.model);
+  ChunesLoadSuccess(this.chunes);
 
   @override
-  List<Object> get props => [model];
+  List<Object> get props => [chunes];
 }
 
 class ChunesLoadingState extends ShareAChuneState {

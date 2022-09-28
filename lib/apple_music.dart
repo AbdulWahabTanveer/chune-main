@@ -36,27 +36,27 @@ class _ApplyAppState extends State<ApplyApp> {
   void initState() {
     super.initState();
     initPlatformState();
-    //
-    // _musicSubscriptionStreamSubscription =
-    //     _musicKitPlugin.onSubscriptionUpdated.listen((event) {
-    //       setState(() {
-    //         _musicSubsciption = event;
-    //       });
-    //     });
-    //
-    // _playerStateStreamSubscription =
-    //     _musicKitPlugin.onMusicPlayerStateChanged.listen((event) {
-    //       setState(() {
-    //         _playerState = event;
-    //       });
-    //     });
-    //
-    // _playerQueueStreamSubscription =
-    //     _musicKitPlugin.onPlayerQueueChanged.listen((event) {
-    //       setState(() {
-    //         _playerQueue = event;
-    //       });
-    //     });
+
+    _musicSubscriptionStreamSubscription =
+        _musicKitPlugin.onSubscriptionUpdated.listen((event) {
+          setState(() {
+            _musicSubsciption = event;
+          });
+        });
+
+    _playerStateStreamSubscription =
+        _musicKitPlugin.onMusicPlayerStateChanged.listen((event) {
+          setState(() {
+            _playerState = event;
+          });
+        });
+
+    _playerQueueStreamSubscription =
+        _musicKitPlugin.onPlayerQueueChanged.listen((event) {
+          setState(() {
+            _playerQueue = event;
+          });
+        });
   }
 
   @override

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newapp/screens/NavScreen.dart';
 //import 'Home.dart';
 //import 'Notifications.dart';
+import '../models/chune.dart';
 import 'Home.dart';
 import 'Notifications.dart';
 import 'ShareAChune.dart';
@@ -420,11 +421,4 @@ class ChuneRow extends StatelessWidget {
       ),
     );
   }
-}
-
-class Chune {
-  Chune({this.albumArt, this.songName, this.artistName});
-  var albumArt;
-  var songName;
-  var artistName;
 }

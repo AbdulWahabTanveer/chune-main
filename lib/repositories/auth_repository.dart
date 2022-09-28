@@ -1,12 +1,13 @@
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:music_kit/music_kit.dart';
+import 'package:newapp/repositories/apple_repo.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
 import '../models/current_user.dart';
 
 abstract class AuthRepository {
-  String token;
+  CurrentUser user;
 
   Future<CurrentUser> loginWithSpotify();
 
@@ -27,8 +28,10 @@ class AuthRepoImpl extends AuthRepository {
               'user-modify-playback-state, '
               'playlist-read-private, '
               'playlist-modify-public,user-read-currently-playing');
-      super.token = authenticationToken;
-      return CurrentUser(token: authenticationToken, type: UserType.spotify);
+      final currentUser =
+          CurrentUser(token: authenticationToken, type: UserType.spotify);
+      super.user = currentUser;
+      return currentUser;
     } on PlatformException catch (e) {
       return Future.error('$e.code: $e.message');
     } on MissingPluginException {
@@ -47,7 +50,13 @@ class AuthRepoImpl extends AuthRepository {
     );
 
     final userToken = await _musicKitPlugin.requestUserToken(token);
-    super.token = userToken;
-    return CurrentUser(token: userToken, type: UserType.apple);
+    final storeFront = await GetIt.I.get<AppleRepository>().getStoreFront(token,userToken);
+    final currentUser = CurrentUser(
+        token: userToken,
+        type: UserType.apple,
+        storeFront: storeFront,
+        appleDevToken: token);
+    super.user = currentUser;
+    return currentUser;
   }
 }

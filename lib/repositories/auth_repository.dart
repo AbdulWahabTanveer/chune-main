@@ -28,6 +28,9 @@ class AuthRepoImpl extends AuthRepository {
               'user-modify-playback-state, '
               'playlist-read-private, '
               'playlist-modify-public,user-read-currently-playing');
+      print(authenticationToken);
+      await SpotifySdk.connectToSpotifyRemote(
+          clientId: CLIENT_ID, redirectUrl: REDIRECT_URL);
       final currentUser =
           CurrentUser(token: authenticationToken, type: UserType.spotify);
       super.user = currentUser;

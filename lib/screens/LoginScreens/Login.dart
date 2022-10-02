@@ -12,12 +12,14 @@ import '../../core/bloc/login/login_bloc.dart';
 import '../../services/player/apple_player.dart';
 import '../../services/player/spotify_player.dart';
 
-class Login extends StatefulWidget {
+class MusicSource extends StatefulWidget {
   @override
   _LoginScreen createState() => _LoginScreen();
+
+  static Page<void> page() => MaterialPage<void>(child: MusicSource());
 }
 
-class _LoginScreen extends State<Login> {
+class _LoginScreen extends State<MusicSource> {
   // var varName = dotenv.env['VAR_NAME'];
 
   @override

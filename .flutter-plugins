@@ -1,6 +1,14 @@
 # This is a generated file; do not edit or check into version control.
 audio_session=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\audio_session-0.1.10\\
+firebase_auth=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth-3.11.0\\
+firebase_auth_web=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth_web-4.6.0\\
+firebase_core=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-1.24.0\\
+firebase_core_web=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core_web-1.7.3\\
 flutter_web_auth=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_web_auth-0.4.1\\
+google_sign_in=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\google_sign_in-5.4.2\\
+google_sign_in_android=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\google_sign_in_android-6.1.1\\
+google_sign_in_ios=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\google_sign_in_ios-5.5.0\\
+google_sign_in_web=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\google_sign_in_web-0.10.2\\
 just_audio=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\just_audio-0.9.29\\
 just_audio_web=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\just_audio_web-0.4.7\\
 music_kit=D:\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\music_kit-1.0.0\\

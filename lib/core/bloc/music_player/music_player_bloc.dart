@@ -38,7 +38,7 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
       emit(MusicPlayerLoading());
     }
     await player.init(chune: event.post);
-    player.play();
+    // player.play();
     emit(
       MusicPlayerLoaded(
         totalDuration: Duration.zero,

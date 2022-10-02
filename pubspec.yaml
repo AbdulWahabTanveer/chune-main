@@ -43,6 +43,14 @@ dependencies:
   music_kit: ^1.0.0
   dart_jsonwebtoken: ^2.4.2
 
+  authentication_repository:
+    path: packages/authentication_repository
+  flow_builder: ^0.0.9
+  form_inputs:
+    path: packages/form_inputs
+  formz: ^0.4.1
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

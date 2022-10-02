@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:newapp/auth_flow/app/app.dart';
 import 'package:newapp/core/bloc/login/login_bloc.dart';
 import 'package:newapp/core/bloc/music_player/music_player_bloc.dart';
+import 'package:newapp/screens/LoginScreens/CreateUsername.dart';
 import 'package:newapp/screens/LoginScreens/Login.dart';
 import 'package:newapp/services/injector.dart';
 import 'package:newapp/spotify_main.dart';
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.pink, secondaryHeaderColor: Colors.blue),
 
-        home: Login(),
+        home: AuthApp(),
 
         ///Login(),
       ),

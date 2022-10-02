@@ -6,10 +6,13 @@ import 'package:spotify_sdk/spotify_sdk.dart';
 
 class SpotifyPlayer extends BaseAudioPlayer {
   Timer timer;
+
+
+
   @override
   Stream<PlayerStatus> playerState = SpotifySdk.subscribePlayerState().map(
-        (event) {
-          print(event.playbackRestrictions.toJson());
+    (event) {
+      print(event.playbackRestrictions.toJson());
       return PlayerStatus(
         event.isPaused,
         event.playbackSpeed,

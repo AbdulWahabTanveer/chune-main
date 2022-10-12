@@ -10,7 +10,7 @@ class LoginInitial extends LoginState {
 }
 
 class LoginSuccessState extends LoginState {
-  final CurrentUser user;
+  final MusicSourceModel user;
 
   LoginSuccessState(this.user);
 

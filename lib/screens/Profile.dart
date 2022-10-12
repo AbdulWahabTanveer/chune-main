@@ -1,6 +1,7 @@
 //To God be the Glory
 
 import 'package:flutter/material.dart';
+import 'package:newapp/auth_flow/home/home.dart';
 import 'package:newapp/screens/Player.dart';
 import 'package:newapp/screens/UserScreens/EditProfileScreen.dart';
 import 'package:newapp/screens/globalvariables.dart';
@@ -21,7 +22,7 @@ class _Profile extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: true?HomePage():Stack(
         children: [SingleChildScrollView(
           child: Column(children: [
             SizedBox(height: 30),
@@ -179,7 +180,7 @@ class _Profile extends State<Profile> {
                         borderRadius:
                             const BorderRadius.all(const Radius.circular(100))),
                     child: TextButton(
-                      child: Text('Edit Profile',
+                      child: Text('sEdit Profile',
                           style: TextStyle(fontSize: 21, color: Colors.blue)),
                       onPressed: () {
                         Navigator.push(

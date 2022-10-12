@@ -46,23 +46,18 @@ class _LoginScreen extends State<MusicSource> {
                 color: Colors.white,
                 fontWeight: FontWeight.bold),
           ),
-          GestureDetector(
-            // onTap: getAuth,
-            onTap: () {},
-
-            child: ElevatedButton.icon(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith(
-                        (states) => Color(0xff00d157))),
-                onPressed: () {
-                  context.read<LoginBloc>().add(LoginWithSpotifyEvent());
-                },
-                icon: Image.asset(
-                  'images/spotify.png',
-                  height: 24,
-                ),
-                label: Text('LOGIN WITH SPOTIFY')),
-          ),
+          ElevatedButton.icon(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith(
+                      (states) => Color(0xff00d157))),
+              onPressed: () {
+                context.read<LoginBloc>().add(LoginWithSpotifyEvent());
+              },
+              icon: Image.asset(
+                'images/spotify.png',
+                height: 24,
+              ),
+              label: Text('LOGIN WITH SPOTIFY')),
           SizedBox(
             height: 16,
           ),
@@ -88,15 +83,17 @@ class _LoginScreen extends State<MusicSource> {
           if (get.isRegistered<BaseAudioPlayer>()) {
             get.unregister<BaseAudioPlayer>();
           }
-          if (state.user.type == UserType.spotify) {
+          if (state.user.type == MusicSourceType.spotify) {
             get.registerSingleton<BaseAudioPlayer>(SpotifyPlayer());
-          } else if (state.user.type == UserType.apple) {
+          } else if (state.user.type == MusicSourceType.apple) {
             get.registerSingleton<BaseAudioPlayer>(ApplePlayer());
           }
-          pushTo(context, NavScreen(), clear: true);
         }
       },
       builder: (context, state) {
+        if (state is LoginSuccessState) {
+          return NavScreen();
+        }
         return Scaffold(
           body: container,
         );

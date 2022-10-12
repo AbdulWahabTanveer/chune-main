@@ -22,7 +22,7 @@ class ShareAChuneRepoImpl extends ShareAChuneRepository {
     final appleRepo = GetIt.I.get<AppleRepository>();
     final spotifyRepo = GetIt.I.get<SpotifyRepository>();
     switch (authRepo.user.type) {
-      case UserType.spotify:
+      case MusicSourceType.spotify:
         final result = await spotifyRepo.search(s);
         return List<Chune>.from(
           result.tracks.items.map(
@@ -36,7 +36,7 @@ class ShareAChuneRepoImpl extends ShareAChuneRepository {
             ),
           ),
         );
-      case UserType.apple:
+      case MusicSourceType.apple:
         final result = await appleRepo.search(s);
         return List<Chune>.from(
           result.results.songs.data.map(

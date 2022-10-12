@@ -286,7 +286,7 @@ class _UserProfile extends State<UserProfile> {
                                 borderRadius: const BorderRadius.all(
                                     const Radius.circular(100))),
                             child: TextButton(
-                              child: Text('Edit Profile',
+                              child: Text('sEdit Profile',
                                   style: TextStyle(fontSize: 21)),
                               onPressed: () {},
                             ),

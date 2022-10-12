@@ -9,6 +9,7 @@ import 'package:newapp/services/http_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import '../auth_flow/app/bloc_observer.dart';
+import '../repositories/profile_repository.dart';
 import '../repositories/spotify_repo.dart';
 import 'audio_service.dart';
 
@@ -28,6 +29,10 @@ class Injector {
     GetIt.I.registerSingleton<AppleRepository>(AppleRepoImpl());
     GetIt.I.registerSingleton<ShareAChuneRepository>(ShareAChuneRepoImpl());
     GetIt.I.registerSingleton<BdiAudioHandler>(BdiAudioHandler());
+    GetIt.I.registerSingleton<ProfileRepository>(ProfileRepositoryImpl());
+    GetIt.I.registerSingleton<AuthenticationRepository>(
+        AuthenticationRepository());
+    GetIt.I.registerSingleton<ProfileRepositoryImpl>(ProfileRepositoryImpl());
     appRunner();
   }
 }

@@ -1,10 +1,10 @@
-enum UserType { spotify, apple }
+enum MusicSourceType { spotify, apple }
 
-class CurrentUser {
-  final UserType type;
+class MusicSourceModel {
+  final MusicSourceType type;
   final String token;
   final String storeFront;
   final String appleDevToken;
 
-  CurrentUser({this.token, this.type, this.storeFront,this.appleDevToken});
+  MusicSourceModel({this.token, this.type, this.storeFront,this.appleDevToken});
 }

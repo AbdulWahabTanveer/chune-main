@@ -7,11 +7,11 @@ import 'package:spotify_sdk/spotify_sdk.dart';
 import '../models/current_user.dart';
 
 abstract class AuthRepository {
-  CurrentUser user;
+  MusicSourceModel user;
 
-  Future<CurrentUser> loginWithSpotify();
+  Future<MusicSourceModel> loginWithSpotify();
 
-  Future<CurrentUser> loginWithApple();
+  Future<MusicSourceModel> loginWithApple();
 }
 
 class AuthRepoImpl extends AuthRepository {
@@ -19,7 +19,7 @@ class AuthRepoImpl extends AuthRepository {
   static const REDIRECT_URL = 'chune://chuneApp.com/callback';
 
   @override
-  Future<CurrentUser> loginWithSpotify() async {
+  Future<MusicSourceModel> loginWithSpotify() async {
     try {
       var authenticationToken = await SpotifySdk.getAccessToken(
           clientId: CLIENT_ID,
@@ -32,7 +32,7 @@ class AuthRepoImpl extends AuthRepository {
       await SpotifySdk.connectToSpotifyRemote(
           clientId: CLIENT_ID, redirectUrl: REDIRECT_URL);
       final currentUser =
-          CurrentUser(token: authenticationToken, type: UserType.spotify);
+          MusicSourceModel(token: authenticationToken, type: MusicSourceType.spotify);
       super.user = currentUser;
       return currentUser;
     } on PlatformException catch (e) {
@@ -43,7 +43,7 @@ class AuthRepoImpl extends AuthRepository {
   }
 
   @override
-  Future<CurrentUser> loginWithApple() async {
+  Future<MusicSourceModel> loginWithApple() async {
     final _musicKitPlugin = MusicKit();
 
     final token = //TODO: GET FROM API
@@ -54,9 +54,9 @@ class AuthRepoImpl extends AuthRepository {
 
     final userToken = await _musicKitPlugin.requestUserToken(token);
     final storeFront = await GetIt.I.get<AppleRepository>().getStoreFront(token,userToken);
-    final currentUser = CurrentUser(
+    final currentUser = MusicSourceModel(
         token: userToken,
-        type: UserType.apple,
+        type: MusicSourceType.apple,
         storeFront: storeFront,
         appleDevToken: token);
     super.user = currentUser;

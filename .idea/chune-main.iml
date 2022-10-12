@@ -11,6 +11,15 @@
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/cache/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/cache/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/cache/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/authentication_repository/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/authentication_repository/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/authentication_repository/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/form_inputs/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/form_inputs/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/form_inputs/build" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

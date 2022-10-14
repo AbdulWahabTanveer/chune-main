@@ -53,9 +53,9 @@ class SpotifyPlayer extends BaseAudioPlayer {
   @override
   Future<void> queue(Chune mediaItem, {bool playNow = true}) async {
     if (playNow) {
-      await SpotifySdk.play(spotifyUri: mediaItem.spotifyUri);
+      await SpotifySdk.play(spotifyUri: mediaItem.playUri);
     } else {
-      await SpotifySdk.queue(spotifyUri: mediaItem.spotifyUri);
+      await SpotifySdk.queue(spotifyUri: mediaItem.playUri);
     }
   }
 }

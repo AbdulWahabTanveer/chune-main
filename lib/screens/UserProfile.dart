@@ -350,7 +350,7 @@ class _UserProfile extends State<UserProfile> {
   isFollowing(int index) {
     final chune = chuneList[index];
     setState(() {
-      chune.isSelected = !chune.isSelected;
+      chune.onSelect = !chune.onSelect;
     });
   }
 

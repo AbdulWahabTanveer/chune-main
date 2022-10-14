@@ -93,6 +93,27 @@
             </list>
           </value>
         </entry>
+        <entry key="cloud_functions">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_functions-3.3.9/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="cloud_functions_platform_interface">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_functions_platform_interface-5.1.18/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="cloud_functions_web">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_functions_web-4.3.7/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="collection">
           <value>
             <list>
@@ -838,6 +859,9 @@
       <root url="file://$PROJECT_DIR$/../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-3.5.1/lib" />
       <root url="file://$PROJECT_DIR$/../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_platform_interface-5.7.7/lib" />
       <root url="file://$PROJECT_DIR$/../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-2.8.10/lib" />
+      <root url="file://$PROJECT_DIR$/../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_functions-3.3.9/lib" />
+      <root url="file://$PROJECT_DIR$/../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_functions_platform_interface-5.1.18/lib" />
+      <root url="file://$PROJECT_DIR$/../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_functions_web-4.3.7/lib" />
       <root url="file://$PROJECT_DIR$/../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.16.0/lib" />
       <root url="file://$PROJECT_DIR$/../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/convert-3.0.2/lib" />
       <root url="file://$PROJECT_DIR$/../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/coverage-1.6.1/lib" />

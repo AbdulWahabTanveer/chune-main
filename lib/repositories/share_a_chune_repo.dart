@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:newapp/models/current_user.dart';
 import 'package:newapp/repositories/apple_repo.dart';
@@ -7,14 +8,19 @@ import 'package:newapp/repositories/auth_repository.dart';
 import 'package:newapp/repositories/spotify_repo.dart';
 import 'package:newapp/services/http_service.dart';
 
+import '../Useful_Code/constants.dart';
 import '../models/chune.dart';
+import '../services/cloud_functions_service.dart';
 
 abstract class ShareAChuneRepository {
   Future<List<Chune>> search(String s);
+
+  Future<bool> shareChune(Chune chune);
 }
 
 class ShareAChuneRepoImpl extends ShareAChuneRepository {
   final httpService = GetIt.I.get<HttpService>();
+  final functions = GetIt.I.get<CloudFunctionsService>();
 
   @override
   Future<List<Chune>> search(String s) async {
@@ -29,9 +35,9 @@ class ShareAChuneRepoImpl extends ShareAChuneRepository {
             (item) => Chune(
               albumArt: item.album.images[0].url,
               songName: item.name,
-              isSelected: false,
               preview: item.previewUrl,
-              spotifyUri: item.uri,
+              playUri: item.uri,
+              source: MusicSourceType.spotify,
               artistName: item.artists.map((e) => e.name).join(','),
             ),
           ),
@@ -46,13 +52,25 @@ class ShareAChuneRepoImpl extends ShareAChuneRepository {
                   .replaceFirst(
                       '{h}', item.attributes.artwork.height.toString()),
               songName: item.attributes.name,
-              isSelected: false,
               preview: item.attributes.previews[0].url,
+              source: MusicSourceType.apple,
               artistName: item.attributes.artistName,
             ),
           ),
         );
     }
     return [];
+  }
+
+  @override
+  Future<bool> shareChune(Chune chune) async {
+    try {
+      final doc = await functions.addChune(chune);
+      return true;
+    } catch (e, t) {
+      print(e);
+      print(t);
+      return false;
+    }
   }
 }

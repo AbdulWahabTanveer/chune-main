@@ -9,3 +9,10 @@ class SearchChuneEvent extends ShareAChuneEvent {
 
   SearchChuneEvent(this.s);
 }
+
+class ShareChuneEvent extends ShareAChuneEvent {
+  final Chune chune;
+  final User publishedBy;
+
+  ShareChuneEvent(this.chune, this.publishedBy);
+}

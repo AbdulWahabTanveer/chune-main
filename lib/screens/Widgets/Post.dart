@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Post extends StatelessWidget {
-  Post(this.post, this.isLiked, this.isSelected);
+class HomePostWidget extends StatelessWidget {
+  HomePostWidget(this.post, this.isLiked, this.isSelected);
   final PostDetails post;
   final VoidCallback isLiked;
   final VoidCallback isSelected;

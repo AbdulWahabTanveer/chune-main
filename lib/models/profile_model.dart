@@ -5,8 +5,17 @@ class ProfileModel {
   final String email;
   final String image;
   final String username;
+  final int chunesShared;
+  final int followerCount;
 
-  ProfileModel({this.name, this.email, this.image, @required this.username});
+  ProfileModel({
+    this.name,
+    this.email,
+    this.image,
+    @required this.username,
+    this.chunesShared,
+    this.followerCount,
+  });
 
   Map<String, dynamic> toMap() {
     return {

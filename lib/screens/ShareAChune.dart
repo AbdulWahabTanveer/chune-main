@@ -1,14 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music_kit/music_kit.dart';
 import 'package:newapp/screens/NavScreen.dart';
 import '../Useful_Code/utils.dart';
+import '../auth_flow/app/bloc/app_bloc.dart';
 import '../core/bloc/music_player/music_player_bloc.dart';
 import '../core/bloc/share_a_chune/share_a_chune_bloc.dart';
 import '../models/chune.dart';
-
 
 class ShareAChuneWrapper extends StatelessWidget {
   const ShareAChuneWrapper({Key key}) : super(key: key);
@@ -28,162 +25,152 @@ class ShareAChune extends StatefulWidget {
 }
 
 class _ShareAChune extends State<ShareAChune> {
-  var selectedColor = Colors.grey;
-  int selectedCounter = 0;
+  // var selectedColor = Colors.grey;
+  // int selectedCounter = 0;
+  Chune selectedChune;
 
-  List chuneList;
+  // List chuneList;
 
   @override
   void initState() {
     super.initState();
-    chuneList = <Chune>[];
+    // chuneList = <Chune>[];
   }
 
   Widget build(BuildContext context) {
     return BlocConsumer<ShareAChuneBloc, ShareAChuneState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ChuneShareSuccessState) {
+          Navigator.of(context).pop();
+        }
+      },
       builder: (context, state) {
         return Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(
-                    context,
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: Colors.black,
-                ),
+          appBar: AppBar(
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(
+                  context,
+                );
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
               ),
-              actions: [
-                // GestureDetector(
-                //      child: IconButton(
-                //          icon: CircleAvatar(
-                //            backgroundImage: AssetImage('images/wizkid.jpeg'),
-                //            radius: 17,
-                //          ),
-                //          onPressed: () {
-                //            Navigator.push(
-                //              context,
-                //              MaterialPageRoute(
-                //                builder: (context) => Profile(),
-                //              ),
-                //            );
-                //          }),
-                //    ),
-              ],
-              backgroundColor: Colors.white,
-              toolbarHeight: 200,
-              elevation: 1,
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'chune',
-                    style: TextStyle(
-                        color: Colors.pink,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25),
-                  ),
-                  SizedBox(height: 8),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Share A Chune',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.bold)),
-                            SizedBox(height: 8),
-                            SizedBox(
-                              width: 300,
-                              child: TextField(
-                                enabled: state is! ChunesLoadingState,
-                                onSubmitted: (String chune) {
-                                  context
-                                      .read<ShareAChuneBloc>()
-                                      .add(SearchChuneEvent(chune));
-                                },
-                                decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.search),
-                                  hintText: 'Enter artists & songs...',
-                                  focusColor: Colors.grey,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(100),
-                                    ),
+            ),
+            actions: [],
+            backgroundColor: Colors.white,
+            toolbarHeight: 200,
+            elevation: 1,
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'chune',
+                  style: TextStyle(
+                      color: Colors.pink,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Share A Chune',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.bold)),
+                          SizedBox(height: 8),
+                          SizedBox(
+                            width: 300,
+                            child: TextField(
+                              enabled: state is! ChunesLoadingState,
+                              onSubmitted: (String chune) {
+                                context
+                                    .read<ShareAChuneBloc>()
+                                    .add(SearchChuneEvent(chune));
+                              },
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.search),
+                                hintText: 'Enter artists & songs...',
+                                focusColor: Colors.grey,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: 20),
-                  if (state is ChunesLoadSuccess)
-                    SingleChildScrollView(
-                      child: SizedBox(
-                        // height: h * 3,
-                        child: ListView.builder(
-                          physics: ClampingScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: state.chunes.length,
-                          itemBuilder: (context, index) {
-                            final chune = state.chunes[index];
-                            return ChuneRow(
-                              chune,
-                              () => isSelected(chune),
-                            );
-                          },
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  if (state is ChunesLoadingState) loader()
-                ],
-              ),
+                  ],
+                )
+              ],
             ),
-            floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  if (selectedCounter >= 1) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => NavScreen()),
-                    );
-                  }
-                },
-                child: Icon(
-                  Icons.send,
-                  color: Colors.white,
-                ),
-                backgroundColor: selectedColor));
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                if (state is ChunesLoadSuccess)
+                  SingleChildScrollView(
+                    child: SizedBox(
+                      // height: h * 3,
+                      child: ListView.builder(
+                        physics: ClampingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: state.chunes.length,
+                        itemBuilder: (context, index) {
+                          final chune = state.chunes[index];
+                          return ChuneRow(chune, () => isSelected(chune),
+                              selectedChune?.playUri == chune.playUri);
+                        },
+                      ),
+                    ),
+                  ),
+                if (state is ChunesLoadingState) loader()
+              ],
+            ),
+          ),
+          floatingActionButton: state is ChuneSharingState
+              ? loader()
+              : FloatingActionButton(
+                  onPressed: selectedChune == null
+                      ? null
+                      : () {
+                          context
+                              .read<ShareAChuneBloc>()
+                              .add(ShareChuneEvent(selectedChune,context.read<AppBloc>().state.user));
+                        },
+                  child: Icon(
+                    Icons.send,
+                    color: Colors.white,
+                  ),
+                  backgroundColor:
+                      selectedChune == null ? Colors.grey : Colors.blue),
+        );
       },
     );
   }
 
-  isSelected(Chune chune)async {
+  isSelected(Chune chune) async {
     setState(
       () {
-        chune.isSelected = !chune.isSelected;
-        chune.isSelected ? selectedCounter++ : selectedCounter--;
-        print(selectedCounter);
-
-        selectedCounter >= 1
-            ? selectedColor = Colors.blue
-            : selectedColor = Colors.grey;
+        selectedChune = chune;
+        // chune.isSelected ? selectedCounter++ : selectedCounter--;
+        // print(selectedCounter);
+        //
+        // selectedCounter >= 1
+        //     ? selectedColor = Colors.blue
+        //     : selectedColor = Colors.grey;
       },
     );
     // var _musicKitPlugin = MusicKit();
@@ -239,16 +226,18 @@ class _ShareAChune extends State<ShareAChune> {
 }
 
 class ChuneRow extends StatelessWidget {
-  ChuneRow(this.chune, this.isSelected);
+  final bool isSelected;
+
+  ChuneRow(this.chune, this.onSelect, this.isSelected);
 
   final Chune chune;
-  final VoidCallback isSelected;
+  final VoidCallback onSelect;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: Colors.white,
-      onTap: isSelected,
+      onTap: onSelect,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -294,11 +283,11 @@ class ChuneRow extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    isSelected();
+                    onSelect();
                   },
                   padding: EdgeInsets.all(0),
                   icon: Icon(
-                    chune.isSelected
+                    isSelected
                         ? Icons.radio_button_checked
                         : Icons.radio_button_unchecked,
                     color: Colors.blue,

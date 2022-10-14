@@ -12,6 +12,7 @@ import '../auth_flow/app/bloc_observer.dart';
 import '../repositories/profile_repository.dart';
 import '../repositories/spotify_repo.dart';
 import 'audio_service.dart';
+import 'cloud_functions_service.dart';
 
 class Injector {
   static Future<void> init(VoidCallback appRunner) async {
@@ -27,12 +28,13 @@ class Injector {
     GetIt.I.registerSingleton<AuthRepository>(AuthRepoImpl());
     GetIt.I.registerSingleton<SpotifyRepository>(SpotifyRepoImpl());
     GetIt.I.registerSingleton<AppleRepository>(AppleRepoImpl());
-    GetIt.I.registerSingleton<ShareAChuneRepository>(ShareAChuneRepoImpl());
     GetIt.I.registerSingleton<BdiAudioHandler>(BdiAudioHandler());
     GetIt.I.registerSingleton<ProfileRepository>(ProfileRepositoryImpl());
     GetIt.I.registerSingleton<AuthenticationRepository>(
         AuthenticationRepository());
     GetIt.I.registerSingleton<ProfileRepositoryImpl>(ProfileRepositoryImpl());
+    GetIt.I.registerSingleton<CloudFunctionsService>(CloudFunctionsService());
+    GetIt.I.registerSingleton<ShareAChuneRepository>(ShareAChuneRepoImpl());
     appRunner();
   }
 }

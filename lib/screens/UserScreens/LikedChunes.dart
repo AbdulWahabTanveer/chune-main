@@ -304,7 +304,7 @@ class _LikedChunes extends State<LikedChunes> {
 
     setState(
       () {
-        chune.isSelected = !chune.isSelected;
+        chune.onSelect = !chune.onSelect;
       },
     );
   }

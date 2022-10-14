@@ -50,6 +50,7 @@ dependencies:
     path: packages/form_inputs
   formz: ^0.4.1
   cloud_firestore: ^3.5.1
+  cloud_functions: ^3.3.9
 
 
 dev_dependencies:

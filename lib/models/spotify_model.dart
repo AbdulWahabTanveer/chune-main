@@ -280,7 +280,7 @@ class Album {
     id: json["id"],
     images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
     name: json["name"],
-    releaseDate: DateTime.parse(json["release_date"]),
+    releaseDate: DateTime.tryParse(json["release_date"]),
     releaseDatePrecision: json["release_date_precision"],
     totalTracks: json["total_tracks"],
     type: json["type"],

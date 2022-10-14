@@ -22,3 +22,18 @@ class ChunesLoadingState extends ShareAChuneState {
   @override
   List<Object> get props => [];
 }
+
+class ChuneSharingState extends ShareAChuneState {
+  @override
+  List<Object> get props => [];
+}
+
+class ChuneShareSuccessState extends ShareAChuneState {
+  @override
+  List<Object> get props => [];
+}
+
+class ChuneShareErrorState extends ShareAChuneState {
+  @override
+  List<Object> get props => [];
+}

@@ -1,21 +1,26 @@
 import 'package:newapp/models/current_user.dart';
 
 class Chune {
-  String preview;
-  String playUri;
-  String albumArt;
-  String songName;
-  String artistName;
-  MusicSourceType source;
+  final String id;
+  final String preview;
+  final String playUri;
+  final String albumArt;
+  final String songName;
+  final String artistName;
+  final MusicSourceType source;
 
-  String userId;
-  String username;
-  String userImage;
-  int likeCount;
+  final String userId;
+  final String username;
+  final String userImage;
+  final int likeCount;
+  final int timestamp;
+
+  bool isLiked = false;
 
 //<editor-fold desc="Data Methods">
 
-  Chune({
+   Chune({
+    this.id,
     this.preview,
     this.playUri,
     this.albumArt,
@@ -25,7 +30,8 @@ class Chune {
     this.userId,
     this.username,
     this.userImage,
-    this.likeCount = 0,
+    this.likeCount,
+    this.timestamp,
   });
 
   @override
@@ -33,6 +39,7 @@ class Chune {
       identical(this, other) ||
       (other is Chune &&
           runtimeType == other.runtimeType &&
+          id == other.id &&
           preview == other.preview &&
           playUri == other.playUri &&
           albumArt == other.albumArt &&
@@ -42,10 +49,12 @@ class Chune {
           userId == other.userId &&
           username == other.username &&
           userImage == other.userImage &&
-          likeCount == other.likeCount);
+          likeCount == other.likeCount &&
+          timestamp == other.timestamp);
 
   @override
   int get hashCode =>
+      id.hashCode ^
       preview.hashCode ^
       playUri.hashCode ^
       albumArt.hashCode ^
@@ -55,11 +64,13 @@ class Chune {
       userId.hashCode ^
       username.hashCode ^
       userImage.hashCode ^
-      likeCount.hashCode;
+      likeCount.hashCode ^
+      timestamp.hashCode;
 
   @override
   String toString() {
     return 'Chune{' +
+        ' id: $id,' +
         ' preview: $preview,' +
         ' playUri: $playUri,' +
         ' albumArt: $albumArt,' +
@@ -70,10 +81,12 @@ class Chune {
         ' username: $username,' +
         ' userImage: $userImage,' +
         ' likeCount: $likeCount,' +
+        ' timestamp: $timestamp,' +
         '}';
   }
 
   Chune copyWith({
+    String id,
     String preview,
     String playUri,
     String albumArt,
@@ -84,8 +97,10 @@ class Chune {
     String username,
     String userImage,
     int likeCount,
+    int timestamp,
   }) {
     return Chune(
+      id: id ?? this.id,
       preview: preview ?? this.preview,
       playUri: playUri ?? this.playUri,
       albumArt: albumArt ?? this.albumArt,
@@ -96,11 +111,13 @@ class Chune {
       username: username ?? this.username,
       userImage: userImage ?? this.userImage,
       likeCount: likeCount ?? this.likeCount,
+      timestamp: timestamp ?? this.timestamp,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
+      'id': this.id,
       'preview': this.preview,
       'playUri': this.playUri,
       'albumArt': this.albumArt,
@@ -111,11 +128,13 @@ class Chune {
       'username': this.username,
       'userImage': this.userImage,
       'likeCount': this.likeCount,
+      'timestamp': this.timestamp,
     };
   }
 
   factory Chune.fromMap(Map<String, dynamic> map) {
     return Chune(
+      id: map['id'] as String,
       preview: map['preview'] as String,
       playUri: map['playUri'] as String,
       albumArt: map['albumArt'] as String,
@@ -126,6 +145,7 @@ class Chune {
       username: map['username'] as String,
       userImage: map['userImage'] as String,
       likeCount: map['likeCount'] as int,
+      timestamp: map['timestamp'] as int,
     );
   }
 

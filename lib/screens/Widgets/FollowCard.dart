@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:newapp/models/profile_model.dart';
 
-class FollowCard extends StatelessWidget{
+class FollowCard extends StatelessWidget {
   FollowCard(this.card, this.isFollowing);
-  final Follow card;
+
+  final ProfileModel card;
   final VoidCallback isFollowing;
 
   Widget build(BuildContext context) {
@@ -26,14 +28,14 @@ class FollowCard extends StatelessWidget{
                   height: 20.0,
                 ),
                 CircleAvatar(
-                  backgroundImage: AssetImage(card.profilePic),
+                  backgroundImage: NetworkImage(card.image),
                   radius: 35,
                 ),
                 SizedBox(
                   height: 10.0,
                 ),
                 Text(
-                  card.userName,
+                  card.name,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -44,7 +46,7 @@ class FollowCard extends StatelessWidget{
                   height: 5.0,
                 ),
                 Text(
-                  card.chuneCount,
+                  '${card.chunesShared} chunes shared',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,
@@ -64,8 +66,9 @@ class FollowCard extends StatelessWidget{
                           const BorderRadius.all(const Radius.circular(100))),
                   child: TextButton(
                       child: Text(card.isFollowing ? 'Following' : 'Follow',
-                          style: TextStyle(fontSize: 21,
-                          color:  Theme.of(context).secondaryHeaderColor )),
+                          style: TextStyle(
+                              fontSize: 21,
+                              color: Theme.of(context).secondaryHeaderColor)),
                       onPressed: () {
                         isFollowing();
                       }),
@@ -75,17 +78,4 @@ class FollowCard extends StatelessWidget{
           )),
     );
   }
-}
-
-class Follow {
-  Follow({
-    this.profilePic,
-    this.userName,
-    this.chuneCount,
-    this.isFollowing,
-  });
-  String profilePic;
-  String userName;
-  var chuneCount;
-  bool isFollowing;
 }

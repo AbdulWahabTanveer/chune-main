@@ -42,6 +42,7 @@ dependencies:
   get_it: ^7.2.0
   music_kit: ^1.0.0
   dart_jsonwebtoken: ^2.4.2
+  paginate_firestore: ^1.0.3+1
 
   authentication_repository:
     path: packages/authentication_repository

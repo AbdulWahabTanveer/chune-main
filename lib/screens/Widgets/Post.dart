@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:newapp/models/chune.dart';
 import 'package:provider/provider.dart';
 
 class HomePostWidget extends StatelessWidget {
   HomePostWidget(this.post, this.isLiked, this.isSelected);
-  final PostDetails post;
-  final VoidCallback isLiked;
-  final VoidCallback isSelected;
+
+  final Chune post;
+  final ValueChanged<Chune> isLiked;
+  final ValueChanged<Chune> isSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +19,14 @@ class HomePostWidget extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 17.0,
-                backgroundImage:
-                NetworkImage(post.profilePic),
+                backgroundImage: NetworkImage(post.userImage),
                 backgroundColor: Colors.transparent,
               ),
               SizedBox(
                 width: 10,
               ), //Profile Image
               Text(
-                post.userName,
+                post.username,
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -51,8 +52,8 @@ class HomePostWidget extends StatelessWidget {
                 width: 370,
               ),
             ),
-            onDoubleTap: isLiked,
-            onTap: isSelected,
+            onDoubleTap: () => isLiked(post),
+            onTap: () => isSelected(post),
           ), //Album art
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -80,9 +81,9 @@ class HomePostWidget extends StatelessWidget {
                     IconButton(
                       icon: Icon(
                           post.isLiked ? Icons.favorite : Icons.favorite_border,
-                          color: post.likeColor),
+                          color: post.isLiked ? Colors.red : Colors.black),
                       onPressed: () {
-                        isLiked();
+                        isLiked(post);
                       },
                       padding: EdgeInsets.all(0),
                     ),
@@ -116,18 +117,18 @@ class HomePostWidget extends StatelessWidget {
 }
 
 class PostDetails {
-  PostDetails({
-    this.profilePic,
-    this.userName,
-    this.albumArt,
-    this.songName,
-    this.artistName,
-    this.likeCount,
-    this.isLiked,
-    this.isSelected,
-    this.likeColor,
-    this.url
-  });
+  PostDetails(
+      {this.profilePic,
+      this.userName,
+      this.albumArt,
+      this.songName,
+      this.artistName,
+      this.likeCount,
+      this.isLiked,
+      this.isSelected,
+      this.likeColor,
+      this.url});
+
   String profilePic;
   String userName;
   String albumArt;

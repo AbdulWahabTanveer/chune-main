@@ -11,7 +11,9 @@ import 'package:newapp/screens/globalvariables.dart';
 
 import '../core/bloc/music_player/music_player_bloc.dart';
 import 'Widgets/AudioPlayer.dart';
+import 'Widgets/chunes_list.dart';
 import 'Widgets/player_panel.dart';
+import 'Widgets/who_to_follow_list.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -22,8 +24,63 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    //https://pbs.twimg.com/media/EbMPslEXsAQER_U.jpg
+  }
 
-    ///The lists are declared one for the Home posts and one for the user accounts
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(children: [
+        SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              WhoToFollowList(),
+              ChunesListWidget(),
+              SizedBox(height: 100)
+            ],
+          ),
+        ),
+        Positioned(
+          bottom: 0,
+          child: PlayerPanel(),
+        )
+      ]),
+    );
+  }
+
+  isFollowing(int index) {
+    final card = whoToFollowList[index];
+    setState(() {
+      card.isFollowing = !card.isFollowing;
+    });
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+*    ///The lists are declared one for the Home posts and one for the user accounts
 
     whoToFollowList = [];
     homePosts = [];
@@ -133,135 +190,4 @@ class _HomeScreenState extends State<HomeScreen> {
         isLiked: false,
       ),
     );
-
-    //https://pbs.twimg.com/media/EbMPslEXsAQER_U.jpg
-  }
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(children: [
-        SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              WhoToFollowList(),
-              ChunesListWidget(),
-              SizedBox(height: 100)
-            ],
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          child: PlayerPanel(),
-        )
-      ]),
-    );
-  }
-
-  isFollowing(int index) {
-    final card = whoToFollowList[index];
-    setState(() {
-      card.isFollowing = !card.isFollowing;
-    });
-  }
-}
-
-class ChunesListWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        physics: ClampingScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: homePosts.length,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              HomePostWidget(
-                homePosts[index],
-                () => isLiked(index),
-                () => isSelected(index),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-
-  isSelected(int index) {
-    audioPlaying = true;
-    selectedPost = index;
-  }
-
-  isLiked(int index) {
-    final post = homePosts[index];
-
-    post.isLiked = !post.isLiked;
-
-    if (post.isLiked) {
-      post.likeCount++;
-      post.likeColor = Colors.red;
-    } else {
-      post.likeCount--;
-      post.likeColor = Colors.grey;
-    }
-  }
-}
-
-class WhoToFollowList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            children: [
-              GestureDetector(
-                child: Text(
-                  'View All',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ViewAllAccounts(),
-                    ),
-                  );
-                },
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 350,
-          child: ListView.builder(
-            physics: ClampingScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: whoToFollowList.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  FollowCard(
-                    whoToFollowList[index],
-                    () => isFollowing(index),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  isFollowing(int index) {}
-}
+    */

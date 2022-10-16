@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:newapp/repositories/apple_repo.dart';
 import 'package:newapp/repositories/auth_repository.dart';
+import 'package:newapp/repositories/home_page_repo.dart';
 import 'package:newapp/repositories/share_a_chune_repo.dart';
 import 'package:newapp/services/http_service.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,6 +31,7 @@ class Injector {
     GetIt.I.registerSingleton<AppleRepository>(AppleRepoImpl());
     GetIt.I.registerSingleton<BdiAudioHandler>(BdiAudioHandler());
     GetIt.I.registerSingleton<ProfileRepository>(ProfileRepositoryImpl());
+    GetIt.I.registerSingleton<HomePageRepository>(HomePageRepositoryImpl());
     GetIt.I.registerSingleton<AuthenticationRepository>(
         AuthenticationRepository());
     GetIt.I.registerSingleton<ProfileRepositoryImpl>(ProfileRepositoryImpl());

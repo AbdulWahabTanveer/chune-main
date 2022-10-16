@@ -7,6 +7,7 @@ class CloudFunctionsService {
 
   Future addChune(Chune chune) async {
     final data = await _callFunction('addChune', data: chune.toMap());
+    print(data);
   }
 
   Future likeChune(String chuneId) async {

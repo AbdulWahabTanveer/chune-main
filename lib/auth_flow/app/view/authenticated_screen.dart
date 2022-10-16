@@ -29,7 +29,7 @@ class _AuthenticatedScreenContent extends StatelessWidget {
           return CreateUsername();
         }
         if (state is ExistingUserState) {
-          return MusicSource();
+          return NavScreen();
         }
         return Container();
       },

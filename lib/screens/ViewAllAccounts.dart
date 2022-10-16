@@ -42,7 +42,7 @@ class _ViewAllAccounts extends State<ViewAllAccounts> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Profile()),
+                        MaterialPageRoute(builder: (context) => UserProfileScreen()),
                       );
                     }),
               ),

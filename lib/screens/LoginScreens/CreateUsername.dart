@@ -1,8 +1,9 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/core/bloc/create_username/create_username_bloc.dart';
-import 'package:newapp/screens/UserProfile.dart';
+import 'package:newapp/screens/NavScreen.dart';
+
 
 import '../../Useful_Code/utils.dart';
 import '../../auth_flow/app/bloc/app_bloc.dart';
@@ -49,17 +50,17 @@ class _CreateUsername extends State<_CreateUsernameContent> {
     final bloc = context.read<CreateUsernameBloc>();
     return BlocConsumer<CreateUsernameBloc, CreateUsernameState>(
       bloc: bloc,
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is UsernameAvailableState) {
           bloc.add(
             CreateUserProfileEvent(
               user.id,
               ProfileModel(
-                username: state.username,
-                name: user.name,
-                email: user.email,
-                image: user.photo,
-              ),
+                  username: state.username,
+                  name: user.name,
+                  email: user.email,
+                  image: user.photo,
+                  fcmToken: await FirebaseMessaging.instance.getToken()),
             ),
           );
         }
@@ -69,7 +70,7 @@ class _CreateUsername extends State<_CreateUsernameContent> {
       },
       builder: (context, state) {
         if (state is UsernameCreateSuccessState) {
-          return UserProfile();
+          return NavScreen(index:4);
         }
         return Scaffold(
           backgroundColor: Colors.pink,

@@ -15,7 +15,7 @@ class SplashScreen extends StatelessWidget {
       builder: (context, state) {
         switch (state.status) {
           case AppStatus.authenticated:
-            return AuthenticatedScreen();
+            return MusicSource();
           case AppStatus.unauthenticated:
             return LoginPage();
         }

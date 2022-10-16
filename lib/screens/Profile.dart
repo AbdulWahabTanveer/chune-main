@@ -6,12 +6,12 @@ import 'package:newapp/screens/Player.dart';
 import 'package:newapp/screens/UserScreens/EditProfileScreen.dart';
 import 'package:newapp/screens/globalvariables.dart';
 
-class Profile extends StatefulWidget {
+class UserProfileScreen extends StatefulWidget {
   @override
   _Profile createState() => _Profile();
 }
 
-class _Profile extends State<Profile> {
+class _Profile extends State<UserProfileScreen> {
   ///Variables for the followers count
   int followerCount = 0;
   int followingCount = 0;
@@ -21,8 +21,9 @@ class _Profile extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    return HomePage();
     return Scaffold(
-      body: true?HomePage():Stack(
+      body: Stack(
         children: [SingleChildScrollView(
           child: Column(children: [
             SizedBox(height: 30),
@@ -155,7 +156,7 @@ class _Profile extends State<Profile> {
                       onPressed: () {
                         setState(() {
                           following = !following;
-          
+
                           if (following == true) {
                             setState(() {
                               followerCount++;
@@ -537,8 +538,8 @@ class _Profile extends State<Profile> {
 
         ]
       ),
-   
-  
+
+
     );
   }
 }

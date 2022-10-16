@@ -17,8 +17,8 @@ class PlayerScreen extends StatefulWidget {
 
 class _PlayerScreen extends State<PlayerScreen> {
   bool liked = false;
-  int likeCount =
-      homePosts.map((post) => post.likeCount).elementAt(selectedPost);
+  // int likeCount =
+  //     homePosts.map((post) => post.likeCount).elementAt(selectedPost);
   var likeColor = Colors.grey;
 
   isLiked() {
@@ -27,14 +27,12 @@ class _PlayerScreen extends State<PlayerScreen> {
         setState(() {
           liked = true;
           likeColor = Colors.red;
-          likeCount++;
           //.add()
         });
       } else {
         setState(() {
           liked = false;
           likeColor = Colors.grey;
-          likeCount--;
           //.remove()
         });
       }
@@ -52,8 +50,7 @@ class _PlayerScreen extends State<PlayerScreen> {
           selectedPost--;
         });
       }
-      likeCount =
-          homePosts.map((post) => post.likeCount).elementAt(selectedPost);
+
     });
     context
         .read<MusicPlayerBloc>()
@@ -71,8 +68,7 @@ class _PlayerScreen extends State<PlayerScreen> {
           selectedPost++;
         });
       }
-      likeCount =
-          homePosts.map((post) => post.likeCount).elementAt(selectedPost);
+
       context
           .read<MusicPlayerBloc>()
           .add(SetAudioEvent(homePosts.elementAt(selectedPost)));
@@ -118,7 +114,7 @@ class _PlayerScreen extends State<PlayerScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => UserProfile()),
+                                builder: (context) => MyProfileScreen()),
                           );
                         },
                         child: CircleAvatar(
@@ -230,7 +226,7 @@ class _PlayerScreen extends State<PlayerScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '$likeCount',
+                          '${state.post.likeCount}',
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,

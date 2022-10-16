@@ -10,8 +10,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/audio_session-0.1.10/android" />
+            <option value="$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-3.5.1/android" />
+            <option value="$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_functions-3.3.9/android" />
             <option value="$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-3.11.0/android" />
             <option value="$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.24.0/android" />
+            <option value="$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-13.1.0/android" />
             <option value="$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_web_auth-0.4.1/android" />
             <option value="$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_android-6.1.1/android" />
             <option value="$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/just_audio-0.9.29/android" />

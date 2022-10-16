@@ -28,7 +28,7 @@ class SongPlaying extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Profile()),
+                      MaterialPageRoute(builder: (context) => UserProfileScreen()),
                     );
                   },
                   child: CircleAvatar(

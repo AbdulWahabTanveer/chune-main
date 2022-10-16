@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newapp/models/chune.dart';
+import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:provider/provider.dart';
 
 class HomePostWidget extends StatelessWidget {
@@ -17,11 +18,7 @@ class HomePostWidget extends StatelessWidget {
         children: <Widget>[
           Row(
             children: [
-              CircleAvatar(
-                radius: 17.0,
-                backgroundImage: NetworkImage(post.userImage),
-                backgroundColor: Colors.transparent,
-              ),
+              AvatarImage(post.userImage, 17),
               SizedBox(
                 width: 10,
               ), //Profile Image

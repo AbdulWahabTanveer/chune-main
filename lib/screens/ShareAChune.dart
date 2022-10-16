@@ -7,24 +7,24 @@ import '../core/bloc/music_player/music_player_bloc.dart';
 import '../core/bloc/share_a_chune/share_a_chune_bloc.dart';
 import '../models/chune.dart';
 
-class ShareAChuneWrapper extends StatelessWidget {
-  const ShareAChuneWrapper({Key key}) : super(key: key);
+class ShareAChune extends StatelessWidget {
+  const ShareAChune({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ShareAChuneBloc(),
-      child: ShareAChune(),
+      child: _ShareAChuneContent(),
     );
   }
 }
 
-class ShareAChune extends StatefulWidget {
+class _ShareAChuneContent extends StatefulWidget {
   @override
   _ShareAChune createState() => _ShareAChune();
 }
 
-class _ShareAChune extends State<ShareAChune> {
+class _ShareAChune extends State<_ShareAChuneContent> {
   // var selectedColor = Colors.grey;
   // int selectedCounter = 0;
   Chune selectedChune;

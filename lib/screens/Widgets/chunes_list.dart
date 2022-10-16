@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 
+import '../../core/bloc/music_player/music_player_bloc.dart';
 import '../../models/chune.dart';
 import '../../repositories/home_page_repo.dart';
 import 'Post.dart';
@@ -19,7 +21,7 @@ class ChunesListWidget extends StatelessWidget {
           child: HomePostWidget(
             chune,
             (post) => isLiked(post),
-            (post) => isSelected(post),
+            (post) => context.read<MusicPlayerBloc>().add(SetAudioEvent(post)),
           ),
         );
       },
@@ -31,6 +33,7 @@ class ChunesListWidget extends StatelessWidget {
   }
 
   isSelected(Chune post) {
+    ;
     // audioPlaying = true;
     // selectedPost = index;
   }

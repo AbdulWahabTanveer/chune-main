@@ -5,36 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08a9eb81-daec-4018-8fe0-c219a2042271" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../lib/core/bloc/chune_list/chune_list_bloc.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lib/core/bloc/chune_list/chune_list_event.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lib/core/bloc/chune_list/chune_list_state.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lib/core/bloc/who_to_follow/who_to_follow_bloc.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lib/core/bloc/who_to_follow/who_to_follow_event.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lib/core/bloc/who_to_follow/who_to_follow_state.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lib/repositories/chune_list_repo.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lib/repositories/who_to_follow_repo.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lib/screens/Widgets/player_panel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lib/services/cloud_functions_service.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/../.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/../.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/Useful_Code/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Useful_Code/constants.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/core/bloc/share_a_chune/share_a_chune_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/core/bloc/share_a_chune/share_a_chune_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/core/bloc/share_a_chune/share_a_chune_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/core/bloc/share_a_chune/share_a_chune_event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/core/bloc/share_a_chune/share_a_chune_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/core/bloc/share_a_chune/share_a_chune_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/models/chune.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/models/chune.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Useful_Code/ShareAChune.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Useful_Code/ShareAChune.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/auth_flow/app/view/authenticated_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/auth_flow/app/view/authenticated_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/core/bloc/create_username/create_username_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/core/bloc/create_username/create_username_bloc.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/models/profile_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/models/profile_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/models/spotify_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/models/spotify_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/repositories/share_a_chune_repo.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/repositories/share_a_chune_repo.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/screens/Home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/Home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/screens/LoginScreens/CreateUsername.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/LoginScreens/CreateUsername.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/screens/LoginScreens/Login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/LoginScreens/Login.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/screens/NavScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/NavScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/screens/Player.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/Player.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/screens/Profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/Profile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/screens/ShareAChune.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/ShareAChune.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/screens/UserProfile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/UserProfile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/screens/UserScreens/LikedChunes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/UserScreens/LikedChunes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/screens/UserScreens/EditProfileScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/UserScreens/EditProfileScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/screens/ViewAllAccounts.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/ViewAllAccounts.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/screens/Widgets/FollowCard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/Widgets/FollowCard.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/screens/Widgets/Post.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/Widgets/Post.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/services/injector.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/services/injector.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/services/player/spotify_player.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/services/player/spotify_player.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/screens/Widgets/SongPlaying.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/Widgets/SongPlaying.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/screens/Widgets/chunes_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/Widgets/chunes_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/screens/globalvariables.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/globalvariables.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/screens/splash_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/screens/splash_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

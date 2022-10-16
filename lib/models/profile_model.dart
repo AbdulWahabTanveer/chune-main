@@ -8,7 +8,8 @@ class ProfileModel {
   final String username;
   final int chunesShared;
   final int followerCount;
-
+  final int followingCount;
+  final String fcmToken;
   bool isFollowing;
 
 //<editor-fold desc="Data Methods">
@@ -19,10 +20,38 @@ class ProfileModel {
     this.email,
     this.image,
     this.username,
-    this.chunesShared,
-    this.followerCount,
-    this.isFollowing=false
+    this.chunesShared = 0,
+    this.followerCount = 0,
+    this.followingCount = 0,
+    this.fcmToken,
   });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ProfileModel &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          email == other.email &&
+          image == other.image &&
+          username == other.username &&
+          chunesShared == other.chunesShared &&
+          followerCount == other.followerCount &&
+          followingCount == other.followingCount &&
+          fcmToken == other.fcmToken);
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      email.hashCode ^
+      image.hashCode ^
+      username.hashCode ^
+      chunesShared.hashCode ^
+      followerCount.hashCode ^
+      followingCount.hashCode ^
+      fcmToken.hashCode;
 
   @override
   String toString() {
@@ -34,6 +63,8 @@ class ProfileModel {
         ' username: $username,' +
         ' chunesShared: $chunesShared,' +
         ' followerCount: $followerCount,' +
+        ' followingCount: $followingCount,' +
+        ' fcmToken: $fcmToken,' +
         '}';
   }
 
@@ -45,6 +76,8 @@ class ProfileModel {
     String username,
     int chunesShared,
     int followerCount,
+    int followingCount,
+    String fcmToken,
   }) {
     return ProfileModel(
       id: id ?? this.id,
@@ -54,6 +87,8 @@ class ProfileModel {
       username: username ?? this.username,
       chunesShared: chunesShared ?? this.chunesShared,
       followerCount: followerCount ?? this.followerCount,
+      followingCount: followingCount ?? this.followingCount,
+      fcmToken: fcmToken ?? this.fcmToken,
     );
   }
 
@@ -66,6 +101,8 @@ class ProfileModel {
       'username': this.username,
       'chunesShared': this.chunesShared,
       'followerCount': this.followerCount,
+      'followingCount': this.followingCount,
+      'fcmToken': this.fcmToken,
     };
   }
 
@@ -76,8 +113,10 @@ class ProfileModel {
       email: map['email'] as String,
       image: map['image'] as String,
       username: map['username'] as String,
-      chunesShared: map['chunesShared'] as int,
-      followerCount: map['followerCount'] as int,
+      chunesShared: (map['chunesShared'] ?? 0) as int,
+      followerCount: (map['followerCount'] ?? 0) as int,
+      followingCount: (map['followingCount'] ?? 0) as int,
+      fcmToken: map['fcmToken'] as String,
     );
   }
 

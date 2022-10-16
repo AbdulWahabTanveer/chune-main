@@ -27,15 +27,12 @@ class FollowCard extends StatelessWidget {
                 SizedBox(
                   height: 20.0,
                 ),
-                CircleAvatar(
-                  backgroundImage: NetworkImage(card.image),
-                  radius: 35,
-                ),
+                AvatarImage(card.image, 35),
                 SizedBox(
                   height: 10.0,
                 ),
                 Text(
-                  card.name,
+                  card.username ?? "-/-",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -65,7 +62,8 @@ class FollowCard extends StatelessWidget {
                       borderRadius:
                           const BorderRadius.all(const Radius.circular(100))),
                   child: TextButton(
-                      child: Text(card.isFollowing ? 'Following' : 'Follow',
+                      child: Text(
+                          (card.isFollowing ?? false) ? 'Following' : 'Follow',
                           style: TextStyle(
                               fontSize: 21,
                               color: Theme.of(context).secondaryHeaderColor)),
@@ -76,6 +74,27 @@ class FollowCard extends StatelessWidget {
               ],
             ),
           )),
+    );
+  }
+}
+
+class AvatarImage extends StatelessWidget {
+  final String image;
+
+  final double radius;
+
+  const AvatarImage(this.image, this.radius, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      backgroundImage: image == null||image.isEmpty
+          ? AssetImage('images/chune.jpeg')
+          : NetworkImage(
+              image,
+            ),
+      radius: radius,
+      backgroundColor: Colors.transparent,
     );
   }
 }

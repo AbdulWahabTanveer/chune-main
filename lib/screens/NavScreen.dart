@@ -5,24 +5,35 @@ import 'package:newapp/screens/Home.dart';
 import 'package:newapp/screens/Notifications.dart';
 import 'package:newapp/screens/Profile.dart';
 import 'package:newapp/screens/ShareAChune.dart';
+import 'package:newapp/screens/UserProfile.dart';
 import 'package:newapp/screens/chat_screen.dart';
 import 'package:newapp/screens/search_screen.dart';
 
 class NavScreen extends StatefulWidget {
+  final int index;
+
+  const NavScreen({Key key, this.index = 0}) : super(key: key);
+
   @override
   State<NavScreen> createState() => _NavScreen();
 }
 
 class _NavScreen extends State<NavScreen> {
-  int selectedIndex = 0;
+  int selectedIndex;
   var iconCOlor = Colors.grey;
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     Notifications(),
     SearchScreen(),
     ChatScreen(),
-    Profile()
+    MyProfileScreen()
   ];
+
+  @override
+  void initState() {
+    selectedIndex = widget.index;
+    super.initState();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -55,12 +66,12 @@ class _NavScreen extends State<NavScreen> {
         child: _widgetOptions.elementAt(selectedIndex),
       ),
       floatingActionButton: FloatingActionButton(
-      elevation: 10,
+        elevation: 10,
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ShareAChuneWrapper(),
+              builder: (context) => ShareAChune(),
             ),
           );
         },

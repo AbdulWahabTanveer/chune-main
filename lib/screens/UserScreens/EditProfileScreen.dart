@@ -83,6 +83,7 @@ class _EditProfile extends State<EditProfile> {
             ),
           ),
         ]),
+        if(false)
         Positioned(
           bottom: 0,
           child: Visibility(

@@ -6,8 +6,11 @@ import 'package:newapp/screens/Notifications.dart';
 import 'package:newapp/screens/Profile.dart';
 import 'package:newapp/screens/ShareAChune.dart';
 import 'package:newapp/screens/UserProfile.dart';
+import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:newapp/screens/chat_screen.dart';
 import 'package:newapp/screens/search_screen.dart';
+
+import '../core/bloc/profile/profile_bloc.dart';
 
 class NavScreen extends StatefulWidget {
   final int index;
@@ -43,7 +46,7 @@ class _NavScreen extends State<NavScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print((context.read<LoginBloc>().state as LoginSuccessState).user.token);
+    final profile = context.read<ProfileBloc>().state;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -79,7 +82,7 @@ class _NavScreen extends State<NavScreen> {
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
@@ -97,11 +100,11 @@ class _NavScreen extends State<NavScreen> {
             label: 'Chats',
           ),
           BottomNavigationBarItem(
-            icon: CircleAvatar(
-              backgroundImage: NetworkImage(
-                'https://media.vogue.co.uk/photos/6041f07c107e7ce55db43e7d/2:3/w_1600,c_limit/wiz.jpg',
-              ),
-            ),
+            icon: AvatarImage(
+                (profile is ProfileLoadedState)
+                    ? profile.profile?.image
+                    : 'https://media.vogue.co.uk/photos/6041f07c107e7ce55db43e7d/2:3/w_1600,c_limit/wiz.jpg',
+                18),
             label: 'Profie',
           ),
         ],

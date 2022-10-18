@@ -21,8 +21,10 @@ class CloudFunctionsService {
   }
 
   Future followUser(String userId) async {
+    print(userId);
     final data =
         await _callFunction('followUser', data: <String, String>{'id': userId});
+    print(data);
   }
 
   Future unfollowUser(String userId) async {

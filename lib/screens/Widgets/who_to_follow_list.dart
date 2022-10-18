@@ -11,15 +11,17 @@ class WhoToFollowList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => WhoToFollowBloc()..add(LoadWhoToFollowEvent()),
-      child: WhoToFollowContent(),
+      child: _WhoToFollowContent(),
     );
   }
 }
 
-class WhoToFollowContent extends StatelessWidget {
+class _WhoToFollowContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<WhoToFollowBloc>();
     return BlocBuilder<WhoToFollowBloc, WhoToFollowState>(
+      bloc: bloc,
       builder: (context, state) {
         if (state is WhoToFollowSuccessState) {
           return Column(
@@ -61,7 +63,7 @@ class WhoToFollowContent extends StatelessWidget {
                       children: [
                         FollowCard(
                           state.users[index],
-                          () => isFollowing(index),
+                          () => bloc.add(FollowUserEvent(index)),
                         ),
                       ],
                     );

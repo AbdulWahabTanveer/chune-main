@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:newapp/repositories/home_page_repo.dart';
+import 'package:newapp/services/cloud_functions_service.dart';
 
 import '../../../models/profile_model.dart';
 
@@ -16,6 +17,8 @@ class WhoToFollowBloc extends Bloc<WhoToFollowEvent, WhoToFollowState> {
 
   WhoToFollowBloc() : super(WhoToFollowInitial()) {
     on<LoadWhoToFollowEvent>(_onLoadWhoToFollow);
+    on<FollowUserEvent>(_onFollowUser);
+    on<UndoFollowEvent>(_onUndoFollow);
   }
 
   FutureOr<void> _onLoadWhoToFollow(
@@ -28,6 +31,29 @@ class WhoToFollowBloc extends Bloc<WhoToFollowEvent, WhoToFollowState> {
       print(e);
       print(t);
       emit(WhoToFollowErrorState('$e'));
+    }
+  }
+
+  FutureOr<void> _onFollowUser(
+      FollowUserEvent event, Emitter<WhoToFollowState> emit) async {
+    if (state is WhoToFollowSuccessState) {
+      final cast = state as WhoToFollowSuccessState;
+      final users = List<ProfileModel>.from(cast.users);
+      repo.followUser(users[event.index]).catchError((e) {
+        add(UndoFollowEvent(event.index));
+      });
+      users[event.index].isFollowing = true;
+      emit(WhoToFollowSuccessState(users));
+    }
+  }
+
+  FutureOr<void> _onUndoFollow(
+      UndoFollowEvent event, Emitter<WhoToFollowState> emit) async {
+    if (state is WhoToFollowSuccessState) {
+      final cast = state as WhoToFollowSuccessState;
+      final users = List<ProfileModel>.from(cast.users);
+      users[event.index].isFollowing = false;
+      emit(WhoToFollowSuccessState(users));
     }
   }
 }

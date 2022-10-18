@@ -31,22 +31,7 @@ class _ViewAllAccounts extends State<ViewAllAccounts> {
             ),
           ),
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 0.0),
-              child: GestureDetector(
-                child: IconButton(
-                    icon: CircleAvatar(
-                      backgroundImage: AssetImage('images/wizkid.jpeg'),
-                      radius: 17,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => UserProfileScreen()),
-                      );
-                    }),
-              ),
-            )
+            SizedBox(width: 24,)
           ],
           backgroundColor: Colors.white,
           elevation: 1,
@@ -82,10 +67,6 @@ class _ViewAllAccounts extends State<ViewAllAccounts> {
         ));
   }
 
-  isFollowing(int index) {
-    final card = whoToFollowList[index];
-    setState(() {
-      card.isFollowing = !card.isFollowing;
-    });
-  }
+  isFollowing(int index) {}
+
 }

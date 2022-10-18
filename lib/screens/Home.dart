@@ -48,13 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ]),
     );
   }
-
-  isFollowing(int index) {
-    final card = whoToFollowList[index];
-    setState(() {
-      card.isFollowing = !card.isFollowing;
-    });
-  }
 }
 
 

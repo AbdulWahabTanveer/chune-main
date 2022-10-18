@@ -5,3 +5,15 @@ abstract class WhoToFollowEvent {
 }
 
 class LoadWhoToFollowEvent extends WhoToFollowEvent {}
+
+class FollowUserEvent extends WhoToFollowEvent {
+  final int index;
+
+  FollowUserEvent(this.index);
+}
+
+class UndoFollowEvent extends WhoToFollowEvent {
+  final int index;
+
+  UndoFollowEvent(this.index);
+}

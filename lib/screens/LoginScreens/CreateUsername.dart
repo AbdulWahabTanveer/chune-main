@@ -7,6 +7,7 @@ import 'package:newapp/screens/NavScreen.dart';
 
 import '../../Useful_Code/utils.dart';
 import '../../auth_flow/app/bloc/app_bloc.dart';
+import '../../core/bloc/profile/profile_bloc.dart';
 import '../../models/profile_model.dart';
 
 class CreateUsername extends StatelessWidget {
@@ -66,6 +67,9 @@ class _CreateUsername extends State<_CreateUsernameContent> {
         }
         if (state is UsernameCreateErrorState) {
           // toast(state.error);
+        }
+        if (state is UsernameCreateSuccessState) {
+          context.read<ProfileBloc>().add(SetUserProfileEvent(state.profile));
         }
       },
       builder: (context, state) {

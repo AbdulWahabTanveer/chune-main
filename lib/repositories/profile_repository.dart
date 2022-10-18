@@ -10,7 +10,7 @@ abstract class ProfileRepository {
 
   Future<ProfileModel> getUserProfile(String userId);
 
-  Future<bool> createProfile(String userId, ProfileModel profile);
+  Future<ProfileModel> createProfile(String userId, ProfileModel profile);
 }
 
 class ProfileRepositoryImpl extends ProfileRepository {
@@ -23,27 +23,31 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<ProfileModel> getUserProfile(String userId) {}
+  Future<ProfileModel> getUserProfile(String userId) async {
+    final user = await fireStore.collection(usersCollection).doc(userId).get();
+    return ProfileModel.fromMap(user.data()).copyWith(id: user.id);
+  }
 
   @override
   Future<bool> usernameExists(String userName) async {
     final user = await fireStore
         .collection(usersCollection)
-        .where('username', isEqualTo: 'userName')
+        .where('username', isEqualTo: '$userName')
         .get();
     return user.size > 0;
   }
 
   @override
-  Future<bool> createProfile(String userId, ProfileModel profile) async {
+  Future<ProfileModel> createProfile(
+      String userId, ProfileModel profile) async {
     try {
       await fireStore
           .collection(usersCollection)
           .doc(userId)
           .set(profile.toMap());
-      return true;
+      return profile.copyWith(id: userId);
     } catch (e) {
-      return false;
+      return null;
     }
   }
 }

@@ -36,10 +36,10 @@ class CreateUsernameBloc
   FutureOr<void> _onCreateUsername(
       CreateUserProfileEvent event, Emitter<CreateUsernameState> emit) async {
     emit(CreatingUsernameState());
-    final success =
+    final profile =
         await profileRepo.createProfile(event.userId, event.profile);
-    if (success) {
-      emit(UsernameCreateSuccessState(event.profile));
+    if (profile != null) {
+      emit(UsernameCreateSuccessState(profile));
     } else {
       emit(UsernameCreateErrorState(
           "Failed to create username\n please try again later."));

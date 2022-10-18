@@ -24,12 +24,15 @@ class _AuthenticatedScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
+      buildWhen: (previous, current) =>
+          previous.runtimeType != current.runtimeType,
       builder: (context, state) {
-        if (state is NewUserState) {
-          return CreateUsername();
-        }
-        if (state is ExistingUserState) {
-          return NavScreen();
+        if (state is ProfileLoadedState) {
+          if (state.profile != null) {
+            return NavScreen();
+          } else {
+            return CreateUsername();
+          }
         }
         return Container();
       },

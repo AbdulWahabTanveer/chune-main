@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_it/get_it.dart';
 import 'package:newapp/Useful_Code/constants.dart';
 import 'package:newapp/models/profile_model.dart';
+
+import '../services/cloud_functions_service.dart';
 
 abstract class HomePageRepository {
   Future<List<ProfileModel>> loadUserSuggestions();
@@ -8,10 +11,13 @@ abstract class HomePageRepository {
   Query get homePageChunesQuery;
 
   Query get allUserAccountsQuery;
+
+  Future followUser(ProfileModel user);
 }
 
 class HomePageRepositoryImpl extends HomePageRepository {
   final fireStore = FirebaseFirestore.instance;
+  final functions = GetIt.I.get<CloudFunctionsService>();
 
   Query get homePageChunesQuery => FirebaseFirestore.instance
       .collection(chunesCollection)
@@ -33,5 +39,10 @@ class HomePageRepositoryImpl extends HomePageRepository {
         return ProfileModel.fromMap(e.data()).copyWith(id: e.id);
       }),
     );
+  }
+
+  @override
+  Future followUser(ProfileModel user) async {
+    await functions.followUser(user.id);
   }
 }

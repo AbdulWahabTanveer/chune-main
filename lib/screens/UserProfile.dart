@@ -5,9 +5,11 @@ import 'package:newapp/Useful_Code/constants.dart';
 import 'package:newapp/Useful_Code/utils.dart';
 import 'package:newapp/screens/LoginScreens/Login.dart';
 import 'package:newapp/screens/ShareAChune.dart';
+import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import '../auth_flow/app/bloc/app_bloc.dart';
 import '../core/bloc/login/login_bloc.dart';
+import '../core/bloc/profile/profile_bloc.dart';
 import '../models/chune.dart';
 
 class MyProfileScreen extends StatefulWidget {
@@ -49,83 +51,88 @@ class _MyProfileState extends State<MyProfileScreen> {
       body: ListView(
         // mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey[300],
-                  spreadRadius: 1,
-                  blurRadius: 1,
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.grey[300],
-                  backgroundImage: AssetImage('images/wizkid.jpeg'),
-                  radius: 35,
-                ),
-                SizedBox(height: 16),
-                Text('@wizkid',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                    )),
-                SizedBox(height: 20),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CountWidget(
-                        value: chuneCount,
-                        label: "Chunes",
-                      ),
-                      CountWidget(
-                        value: chuneCount,
-                        label: "Followers",
-                      ),
-                      CountWidget(
-                        value: chuneCount,
-                        label: "Following",
+          BlocBuilder<ProfileBloc, ProfileState>(
+            builder: (context, state) {
+              if (state is ProfileLoadedState && state.profile != null)
+                return Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[300],
+                        spreadRadius: 1,
+                        blurRadius: 1,
                       ),
                     ],
                   ),
-                ),
-                SizedBox(height: 24),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Column(
                     children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: Colors.blue,
+                      AvatarImage(
+                        state.profile.image,
+                        35,
+                      ),
+                      SizedBox(height: 16),
+                      Text('@${state.profile.username}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                          )),
+                      SizedBox(height: 20),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CountWidget(
+                              value: state.profile.chunesShared,
+                              label: "Chunes",
+                            ),
+                            CountWidget(
+                              value: state.profile.followerCount,
+                              label: "Followers",
+                            ),
+                            CountWidget(
+                              value: state.profile.followingCount,
+                              label: "Following",
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 24),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.blue,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                        const Radius.circular(100))),
+                                child: TextButton(
+                                  child: Text('Edit Profile',
+                                      style: TextStyle(fontSize: 21)),
+                                  onPressed: () {},
+                                ),
                               ),
-                              borderRadius: const BorderRadius.all(
-                                  const Radius.circular(100))),
-                          child: TextButton(
-                            child: Text('Edit Profile',
-                                style: TextStyle(fontSize: 21)),
-                            onPressed: () {},
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                ),
-                MyChunesList()
-              ],
-            ),
+                );
+              return Text("ERROR");
+            },
           ),
+          MyChunesList()
         ],
       ),
     );
@@ -135,13 +142,14 @@ class _MyProfileState extends State<MyProfileScreen> {
 class MyChunesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final userId = context.read<AppBloc>().state.user.id;
     return PaginateFirestore(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, documentSnapshots, index) {
         final chune = Chune.fromMap(documentSnapshots[index].data() as Map)
             .copyWith(id: documentSnapshots[index].id);
-        return ChuneRow(chune);
+        return Container(color: Colors.white, child: ChuneRow(chune));
       },
       itemBuilderType: PaginateBuilderType.listView,
       onError: (e) => Text('$e'),
@@ -193,7 +201,7 @@ class MyChunesList extends StatelessWidget {
       isLive: true,
       query: FirebaseFirestore.instance
           .collection(chunesCollection)
-          .where('userId', isEqualTo: 'asdasd')
+          .where('userId', isEqualTo: userId)
           .orderBy('timestamp', descending: true),
     );
   }

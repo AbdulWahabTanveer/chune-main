@@ -9,3 +9,9 @@ class CheckProfileExistsEvent extends ProfileEvent {
 
   CheckProfileExistsEvent(this.userId);
 }
+
+class SetUserProfileEvent extends ProfileEvent {
+  final ProfileModel profile;
+
+  const SetUserProfileEvent(this.profile);
+}

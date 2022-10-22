@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/core/bloc/create_username/create_username_bloc.dart';
 import 'package:newapp/screens/NavScreen.dart';
 
-
 import '../../Useful_Code/utils.dart';
 import '../../auth_flow/app/bloc/app_bloc.dart';
 import '../../core/bloc/profile/profile_bloc.dart';
@@ -57,11 +56,15 @@ class _CreateUsername extends State<_CreateUsernameContent> {
             CreateUserProfileEvent(
               user.id,
               ProfileModel(
-                  username: state.username,
-                  name: user.name,
-                  email: user.email,
-                  image: user.photo,
-                  fcmToken: await FirebaseMessaging.instance.getToken()),
+                username: state.username,
+                email: user.email,
+                image: user.photo,
+                fcmToken: await FirebaseMessaging.instance.getToken(),
+                followers: [],
+                followings: [],
+                likedChunes: [],
+                sharedChunes: [],
+              ),
             ),
           );
         }
@@ -74,7 +77,7 @@ class _CreateUsername extends State<_CreateUsernameContent> {
       },
       builder: (context, state) {
         if (state is UsernameCreateSuccessState) {
-          return NavScreen(index:4);
+          return NavScreen(index: 4);
         }
         return Scaffold(
           backgroundColor: Colors.pink,

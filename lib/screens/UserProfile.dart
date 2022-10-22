@@ -53,7 +53,8 @@ class _MyProfileState extends State<MyProfileScreen> {
         children: [
           BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
-              if (state is ProfileLoadedState && state.profile != null)
+              if (state is ProfileLoadedState && state.profile != null) {
+                print(">>>>>>>>>>>>>>>${state.profile}");
                 return Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                   decoration: BoxDecoration(
@@ -129,7 +130,8 @@ class _MyProfileState extends State<MyProfileScreen> {
                     ],
                   ),
                 );
-              return Text("ERROR");
+              }
+              return Text("ERROR $state");
             },
           ),
           MyChunesList()

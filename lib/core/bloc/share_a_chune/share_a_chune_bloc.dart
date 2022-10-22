@@ -9,6 +9,7 @@ import 'package:newapp/repositories/share_a_chune_repo.dart';
 import 'package:newapp/repositories/spotify_repo.dart';
 
 import '../../../models/chune.dart';
+import '../../../models/profile_model.dart';
 
 part 'share_a_chune_event.dart';
 
@@ -34,8 +35,8 @@ class ShareAChuneBloc extends Bloc<ShareAChuneEvent, ShareAChuneState> {
     emit(ChuneSharingState());
     final result = await chuneRepo.shareChune(event.chune.copyWith(
         userId: event.publishedBy.id,
-        username: event.publishedBy.name,
-        userImage: event.publishedBy.photo));
+        username: event.publishedBy.username,
+        userImage: event.publishedBy.image));
     if (result) {
       emit(ChuneShareSuccessState());
     } else {

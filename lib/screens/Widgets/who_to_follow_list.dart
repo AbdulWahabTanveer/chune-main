@@ -63,7 +63,6 @@ class _WhoToFollowContent extends StatelessWidget {
                       children: [
                         FollowCard(
                           state.users[index],
-                          () => bloc.add(FollowUserEvent(index)),
                         ),
                       ],
                     );

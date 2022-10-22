@@ -105,7 +105,7 @@ class _NavScreen extends State<NavScreen> {
                     ? profile.profile?.image
                     : 'https://media.vogue.co.uk/photos/6041f07c107e7ce55db43e7d/2:3/w_1600,c_limit/wiz.jpg',
                 18),
-            label: 'Profie',
+            label: 'Profile',
           ),
         ],
         type: BottomNavigationBarType.fixed,

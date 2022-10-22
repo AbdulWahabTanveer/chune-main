@@ -21,7 +21,7 @@ class _Profile extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return HomePage();
+    // return HomePageFromSample();
     return Scaffold(
       body: Stack(
         children: [SingleChildScrollView(

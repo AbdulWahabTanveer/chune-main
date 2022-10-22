@@ -13,6 +13,7 @@ import 'package:newapp/screens/splash_screen.dart';
 import 'package:newapp/services/injector.dart';
 import 'package:newapp/spotify_main.dart';
 import 'apple_music.dart';
+import 'core/bloc/profile/profile_bloc.dart';
 import 'screens/NavScreen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => LoginBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ProfileBloc(),
         ),
         BlocProvider(
           create: (context) => MusicPlayerBloc(),

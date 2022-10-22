@@ -20,8 +20,6 @@ class ChunesListWidget extends StatelessWidget {
         return Container(
           child: HomePostWidget(
             chune,
-            (post) => isLiked(post),
-            (post) => context.read<MusicPlayerBloc>().add(SetAudioEvent(post)),
           ),
         );
       },
@@ -33,7 +31,7 @@ class ChunesListWidget extends StatelessWidget {
   }
 
   isSelected(Chune post) {
-    ;
+
     // audioPlaying = true;
     // selectedPost = index;
   }

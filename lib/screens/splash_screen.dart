@@ -4,6 +4,7 @@ import 'package:newapp/auth_flow/app/app.dart';
 
 import '../auth_flow/app/bloc/app_bloc.dart';
 import '../auth_flow/login/view/login_page.dart';
+import '../core/bloc/profile/profile_bloc.dart';
 import 'LoginScreens/Login.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -11,7 +12,12 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppBloc, AppState>(
+    return BlocConsumer<AppBloc, AppState>(
+      listener: (context, state) {
+        if (state.status == AppStatus.unauthenticated) {
+          context.read<ProfileBloc>().add(LogoutProfileEvent());
+        }
+      },
       builder: (context, state) {
         switch (state.status) {
           case AppStatus.authenticated:

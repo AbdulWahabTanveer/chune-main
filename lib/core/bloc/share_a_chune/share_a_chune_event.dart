@@ -12,7 +12,7 @@ class SearchChuneEvent extends ShareAChuneEvent {
 
 class ShareChuneEvent extends ShareAChuneEvent {
   final Chune chune;
-  final User publishedBy;
+  final ProfileModel publishedBy;
 
   ShareChuneEvent(this.chune, this.publishedBy);
 }

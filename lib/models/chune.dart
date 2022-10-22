@@ -19,7 +19,7 @@ class Chune {
 
 //<editor-fold desc="Data Methods">
 
-   Chune({
+  Chune({
     this.id,
     this.preview,
     this.playUri,
@@ -32,6 +32,7 @@ class Chune {
     this.userImage,
     this.likeCount,
     this.timestamp,
+    this.isLiked = false,
   });
 
   @override
@@ -50,7 +51,8 @@ class Chune {
           username == other.username &&
           userImage == other.userImage &&
           likeCount == other.likeCount &&
-          timestamp == other.timestamp);
+          timestamp == other.timestamp &&
+          isLiked == other.isLiked);
 
   @override
   int get hashCode =>
@@ -65,7 +67,8 @@ class Chune {
       username.hashCode ^
       userImage.hashCode ^
       likeCount.hashCode ^
-      timestamp.hashCode;
+      timestamp.hashCode ^
+      isLiked.hashCode;
 
   @override
   String toString() {
@@ -82,6 +85,7 @@ class Chune {
         ' userImage: $userImage,' +
         ' likeCount: $likeCount,' +
         ' timestamp: $timestamp,' +
+        ' isLiked: $isLiked,' +
         '}';
   }
 
@@ -98,6 +102,7 @@ class Chune {
     String userImage,
     int likeCount,
     int timestamp,
+    bool isLiked,
   }) {
     return Chune(
       id: id ?? this.id,
@@ -112,6 +117,7 @@ class Chune {
       userImage: userImage ?? this.userImage,
       likeCount: likeCount ?? this.likeCount,
       timestamp: timestamp ?? this.timestamp,
+      isLiked: isLiked ?? this.isLiked,
     );
   }
 
@@ -129,6 +135,7 @@ class Chune {
       'userImage': this.userImage,
       'likeCount': this.likeCount,
       'timestamp': this.timestamp,
+      'isLiked': this.isLiked,
     };
   }
 
@@ -146,6 +153,7 @@ class Chune {
       userImage: map['userImage'] as String,
       likeCount: map['likeCount'] as int,
       timestamp: map['timestamp'] as int,
+      isLiked: map['isLiked'] as bool,
     );
   }
 

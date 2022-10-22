@@ -15,3 +15,5 @@ class SetUserProfileEvent extends ProfileEvent {
 
   const SetUserProfileEvent(this.profile);
 }
+
+class LogoutProfileEvent extends ProfileEvent {}

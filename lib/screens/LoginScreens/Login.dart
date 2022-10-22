@@ -41,6 +41,7 @@ class _MusicSourceState extends State<MusicSource> {
             get.registerSingleton<BaseAudioPlayer>(ApplePlayer());
           }
         }
+
       },
       builder: (context, state) {
         if (state is LoginSuccessState) {

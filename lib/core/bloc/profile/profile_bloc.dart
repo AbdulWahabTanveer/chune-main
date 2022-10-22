@@ -15,7 +15,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   ProfileBloc() : super(ProfileInitial()) {
     on<CheckProfileExistsEvent>(_onCheckProfileExists);
-    on<SetUserProfileEvent>((event, emit) => ProfileLoadedState(event.profile));
+    on<SetUserProfileEvent>(
+      (event, emit) => emit(
+        ProfileLoadedState(event.profile),
+      ),
+    );
+    on<LogoutProfileEvent>((event, emit) => emit(ProfileInitial()));
   }
 
   FutureOr<void> _onCheckProfileExists(

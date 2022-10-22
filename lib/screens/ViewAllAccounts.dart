@@ -31,7 +31,9 @@ class _ViewAllAccounts extends State<ViewAllAccounts> {
             ),
           ),
           actions: [
-            SizedBox(width: 24,)
+            SizedBox(
+              width: 24,
+            )
           ],
           backgroundColor: Colors.white,
           elevation: 1,
@@ -57,7 +59,6 @@ class _ViewAllAccounts extends State<ViewAllAccounts> {
                     ProfileModel.fromMap(e.data()).copyWith(id: e.id);
                 return FollowCard(
                   profile,
-                  () => isFollowing(index),
                 );
               },
               query: repo.allUserAccountsQuery,
@@ -68,5 +69,4 @@ class _ViewAllAccounts extends State<ViewAllAccounts> {
   }
 
   isFollowing(int index) {}
-
 }

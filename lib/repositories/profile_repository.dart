@@ -10,6 +10,8 @@ abstract class ProfileRepository {
 
   Future<ProfileModel> getUserProfile(String userId);
 
+  ProfileModel getMyCachedProfile();
+
   Future<ProfileModel> createProfile(String userId, ProfileModel profile);
 }
 
@@ -22,10 +24,30 @@ class ProfileRepositoryImpl extends ProfileRepository {
     return !user.exists;
   }
 
+  ProfileModel me;
+
   @override
   Future<ProfileModel> getUserProfile(String userId) async {
-    final user = await fireStore.collection(usersCollection).doc(userId).get();
-    return ProfileModel.fromMap(user.data()).copyWith(id: user.id);
+    final userRef = fireStore.collection(usersCollection).doc(userId);
+    final info = await userRef.collection(infoCollection).get();
+    final user = await userRef.get();
+    final userData = Map<String, dynamic>.from(user.data());
+    for (final i in info.docs) {
+      if (i.id == 'following') {
+        userData['following'] = i.data()['key'];
+      }
+      if (i.id == 'followers') {
+        userData['followers'] = i.data()['key'];
+      }
+      if (i.id == 'chunes') {
+        userData['chunes'] = i.data()['key'];
+      }
+      if (i.id == 'likedChunes') {
+        userData['likedChunes'] = i.data()['key'];
+      }
+    }
+    this.me = ProfileModel.fromMap(userData).copyWith(id: user.id);
+    return this.me;
   }
 
   @override
@@ -50,4 +72,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
       return null;
     }
   }
+
+  @override
+  ProfileModel getMyCachedProfile() => me;
 }

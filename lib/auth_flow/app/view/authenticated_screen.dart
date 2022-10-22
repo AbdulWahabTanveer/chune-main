@@ -13,8 +13,8 @@ class AuthenticatedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.select((AppBloc bloc) => bloc.state.user);
-    return BlocProvider(
-      create: (context) => ProfileBloc()..add(CheckProfileExistsEvent(user.id)),
+    return BlocProvider.value(
+      value: context.read<ProfileBloc>()..add(CheckProfileExistsEvent(user.id)),
       child: _AuthenticatedScreenContent(),
     );
   }

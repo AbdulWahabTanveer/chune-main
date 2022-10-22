@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newapp/core/bloc/profile/profile_bloc.dart';
 import 'package:newapp/screens/NavScreen.dart';
 import '../Useful_Code/utils.dart';
 import '../auth_flow/app/bloc/app_bloc.dart';
@@ -146,9 +147,11 @@ class _ShareAChune extends State<_ShareAChuneContent> {
                   onPressed: selectedChune == null
                       ? null
                       : () {
-                          context
-                              .read<ShareAChuneBloc>()
-                              .add(ShareChuneEvent(selectedChune,context.read<AppBloc>().state.user));
+                          final state = context.read<ProfileBloc>().state
+                              as ProfileLoadedState;
+                          print("<><><><><><> PROFILE MODEL ${state.profile}");
+                          context.read<ShareAChuneBloc>().add(
+                              ShareChuneEvent(selectedChune, state.profile));
                         },
                   child: Icon(
                     Icons.send,

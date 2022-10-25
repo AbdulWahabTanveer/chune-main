@@ -36,6 +36,13 @@ class CloudFunctionsService {
     HttpsCallable callable =
         FirebaseFunctions.instance.httpsCallable('$functionName');
     final results = await callable(data ?? {});
+    print(results.data);
     return results.data;
+  }
+
+  void sendNotification() async{
+    final data = await _callFunction('showNotification');
+    print(data);
+
   }
 }

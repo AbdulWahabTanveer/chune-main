@@ -2,6 +2,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:newapp/firebase_options.dart';
 import 'package:newapp/repositories/apple_repo.dart';
 import 'package:newapp/repositories/auth_repository.dart';
 import 'package:newapp/repositories/home_page_repo.dart';
@@ -20,7 +21,7 @@ class Injector {
     WidgetsFlutterBinding.ensureInitialized();
     Bloc.observer = AppBlocObserver();
 
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
     final authenticationRepository = AuthenticationRepository();
     await authenticationRepository.user.first;

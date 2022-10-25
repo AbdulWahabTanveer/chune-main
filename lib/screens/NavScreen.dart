@@ -1,3 +1,5 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/core/bloc/login/login_bloc.dart';
@@ -11,6 +13,12 @@ import 'package:newapp/screens/chat_screen.dart';
 import 'package:newapp/screens/search_screen.dart';
 
 import '../core/bloc/profile/profile_bloc.dart';
+
+
+
+import 'package:get_it/get_it.dart';
+
+import '../services/cloud_functions_service.dart';
 
 class NavScreen extends StatefulWidget {
   final int index;
@@ -34,6 +42,9 @@ class _NavScreen extends State<NavScreen> {
 
   @override
   void initState() {
+    FirebaseMessaging.onMessage.listen((event) {
+      print("ON MESSAGE->${event.data}");
+    });
     selectedIndex = widget.index;
     super.initState();
   }
@@ -71,6 +82,8 @@ class _NavScreen extends State<NavScreen> {
       floatingActionButton: FloatingActionButton(
         elevation: 10,
         onPressed: () {
+          // GetIt.I.get<CloudFunctionsService>().sendNotification();
+          // return;
           Navigator.push(
             context,
             MaterialPageRoute(

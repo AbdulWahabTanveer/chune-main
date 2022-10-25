@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 
 part 'app_event.dart';
+
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
@@ -26,7 +28,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   final AuthenticationRepository _authenticationRepository;
   StreamSubscription<User> _userSubscription;
 
-  void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) {
+  void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) async {
+    if (event.user.isNotEmpty) {
+      await FirebaseMessaging.instance.subscribeToTopic(event.user.id);
+    }
     emit(
       event.user.isNotEmpty
           ? AppState.authenticated(event.user)
@@ -34,7 +39,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     );
   }
 
-  void _onLogoutRequested(AppLogoutRequested event, Emitter<AppState> emit) {
+  void _onLogoutRequested(
+      AppLogoutRequested event, Emitter<AppState> emit) async {
+    await FirebaseMessaging.instance.unsubscribeFromTopic(state.user.id);
     unawaited(_authenticationRepository.logOut());
   }
 

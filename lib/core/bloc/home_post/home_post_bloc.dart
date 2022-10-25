@@ -57,6 +57,7 @@ class HomePostBloc extends Bloc<HomePostEvent, HomePostState> {
         likesCount--;
       } else {
         repo.likeChune(cast.post).catchError((e) {
+          print("ERROR>>>>>>>>>>>>>>$e");
           add(UndoLikeEvent(cast.post));
         });
         likesCount++;

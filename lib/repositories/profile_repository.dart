@@ -67,7 +67,8 @@ class ProfileRepositoryImpl extends ProfileRepository {
           .collection(usersCollection)
           .doc(userId)
           .set(profile.toMap());
-      return profile.copyWith(id: userId);
+      this.me =  profile.copyWith(id: userId);
+      return me;
     } catch (e) {
       return null;
     }

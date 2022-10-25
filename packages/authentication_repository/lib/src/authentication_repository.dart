@@ -234,7 +234,8 @@ class AuthenticationRepository {
       await _firebaseAuth.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure.fromCode(e.code);
-    } catch (_) {
+    } catch (e) {
+      print(e);
       throw const LogInWithGoogleFailure();
     }
   }

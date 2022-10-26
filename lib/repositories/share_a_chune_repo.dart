@@ -13,7 +13,7 @@ import '../models/chune.dart';
 import '../services/cloud_functions_service.dart';
 
 abstract class ShareAChuneRepository {
-  Future<List<Chune>> search(String s);
+  Future<List<Chune>> search(String s, {int page = 0});
 
   Future<bool> shareChune(Chune chune);
 }
@@ -23,41 +23,47 @@ class ShareAChuneRepoImpl extends ShareAChuneRepository {
   final functions = GetIt.I.get<CloudFunctionsService>();
 
   @override
-  Future<List<Chune>> search(String s) async {
-    final authRepo = GetIt.I.get<AuthRepository>();
-    final appleRepo = GetIt.I.get<AppleRepository>();
-    final spotifyRepo = GetIt.I.get<SpotifyRepository>();
-    switch (authRepo.user.type) {
-      case MusicSourceType.spotify:
-        final result = await spotifyRepo.search(s);
-        return List<Chune>.from(
-          result.tracks.items.map(
-            (item) => Chune(
-              albumArt: item.album.images[0].url,
-              songName: item.name,
-              preview: item.previewUrl,
-              playUri: item.uri,
-              source: MusicSourceType.spotify,
-              artistName: item.artists.map((e) => e.name).join(','),
+  Future<List<Chune>> search(String s, {int page = 0}) async {
+    try {
+      final authRepo = GetIt.I.get<AuthRepository>();
+      final appleRepo = GetIt.I.get<AppleRepository>();
+      final spotifyRepo = GetIt.I.get<SpotifyRepository>();
+      switch (authRepo.user.type) {
+        case MusicSourceType.spotify:
+          final result = await spotifyRepo.search(s, page: page);
+          return List<Chune>.from(
+            result.tracks.items.map(
+              (item) => Chune(
+                albumArt: item.album.images[0].url,
+                songName: item.name,
+                preview: item.previewUrl,
+                playUri: item.uri,
+                source: MusicSourceType.spotify,
+                artistName: item.artists.map((e) => e.name).join(','),
+              ),
             ),
-          ),
-        );
-      case MusicSourceType.apple:
-        final result = await appleRepo.search(s);
-        return List<Chune>.from(
-          result.results.songs.data.map(
-            (item) => Chune(
-              albumArt: item.attributes.artwork.url
-                  .replaceFirst('{w}', item.attributes.artwork.width.toString())
-                  .replaceFirst(
-                      '{h}', item.attributes.artwork.height.toString()),
-              songName: item.attributes.name,
-              preview: item.attributes.previews[0].url,
-              source: MusicSourceType.apple,
-              artistName: item.attributes.artistName,
+          );
+        case MusicSourceType.apple:
+          final result = await appleRepo.search(s);
+          return List<Chune>.from(
+            result.results.songs.data.map(
+              (item) => Chune(
+                albumArt: item.attributes.artwork.url
+                    .replaceFirst(
+                        '{w}', item.attributes.artwork.width.toString())
+                    .replaceFirst(
+                        '{h}', item.attributes.artwork.height.toString()),
+                songName: item.attributes.name,
+                preview: item.attributes.previews[0].url,
+                source: MusicSourceType.apple,
+                artistName: item.attributes.artistName,
+              ),
             ),
-          ),
-        );
+          );
+      }
+    } catch (e, t) {
+      print(e);
+      print(t);
     }
     return [];
   }

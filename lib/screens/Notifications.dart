@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:newapp/screens/Player.dart';
 import 'package:newapp/screens/Widgets/player_panel.dart';
 import 'package:newapp/screens/globalvariables.dart';
+import 'package:paginate_firestore/paginate_firestore.dart';
+import '../repositories/profile_repository.dart';
 import 'UserScreens/Userprofile.dart';
 
 class Notifications extends StatefulWidget {
@@ -11,7 +14,6 @@ class Notifications extends StatefulWidget {
 
 class _Notifications extends State<Notifications> {
   List notifications;
-
 
   void initState() {
     super.initState();
@@ -45,37 +47,27 @@ class _Notifications extends State<Notifications> {
   isliked() {
     ///coming soon
   }
+
   isFollowed() {
     ///coming soon
   }
 
+  final repo = GetIt.I.get<ProfileRepository>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListView.builder(
-                physics: ClampingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: notifications.length,
-                itemBuilder: (context, index) {
-                  return NotificationPost(
-                    notifications[index],
-                  );
-                },
-              ),
-              SizedBox(height: 100)
-            ],
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          child: PlayerPanel(),
-        )
-      ]),
+      body: PaginateFirestore(
+        physics: ClampingScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (context, documentSnapshots, index) {
+          return NotificationPost(
+            notifications[index],
+          );
+        },
+        query: repo.myNotificationsQuery,
+        itemBuilderType: PaginateBuilderType.listView,
+      ),
     );
   }
 }
@@ -94,6 +86,7 @@ class Notification {
 
 class NotificationPost extends StatelessWidget {
   NotificationPost(this.post);
+
   final Notification post;
 
   @override

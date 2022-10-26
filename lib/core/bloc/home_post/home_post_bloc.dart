@@ -63,10 +63,12 @@ class HomePostBloc extends Bloc<HomePostEvent, HomePostState> {
         likesCount++;
       }
 
+      var likeStatus = !cast.post.isLiked;
+      profileRepo.updateLikes(cast.post.id,likeStatus);
       emit(
         HomePostLoaded(
           cast.post
-              .copyWith(isLiked: !cast.post.isLiked, likeCount: likesCount),
+              .copyWith(isLiked: likeStatus, likeCount: likesCount),
         ),
       );
     }

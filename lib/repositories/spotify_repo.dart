@@ -7,14 +7,14 @@ import 'package:newapp/services/http_service.dart';
 import '../models/spotify_model.dart';
 
 abstract class SpotifyRepository {
-  Future<SpotifyModel> search(String s);
+  Future<SpotifyModel> search(String s, {int page = 0});
 }
 
 class SpotifyRepoImpl extends SpotifyRepository {
   final httpService = GetIt.I.get<HttpService>();
 
   @override
-  Future<SpotifyModel> search(String s) async {
+  Future<SpotifyModel> search(String s, {int page = 0}) async {
     var token = GetIt.I.get<AuthRepository>().user.token;
     var headers = {
       'Accept': 'application/json',
@@ -25,12 +25,15 @@ class SpotifyRepoImpl extends SpotifyRepository {
     var params = {
       'q': '$s',
       'type': 'track',
-      'limit': '10',
+      'limit': '20',
     };
+    if (page > 0) {
+      params['offset'] = '${20 * page}';
+    }
     var query = params.entries.map((p) => '${p.key}=${p.value}').join('&');
 
     var url = Uri.parse('https://api.spotify.com/v1/search?$query');
-    final response = await httpService.getRequest(url,headers: headers);
+    final response = await httpService.getRequest(url, headers: headers);
     return SpotifyModel.fromJson(jsonDecode(response));
   }
 }

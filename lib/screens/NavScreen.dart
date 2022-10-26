@@ -12,9 +12,8 @@ import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:newapp/screens/chat_screen.dart';
 import 'package:newapp/screens/search_screen.dart';
 
+import '../auth_flow/app/bloc/app_bloc.dart';
 import '../core/bloc/profile/profile_bloc.dart';
-
-
 
 import 'package:get_it/get_it.dart';
 
@@ -61,19 +60,23 @@ class _NavScreen extends State<NavScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 0.0),
+          IconButton(
+            key: const Key('homePage_logout_iconButton'),
+            icon: const Icon(
+              Icons.exit_to_app,
+              color: Colors.red,
+            ),
+            onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
           )
         ],
         backgroundColor: Colors.white,
         elevation: 1,
+        centerTitle: true,
         toolbarHeight: 70,
-        title: Center(
-          child: Text(
-            'chune',
-            style: TextStyle(
-                color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
-          ),
+        title: Text(
+          'chune',
+          style: TextStyle(
+              color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
         ),
       ),
       body: Center(

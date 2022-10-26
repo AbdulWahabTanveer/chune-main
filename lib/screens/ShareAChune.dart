@@ -29,13 +29,25 @@ class _ShareAChune extends State<_ShareAChuneContent> {
   // var selectedColor = Colors.grey;
   // int selectedCounter = 0;
   Chune selectedChune;
+  ScrollController _controller;
 
   // List chuneList;
 
   @override
   void initState() {
+    _controller = ScrollController();
+    _controller.addListener(_scrollListener);
     super.initState();
     // chuneList = <Chune>[];
+  }
+
+  _scrollListener() {
+    if (_controller.offset >= _controller.position.maxScrollExtent &&
+        !_controller.position.outOfRange) {
+      context.read<ShareAChuneBloc>().add(SearchChuneEvent('s'));
+    }
+    if (_controller.offset <= _controller.position.minScrollExtent &&
+        !_controller.position.outOfRange) {}
   }
 
   Widget build(BuildContext context) {
@@ -46,6 +58,13 @@ class _ShareAChune extends State<_ShareAChuneContent> {
         }
       },
       builder: (context, state) {
+        var primary = Theme.of(context).primaryColor;
+        var border = OutlineInputBorder(
+          borderSide: BorderSide(color: primary, width: 2),
+          borderRadius: BorderRadius.all(
+            Radius.circular(100),
+          ),
+        );
         return Scaffold(
           appBar: AppBar(
             leading: IconButton(
@@ -91,21 +110,26 @@ class _ShareAChune extends State<_ShareAChuneContent> {
                           SizedBox(
                             width: 300,
                             child: TextField(
+                              cursorColor: primary,
+                              style: TextStyle(color: Colors.black),
                               enabled: state is! ChunesLoadingState,
                               onSubmitted: (String chune) {
                                 context
                                     .read<ShareAChuneBloc>()
-                                    .add(SearchChuneEvent(chune));
+                                    .add(SearchChuneEvent(chune, force: true));
                               },
                               decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.search),
                                 hintText: 'Enter artists & songs...',
                                 focusColor: Colors.grey,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(100),
-                                  ),
-                                ),
+                                border: border,
+                                focusedBorder: border,
+                                enabledBorder: border,
+                                focusedErrorBorder: border,
+                                errorBorder: border,
+                                errorStyle: TextStyle(
+                                    color: Colors.white,
+                                    backgroundColor: Colors.red),
                               ),
                             ),
                           ),
@@ -118,26 +142,24 @@ class _ShareAChune extends State<_ShareAChuneContent> {
             ),
           ),
           body: SingleChildScrollView(
+            controller: _controller,
             child: Column(
               children: [
                 SizedBox(height: 20),
                 if (state is ChunesLoadSuccess)
-                  SingleChildScrollView(
-                    child: SizedBox(
-                      // height: h * 3,
-                      child: ListView.builder(
-                        physics: ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: state.chunes.length,
-                        itemBuilder: (context, index) {
-                          final chune = state.chunes[index];
-                          return ChuneRow(chune, () => isSelected(chune),
-                              selectedChune?.playUri == chune.playUri);
-                        },
-                      ),
-                    ),
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: state.chunes.length,
+                    itemBuilder: (context, index) {
+                      final chune = state.chunes[index];
+                      return ChuneRow(chune, () => isSelected(chune),
+                          selectedChune?.playUri == chune.playUri);
+                    },
                   ),
-                if (state is ChunesLoadingState) loader()
+                if (state is ChunesLoadingState ||
+                    (state is ChunesLoadSuccess && !state.end))
+                  loader()
               ],
             ),
           ),

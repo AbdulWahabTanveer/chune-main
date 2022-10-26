@@ -21,19 +21,41 @@ class SignUpForm extends StatelessWidget {
             );
         }
       },
-      child: Align(
-        alignment: const Alignment(0, -1 / 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _EmailInput(),
-            const SizedBox(height: 8),
-            _PasswordInput(),
-            const SizedBox(height: 8),
-            _ConfirmPasswordInput(),
-            const SizedBox(height: 8),
-            _SignUpButton(),
-          ],
+      child: Container(
+        padding:EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+            Theme.of(context).primaryColor,
+            Theme.of(context).secondaryHeaderColor,
+          ]),
+        ),
+        alignment: Alignment.center,
+        child: Align(
+          alignment: const Alignment(0, -1 / 3),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'chune',
+                style: TextStyle(
+                    fontFamily: '',
+                    fontSize: 90,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              _EmailInput(),
+              const SizedBox(height: 16),
+
+              _PasswordInput(),
+              const SizedBox(height: 16),
+
+              _ConfirmPasswordInput(),
+              const SizedBox(height: 16),
+
+              _SignUpButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -124,7 +146,7 @@ class _SignUpButton extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  backgroundColor: Colors.orangeAccent,
+                  // backgroundColor: Colors.orangeAccent,
                 ),
                 onPressed: state.status.isValidated
                     ? () => context.read<SignUpCubit>().signUpFormSubmitted()

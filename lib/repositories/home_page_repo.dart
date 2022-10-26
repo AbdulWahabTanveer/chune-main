@@ -64,7 +64,7 @@ class HomePageRepositoryImpl extends HomePageRepository {
   }
 
   @override
-  Future unLikeChune(Chune user) {
-    return functions.unlikeChune(user.id);
+  Future unLikeChune(Chune chune) {
+    return functions.unlikeChune(chune.id);
   }
 }

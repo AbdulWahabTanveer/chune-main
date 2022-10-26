@@ -7,6 +7,7 @@ import '../../core/bloc/music_player/music_player_bloc.dart';
 import '../../models/chune.dart';
 import '../../repositories/home_page_repo.dart';
 import 'Post.dart';
+import 'home_post.dart';
 
 class ChunesListWidget extends StatelessWidget {
   final repo = GetIt.I.get<HomePageRepository>();
@@ -20,6 +21,11 @@ class ChunesListWidget extends StatelessWidget {
         return Container(
           child: HomePostWidget(
             chune,
+            (post, likePost, listenPost) => HomePostCard(
+              post,
+              listenPost: listenPost,
+              likePost: likePost,
+            ),
           ),
         );
       },
@@ -28,23 +34,5 @@ class ChunesListWidget extends StatelessWidget {
       query: repo.homePageChunesQuery,
       itemBuilderType: PaginateBuilderType.listView,
     );
-  }
-
-  isSelected(Chune post) {
-
-    // audioPlaying = true;
-    // selectedPost = index;
-  }
-
-  isLiked(Chune post) {
-    post.isLiked = !post.isLiked;
-
-    if (post.isLiked) {
-      // post.likeCount++;
-      // post.likeColor = Colors.red;
-    } else {
-      // post.likeCount--;
-      // post.likeColor = Colors.grey;
-    }
   }
 }

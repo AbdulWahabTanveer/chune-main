@@ -12,10 +12,14 @@ class ShareAChuneInitial extends ShareAChuneState {
 class ChunesLoadSuccess extends ShareAChuneState {
   final List<Chune> chunes;
 
-  ChunesLoadSuccess(this.chunes);
+  final bool end;
+
+  final String search;
+
+  ChunesLoadSuccess(this.chunes, {this.end = false, this.search = '',});
 
   @override
-  List<Object> get props => [chunes];
+  List<Object> get props => [chunes,end,search];
 }
 
 class ChunesLoadingState extends ShareAChuneState {

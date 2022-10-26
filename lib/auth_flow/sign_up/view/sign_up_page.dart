@@ -15,13 +15,10 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Sign Up')),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: BlocProvider<SignUpCubit>(
-          create: (_) => SignUpCubit(GetIt.I.get<AuthenticationRepository>()),
-          child: const SignUpForm(),
-        ),
+      // appBar: AppBar(title: const Text('Sign Up')),
+      body: BlocProvider<SignUpCubit>(
+        create: (_) => SignUpCubit(GetIt.I.get<AuthenticationRepository>()),
+        child: const SignUpForm(),
       ),
     );
   }

@@ -47,6 +47,21 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          textTheme: TextTheme(subtitle1: TextStyle(color: Colors.white)),
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: Colors.white,
+          ),
+        inputDecorationTheme: InputDecorationTheme(
+            labelStyle: TextStyle(color: Colors.white),
+            border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            focusedErrorBorder:OutlineInputBorder(borderSide: BorderSide(color: Colors.white)) ,
+            errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.pinkAccent.shade100)),
+            errorStyle: TextStyle(color: Colors.white,backgroundColor: Colors.red),
+
+
+          ),
             primarySwatch: Colors.pink, secondaryHeaderColor: Colors.blue),
         home: SplashScreen(),
       ),

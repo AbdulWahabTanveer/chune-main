@@ -7,7 +7,9 @@ abstract class ShareAChuneEvent {
 class SearchChuneEvent extends ShareAChuneEvent {
   final String s;
 
-  SearchChuneEvent(this.s);
+  final bool force;
+
+  SearchChuneEvent(this.s, {this.force = false});
 }
 
 class ShareChuneEvent extends ShareAChuneEvent {

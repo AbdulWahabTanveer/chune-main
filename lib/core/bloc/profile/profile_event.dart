@@ -10,6 +10,12 @@ class CheckProfileExistsEvent extends ProfileEvent {
   CheckProfileExistsEvent(this.userId);
 }
 
+class LoadProfileEvent extends ProfileEvent {
+  final String userId;
+
+  LoadProfileEvent(this.userId);
+}
+
 class SetUserProfileEvent extends ProfileEvent {
   final ProfileModel profile;
 

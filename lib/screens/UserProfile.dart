@@ -11,6 +11,9 @@ import '../auth_flow/app/bloc/app_bloc.dart';
 import '../core/bloc/login/login_bloc.dart';
 import '../core/bloc/profile/profile_bloc.dart';
 import '../models/chune.dart';
+import 'UserScreens/EditProfileScreen.dart';
+
+
 
 class MyProfileScreen extends StatefulWidget {
   @override
@@ -37,16 +40,6 @@ class _MyProfileState extends State<MyProfileScreen> {
                 color: Colors.black,
               )
             : null,
-        actions: <Widget>[
-          IconButton(
-            key: const Key('homePage_logout_iconButton'),
-            icon: const Icon(
-              Icons.exit_to_app,
-              color: Colors.red,
-            ),
-            onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
-          )
-        ],
       ),
       body: ListView(
         // mainAxisAlignment: MainAxisAlignment.start,
@@ -87,15 +80,15 @@ class _MyProfileState extends State<MyProfileScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CountWidget(
-                              value: state.profile.chunesShared,
+                              value: state.profile.chunesShared ?? 0,
                               label: "Chunes",
                             ),
                             CountWidget(
-                              value: state.profile.followerCount,
+                              value: state.profile.followerCount ?? 0,
                               label: "Followers",
                             ),
                             CountWidget(
-                              value: state.profile.followingCount,
+                              value: state.profile.followingCount ?? 0,
                               label: "Following",
                             ),
                           ],
@@ -120,7 +113,9 @@ class _MyProfileState extends State<MyProfileScreen> {
                                 child: TextButton(
                                   child: Text('Edit Profile',
                                       style: TextStyle(fontSize: 21)),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    pushTo(context, EditProfile());
+                                  },
                                 ),
                               ),
                             ),

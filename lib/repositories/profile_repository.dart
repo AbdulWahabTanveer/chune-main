@@ -4,6 +4,10 @@ import 'package:newapp/models/profile_model.dart';
 import '../Useful_Code/constants.dart';
 
 abstract class ProfileRepository {
+  Query get likedChunesQuery;
+
+  Query get myNotificationsQuery;
+
   Future<bool> isNewUser(String userId);
 
   Future<bool> usernameExists(String userName);
@@ -13,10 +17,20 @@ abstract class ProfileRepository {
   ProfileModel getMyCachedProfile();
 
   Future<ProfileModel> createProfile(String userId, ProfileModel profile);
+
+  void updateLikes(String id, bool likeStatus);
 }
 
 class ProfileRepositoryImpl extends ProfileRepository {
   final fireStore = FirebaseFirestore.instance;
+
+  Query get likedChunesQuery => FirebaseFirestore.instance
+      .collection(chunesCollection)
+      .where(FieldPath.documentId,
+          whereIn: me.likedChunes.isNotEmpty ? me.likedChunes : ['notfound']);
+
+  Query get myNotificationsQuery => FirebaseFirestore.instance
+      .collection(usersCollection).doc(me.id).collection(notificationCollection).orderBy('timestamp',descending: true);
 
   @override
   Future<bool> isNewUser(String userId) async {
@@ -67,7 +81,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
           .collection(usersCollection)
           .doc(userId)
           .set(profile.toMap());
-      this.me =  profile.copyWith(id: userId);
+      this.me = profile.copyWith(id: userId);
       return me;
     } catch (e) {
       return null;
@@ -76,4 +90,13 @@ class ProfileRepositoryImpl extends ProfileRepository {
 
   @override
   ProfileModel getMyCachedProfile() => me;
+
+  @override
+  void updateLikes(String id, bool likeStatus) {
+    if (likeStatus) {
+      me.likedChunes.add(id);
+    } else {
+      me.likedChunes.remove(id);
+    }
+  }
 }

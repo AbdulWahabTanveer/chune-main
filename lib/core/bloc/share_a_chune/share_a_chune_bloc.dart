@@ -18,6 +18,10 @@ part 'share_a_chune_state.dart';
 class ShareAChuneBloc extends Bloc<ShareAChuneEvent, ShareAChuneState> {
   final chuneRepo = GetIt.I.get<ShareAChuneRepository>();
 
+  int page = 0;
+
+  bool end = false;
+
   ShareAChuneBloc() : super(ShareAChuneInitial()) {
     on<SearchChuneEvent>(_onSearchChune);
     on<ShareChuneEvent>(_onShareChune);
@@ -25,9 +29,26 @@ class ShareAChuneBloc extends Bloc<ShareAChuneEvent, ShareAChuneState> {
 
   FutureOr<void> _onSearchChune(
       SearchChuneEvent event, Emitter<ShareAChuneState> emit) async {
-    emit(ChunesLoadingState());
-    final chunes = await chuneRepo.search(event.s);
-    emit(ChunesLoadSuccess(chunes));
+    if (state is ChunesLoadingState || end) {
+      return;
+    }
+    List<Chune> chunes = [];
+    var s = event.s;
+    if (!event.force && state is ChunesLoadSuccess) {
+      final cast = state as ChunesLoadSuccess;
+      page++;
+      chunes = List<Chune>.from(cast.chunes);
+      s = cast.search;
+    } else {
+      page = 0;
+      end = false;
+      emit(ChunesLoadingState());
+    }
+    final newChunes = await chuneRepo.search(s, page: page);
+    if (newChunes.isEmpty) {
+      end = true;
+    }
+    emit(ChunesLoadSuccess(chunes..addAll(newChunes), end: end, search: s));
   }
 
   FutureOr<void> _onShareChune(

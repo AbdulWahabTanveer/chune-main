@@ -42,7 +42,6 @@ class _CreateUsername extends State<_CreateUsernameContent> {
     final user = context.select((AppBloc bloc) => bloc.state.user);
     final _fieldDecor = InputDecoration(
       labelStyle: TextStyle(color: Colors.white),
-      label: Text('username'),
       focusedBorder: border,
       enabledBorder: border,
       border: border,
@@ -84,6 +83,13 @@ class _CreateUsername extends State<_CreateUsernameContent> {
           body: Form(
             key: _formKey,
             child: Container(
+
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [
+                  Theme.of(context).primaryColor,
+                  Theme.of(context).secondaryHeaderColor,
+                ]),
+              ),
               alignment: Alignment.center,
               child: ListView(
                 children: [
@@ -107,7 +113,7 @@ class _CreateUsername extends State<_CreateUsernameContent> {
                       validator: (e) => e.isEmpty ? "Required" : null,
                       style: TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
-                      decoration: _fieldDecor,
+                      decoration: _fieldDecor.copyWith(labelText: "Username"),
                     ),
                   ),
                   Padding(
@@ -118,7 +124,7 @@ class _CreateUsername extends State<_CreateUsernameContent> {
                           e != username.text ? "Username does not match" : null,
                       style: TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
-                      decoration: _fieldDecor,
+                      decoration: _fieldDecor.copyWith(labelText: "Confirm username"),
                     ),
                   ),
                   if (state is UsernameExistsState)
@@ -130,24 +136,32 @@ class _CreateUsername extends State<_CreateUsernameContent> {
                       ),
                     ),
                   SizedBox(height: 100),
-                  ElevatedButton(
-                      onPressed: state is UsernameLoadingState
-                          ? null
-                          : () {
-                              if (_formKey.currentState.validate()) {
-                                checkUsername();
-                              }
-                            },
-                      child: state is UsernameLoadingState
-                          ? loader()
-                          : Text("CREATE")),
-                  if (state is UsernameLoadingState)
-                    Text(
-                      state is CheckingUsernameState
-                          ? 'Checking availability'
-                          : 'Creating username',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                        onPressed: state is UsernameLoadingState
+                            ? null
+                            : () {
+                                if (_formKey.currentState.validate()) {
+                                  checkUsername();
+                                }
+                              },
+                        child: state is UsernameLoadingState
+                            ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                loader(),
+                                if (state is UsernameLoadingState)
+                                  Text(
+                                    state is CheckingUsernameState
+                                        ? 'Checking availability'
+                                        : 'Creating username',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                              ],
+                            )
+                            : Text("CREATE")),
+                  ),
                   SizedBox(height: 100),
                 ],
               ),

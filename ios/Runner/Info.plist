@@ -38,7 +38,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>This app needs to access Apple Music to play chunes.</string>
+	<string>This app needs to access Apple Music to play chunes</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>

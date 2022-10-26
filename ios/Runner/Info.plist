@@ -16,6 +16,14 @@
     			<string>com.googleusercontent.apps.276112452493-hvcfn5cgmediq5jims991a5fsjvb5l5p</string>
     		</array>
     	</dict>
+    	<dict>
+          <key>CFBundleURLName</key>
+          <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+          <key>CFBundleURLSchemes</key>
+          <array>
+            <string>chune</string>
+          </array>
+        </dict>
     </array>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
@@ -37,6 +45,10 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>spotify</string>
+    </array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>

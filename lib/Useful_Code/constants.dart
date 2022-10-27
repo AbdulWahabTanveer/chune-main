@@ -1,4 +1,4 @@
 const usersCollection = 'users';
-const notificationCollection = 'Notifications';
+const notificationCollection = 'notifications';
 const infoCollection = 'Info';
 const chunesCollection = 'chunes';

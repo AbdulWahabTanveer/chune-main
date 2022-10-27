@@ -15,6 +15,11 @@ class CloudFunctionsService {
         await _callFunction('likeChune', data: <String, String>{'id': chuneId});
   }
 
+  Future listenChune(String chuneId) async {
+    final data =
+        await _callFunction('listenChune', data: <String, String>{'id': chuneId});
+  }
+
   Future unlikeChune(String chuneId) async {
     final data = await _callFunction('unlikeChune',
         data: <String, String>{'id': chuneId});

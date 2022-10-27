@@ -33,7 +33,7 @@ class _NavScreen extends State<NavScreen> {
   var iconCOlor = Colors.grey;
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    Notifications(),
+    NotificationsScreen(),
     SearchScreen(),
     ChatScreen(),
     MyProfileScreen()

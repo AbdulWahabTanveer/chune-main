@@ -1,57 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/screens/Player.dart';
-import 'package:newapp/screens/Widgets/player_panel.dart';
-import 'package:newapp/screens/globalvariables.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
+import '../models/notification_model.dart';
 import '../repositories/profile_repository.dart';
-import 'UserScreens/Userprofile.dart';
+import 'Widgets/FollowCard.dart';
 
-class Notifications extends StatefulWidget {
+class NotificationsScreen extends StatefulWidget {
   @override
   _Notifications createState() => _Notifications();
 }
 
-class _Notifications extends State<Notifications> {
-  List notifications;
-
-  void initState() {
-    super.initState();
-    notifications = <Notification>[];
-
-    notifications.add(
-      Notification(
-        profilePic: 'images/Not3s.jpeg',
-        userName: 'username',
-        albumArt: 'images/PND.jpg',
-      ),
-    );
-
-    notifications.add(
-      Notification(
-        profilePic: 'images/MUSIC.jpeg',
-        userName: 'username',
-        albumArt: 'images/PND.jpg',
-      ),
-    );
-
-    notifications.add(
-      Notification(
-        profilePic: 'images/MUSIC.jpeg',
-        userName: 'username',
-        albumArt: 'images/PND.jpg',
-      ),
-    );
-  }
-
-  isliked() {
-    ///coming soon
-  }
-
-  isFollowed() {
-    ///coming soon
-  }
-
+class _Notifications extends State<NotificationsScreen> {
   final repo = GetIt.I.get<ProfileRepository>();
 
   @override
@@ -61,8 +20,10 @@ class _Notifications extends State<Notifications> {
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (context, documentSnapshots, index) {
+          final notification =
+              NotificationModel.fromMap(documentSnapshots[index].data() as Map);
           return NotificationPost(
-            notifications[index],
+            notification,
           );
         },
         query: repo.myNotificationsQuery,
@@ -72,22 +33,10 @@ class _Notifications extends State<Notifications> {
   }
 }
 
-class Notification {
-  Notification({
-    this.profilePic,
-    this.userName,
-    this.albumArt,
-  });
-
-  String profilePic;
-  String userName;
-  String albumArt;
-}
-
 class NotificationPost extends StatelessWidget {
   NotificationPost(this.post);
 
-  final Notification post;
+  final NotificationModel post;
 
   @override
   Widget build(BuildContext context) {
@@ -104,23 +53,28 @@ class NotificationPost extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.favorite, color: Colors.red),
+                          if (post.type == 'like')
+                            Icon(Icons.favorite, color: Colors.red),
+                          if (post.type == 'follow')
+                            Icon(Icons.account_circle_outlined,
+                                color: Colors.blue),
+                          if (post.type == 'listen')
+                            Icon(Icons.library_music, color: Colors.blue),
                           SizedBox(width: 20),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
-                                  CircleAvatar(
-                                    backgroundImage:
-                                        AssetImage(post.profilePic),
-                                    radius: 17,
+                                  AvatarImage(
+                                    post.userImage,
+                                    17,
                                   ),
                                 ],
                               ),
                               SizedBox(height: 8),
                               Text(
-                                '${post.userName} liked your chune',
+                                '@${post.message}',
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
@@ -131,113 +85,16 @@ class NotificationPost extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12.0),
-                            child: Image.asset(
-                              post.albumArt,
-                              height: 50,
-                              width: 50,
+                          if (post.chuneImage != null &&
+                              post.chuneImage.isNotEmpty)
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12.0),
+                              child: Image.network(
+                                post.chuneImage,
+                                height: 50,
+                                width: 50,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              width: 390,
-              height: 1,
-              color: Colors.grey[300],
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.account_circle_outlined,
-                              color: Colors.blue),
-                          SizedBox(width: 20),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundImage:
-                                        AssetImage(post.profilePic),
-                                    radius: 17,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                '${post.userName} followed you',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              width: 390,
-              height: 1,
-              color: Colors.grey[300],
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.library_music, color: Colors.blue),
-                          SizedBox(width: 20),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundImage:
-                                        AssetImage(post.profilePic),
-                                    radius: 17,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                '${post.userName} listened to your chune',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                ),
-                              )
-                            ],
-                          )
                         ],
                       ),
                     ],

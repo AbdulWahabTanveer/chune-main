@@ -48,23 +48,21 @@ class _ViewAllAccounts extends State<ViewAllAccounts> {
             ),
           ),
         ),
-        body: Column(
-          children: [
-            SizedBox(height: 20),
-            PaginateFirestore(
-              shrinkWrap: true,
-              itemBuilder: (context, documentSnapshots, index) {
-                var e = documentSnapshots[index];
-                final profile =
-                    ProfileModel.fromMap(e.data()).copyWith(id: e.id);
-                return FollowCard(
-                  profile,
-                );
-              },
-              query: repo.allUserAccountsQuery,
-              itemBuilderType: PaginateBuilderType.listView,
-            )
-          ],
+        body: Padding(
+          padding: const EdgeInsets.only(top:20.0),
+          child: PaginateFirestore(
+            shrinkWrap: true,
+            itemBuilder: (context, documentSnapshots, index) {
+              var e = documentSnapshots[index];
+              final profile =
+                  ProfileModel.fromMap(e.data()).copyWith(id: e.id);
+              return FollowCard(
+                profile,
+              );
+            },
+            query: repo.allUserAccountsQuery,
+            itemBuilderType: PaginateBuilderType.listView,
+          ),
         ));
   }
 

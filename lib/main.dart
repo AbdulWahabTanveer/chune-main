@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
 
           ),
             primarySwatch: Colors.pink, secondaryHeaderColor: Colors.blue),
-        home: SplashScreen(),
+        home: false?ApplyApp():SplashScreen(),
       ),
     );
   }

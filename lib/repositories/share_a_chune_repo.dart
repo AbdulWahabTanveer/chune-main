@@ -44,7 +44,7 @@ class ShareAChuneRepoImpl extends ShareAChuneRepository {
             ),
           );
         case MusicSourceType.apple:
-          final result = await appleRepo.search(s);
+          final result = await appleRepo.search(s,page: page);
           return List<Chune>.from(
             result.results.songs.data.map(
               (item) => Chune(
@@ -56,7 +56,9 @@ class ShareAChuneRepoImpl extends ShareAChuneRepository {
                 songName: item.attributes.name,
                 preview: item.attributes.previews[0].url,
                 source: MusicSourceType.apple,
+                playUri: item.id,
                 artistName: item.attributes.artistName,
+                appleObj: item
               ),
             ),
           );

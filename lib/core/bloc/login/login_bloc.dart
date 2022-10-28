@@ -16,6 +16,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
     on<LoginWithSpotifyEvent>(_onLoginWithSpotify);
     on<LoginWithAppleEvent>(_onLoginWithApple);
+    on<ResetMusicSourceEvent>((event, emit) => emit(LoginInitial()));
   }
 
   FutureOr<void> _onLoginWithSpotify(

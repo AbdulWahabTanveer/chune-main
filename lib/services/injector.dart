@@ -30,7 +30,7 @@ class Injector {
     GetIt.I.registerSingleton<AuthRepository>(AuthRepoImpl());
     GetIt.I.registerSingleton<SpotifyRepository>(SpotifyRepoImpl());
     GetIt.I.registerSingleton<AppleRepository>(AppleRepoImpl());
-    GetIt.I.registerSingleton<BdiAudioHandler>(BdiAudioHandler());
+    GetIt.I.registerSingleton<AudioHandler>(AudioHandler());
     GetIt.I.registerSingleton<CloudFunctionsService>(CloudFunctionsService());
     GetIt.I.registerSingleton<ProfileRepository>(ProfileRepositoryImpl());
     GetIt.I.registerSingleton<HomePageRepository>(HomePageRepositoryImpl());

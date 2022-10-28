@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 
 import '../models/chune.dart';
 
-class BdiAudioHandler {
+class AudioHandler {
   BaseAudioPlayer _player;
 
   /// Creates an empty [BehaviorSubject] so as to allow new listeners

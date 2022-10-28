@@ -266,7 +266,7 @@ class Attributes {
     albumName: json["albumName"],
     genreNames: List<String>.from(json["genreNames"].map((x) => x)),
     trackNumber: json["trackNumber"],
-    releaseDate: DateTime.parse(json["releaseDate"]),
+    releaseDate: DateTime.tryParse(json["releaseDate"]??''),
     durationInMillis: json["durationInMillis"],
     isrc: json["isrc"],
     artwork: Artwork.fromJson(json["artwork"]),

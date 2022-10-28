@@ -21,7 +21,11 @@ class FollowCardBloc extends Bloc<FollowCardEvent, FollowCardState> {
     on<FollowUserEvent>(_onFollowUser);
     on<UndoFollowEvent>(
       (event, emit) => emit(FollowCardLoaded(
-        event.card.copyWith(isFollowing: !event.card.isFollowing),
+        event.card.copyWith(
+            isFollowing: !event.card.isFollowing,
+            followerCount: event.card.isFollowing
+                ? event.card.followerCount - 1
+                : event.card.followerCount + 1),
       )),
     );
   }
@@ -49,6 +53,8 @@ class FollowCardBloc extends Bloc<FollowCardEvent, FollowCardState> {
           add(UndoFollowEvent(cast.card));
         });
       }
+      var followStatus = !cast.card.isFollowing;
+      profileRepo.updateLikes(cast.card.id, followStatus);
       emit(
         FollowCardLoaded(
           cast.card.copyWith(isFollowing: !cast.card.isFollowing),
@@ -56,5 +62,4 @@ class FollowCardBloc extends Bloc<FollowCardEvent, FollowCardState> {
       );
     }
   }
-
 }

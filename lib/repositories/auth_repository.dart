@@ -31,8 +31,8 @@ class AuthRepoImpl extends AuthRepository {
       print(authenticationToken);
       await SpotifySdk.connectToSpotifyRemote(
           clientId: CLIENT_ID, redirectUrl: REDIRECT_URL);
-      final currentUser =
-          MusicSourceModel(token: authenticationToken, type: MusicSourceType.spotify);
+      final currentUser = MusicSourceModel(
+          token: authenticationToken, type: MusicSourceType.spotify);
       super.user = currentUser;
       return currentUser;
     } on PlatformException catch (e) {
@@ -53,12 +53,15 @@ class AuthRepoImpl extends AuthRepository {
     );
 
     final userToken = await _musicKitPlugin.requestUserToken(token);
-    final storeFront = await GetIt.I.get<AppleRepository>().getStoreFront(token,userToken);
+    final storeFront =
+        await GetIt.I.get<AppleRepository>().getStoreFront(token, userToken);
+    await _musicKitPlugin.play();
     final currentUser = MusicSourceModel(
-        token: userToken,
-        type: MusicSourceType.apple,
-        storeFront: storeFront,
-        appleDevToken: token);
+      token: userToken,
+      type: MusicSourceType.apple,
+      storeFront: storeFront,
+      appleDevToken: token,
+    );
     super.user = currentUser;
     return currentUser;
   }

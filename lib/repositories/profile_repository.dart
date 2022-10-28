@@ -19,6 +19,7 @@ abstract class ProfileRepository {
   Future<ProfileModel> createProfile(String userId, ProfileModel profile);
 
   void updateLikes(String id, bool likeStatus);
+  void updateFollows(String id, bool followStatus);
 }
 
 class ProfileRepositoryImpl extends ProfileRepository {
@@ -97,6 +98,15 @@ class ProfileRepositoryImpl extends ProfileRepository {
       me.likedChunes.add(id);
     } else {
       me.likedChunes.remove(id);
+    }
+  }
+
+  @override
+  void updateFollows(String id, bool followStatus) {
+    if (followStatus) {
+      me.followings.add(id);
+    } else {
+      me.followings.remove(id);
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/Useful_Code/utils.dart';
+import 'package:newapp/auth_flow/app/app.dart';
 import 'package:newapp/models/profile_model.dart';
 
 import '../../core/bloc/follow_card/follow_card_bloc.dart';
@@ -30,6 +31,9 @@ class _FollowCardContent extends StatelessWidget {
       builder: (context, state) {
         if (state is FollowCardLoaded) {
           final card = state.card;
+          if(card.id == context.read<AppBloc>().state.user.id){
+            return SizedBox.shrink();
+          }
           return Padding(
             padding: const EdgeInsets.only(left: 8, bottom: 12, right: 8),
             child: Container(

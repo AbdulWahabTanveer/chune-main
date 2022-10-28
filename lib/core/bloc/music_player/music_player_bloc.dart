@@ -14,7 +14,7 @@ part 'music_player_event.dart';
 part 'music_player_state.dart';
 
 class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
-  final player = GetIt.I<BdiAudioHandler>();
+  final player = GetIt.I<AudioHandler>();
   final functions = GetIt.I<CloudFunctionsService>();
 
   var lock = false;
@@ -41,7 +41,10 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
       emit(MusicPlayerLoading());
     }
     await player.init(chune: event.post);
-    functions.listenChune(event.post.id);
+    await player.play();
+    if (event.post.id != null) {
+      functions.listenChune(event.post.id);
+    }
     emit(
       MusicPlayerLoaded(
         totalDuration: Duration.zero,

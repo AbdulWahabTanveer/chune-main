@@ -6,3 +6,4 @@ abstract class LoginEvent {
 
 class LoginWithSpotifyEvent extends LoginEvent {}
 class LoginWithAppleEvent extends LoginEvent {}
+class ResetMusicSourceEvent extends LoginEvent {}

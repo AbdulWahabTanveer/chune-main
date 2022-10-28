@@ -190,62 +190,8 @@ class _ShareAChune extends State<_ShareAChuneContent> {
     setState(
       () {
         selectedChune = chune;
-        // chune.isSelected ? selectedCounter++ : selectedCounter--;
-        // print(selectedCounter);
-        //
-        // selectedCounter >= 1
-        //     ? selectedColor = Colors.blue
-        //     : selectedColor = Colors.grey;
       },
     );
-    // var _musicKitPlugin = MusicKit();
-    // await _musicKitPlugin.setQueue('songs',
-    //     item:  {
-    //       "id": "1130322151",
-    //       "type": "songs",
-    //       "href": "/v1/catalog/in/songs/1130322151",
-    //       "attributes": {
-    //         "albumName": "Dil Se (Original Motion Picture Soundtrack)",
-    //         "genreNames": [
-    //           "Bollywood",
-    //           "Music",
-    //           "Indian",
-    //           "Soundtrack"
-    //         ],
-    //         "trackNumber": 1,
-    //         "releaseDate": "1998-07-08",
-    //         "durationInMillis": 416613,
-    //         "isrc": "INV119800029",
-    //         "artwork": {
-    //           "width": 1440,
-    //           "height": 1440,
-    //           "url": "https://is5-ssl.mzstatic.com/image/thumb/Music114/v4/8e/f8/85/8ef88544-a6c7-018b-0a75-dc3b6b024fa0/cover.jpg/{w}x{h}bb.jpg",
-    //           "bgColor": "011106",
-    //           "textColor1": "fd960c",
-    //           "textColor2": "f17603",
-    //           "textColor3": "ca7b0a",
-    //           "textColor4": "c16103"
-    //         },
-    //         "composerName": "A.R. Rahman & Gulzar",
-    //         "url": "https://music.apple.com/in/album/chaiyya-chaiyya/1130322055?i=1130322151",
-    //         "playParams": {
-    //           "id": "1130322151",
-    //           "kind": "song"
-    //         },
-    //         "discNumber": 1,
-    //         "hasLyrics": true,
-    //         "isAppleDigitalMaster": false,
-    //         "name": "Chaiyya Chaiyya",
-    //         "previews": [
-    //           {
-    //             "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/34/3d/b9/343db955-51de-a7aa-c355-649133ca840e/mzaf_18166352209998766749.plus.aac.p.m4a"
-    //           }
-    //         ],
-    //         "artistName": "Sukhwinder Singh & Sapna Awasthi"
-    //       }
-    //     });
-    // await _musicKitPlugin.play();
-    // return;
     context.read<MusicPlayerBloc>().add(SetAudioEvent(chune));
   }
 }

@@ -27,10 +27,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-693268170/android.firebase_core.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-693268170/android.firebase_core.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-693268170/android.firebase_core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-693268170/android.firebase_core.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-693268170/android.firebase_core.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-693268170/android.firebase_core.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-890271031/android.firebase_messaging.iml" filepath="$PROJECT_DIR$/.idea/modules/-890271031/android.firebase_messaging.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-890271031/android.firebase_messaging.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-890271031/android.firebase_messaging.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-890271031/android.firebase_messaging.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-890271031/android.firebase_messaging.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-890271031/android.firebase_messaging.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-890271031/android.firebase_messaging.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-295977535/android.flutter_web_auth.iml" filepath="$PROJECT_DIR$/.idea/modules/-295977535/android.flutter_web_auth.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-295977535/android.flutter_web_auth.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/-295977535/android.flutter_web_auth.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-295977535/android.flutter_web_auth.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-295977535/android.flutter_web_auth.main.iml" />
@@ -60,6 +56,10 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1899470243/android.webview_flutter_android.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/1899470243/android.webview_flutter_android.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1899470243/android.webview_flutter_android.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1899470243/android.webview_flutter_android.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1899470243/android.webview_flutter_android.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/1899470243/android.webview_flutter_android.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/72687242/io.flutter.plugins.firebasemessaging.android.firebase_messaging.iml" filepath="$PROJECT_DIR$/.idea/modules/72687242/io.flutter.plugins.firebasemessaging.android.firebase_messaging.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/72687242/io.flutter.plugins.firebasemessaging.android.firebase_messaging.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/72687242/io.flutter.plugins.firebasemessaging.android.firebase_messaging.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/72687242/io.flutter.plugins.firebasemessaging.android.firebase_messaging.main.iml" filepath="$PROJECT_DIR$/.idea/modules/72687242/io.flutter.plugins.firebasemessaging.android.firebase_messaging.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/72687242/io.flutter.plugins.firebasemessaging.android.firebase_messaging.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/72687242/io.flutter.plugins.firebasemessaging.android.firebase_messaging.unitTest.iml" />
     </modules>
   </component>
 </project>

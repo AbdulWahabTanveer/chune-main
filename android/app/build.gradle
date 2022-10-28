@@ -61,7 +61,7 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.spotify.android:auth:2.0.2"
-//
-//    implementation (name: 'mediaplayback-release-1.1.1', ext: 'aar')
-//    implementation (name: 'musickitauth-release-1.1.2', ext: 'aar')
+
+//        implementation (name: 'mediaplayback-release-1.1.1', ext: 'aar')
+    //    implementation (name: 'musickitauth-release-1.1.2', ext: 'aar')
 }

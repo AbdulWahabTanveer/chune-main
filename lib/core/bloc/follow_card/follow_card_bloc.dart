@@ -54,7 +54,7 @@ class FollowCardBloc extends Bloc<FollowCardEvent, FollowCardState> {
         });
       }
       var followStatus = !cast.card.isFollowing;
-      profileRepo.updateLikes(cast.card.id, followStatus);
+      profileRepo.updateFollows(cast.card.id, followStatus);
       emit(
         FollowCardLoaded(
           cast.card.copyWith(isFollowing: !cast.card.isFollowing),

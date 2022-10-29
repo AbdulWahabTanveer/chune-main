@@ -84,7 +84,6 @@ class ApplePlayer extends BaseAudioPlayer {
 
   @override
   Future<void> queue(Chune mediaItem) {
-    print(mediaItem.appleObj.toJson());
     return _musicKitPlugin.setQueueWithItems("songs", items: [
       {'id': mediaItem.playUri}
     ]);

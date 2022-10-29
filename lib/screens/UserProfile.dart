@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/Useful_Code/constants.dart';
 import 'package:newapp/Useful_Code/utils.dart';
-import 'package:newapp/screens/LoginScreens/Login.dart';
-import 'package:newapp/screens/ShareAChune.dart';
 import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import '../auth_flow/app/bloc/app_bloc.dart';
-import '../core/bloc/login/login_bloc.dart';
 import '../core/bloc/profile/profile_bloc.dart';
 import '../models/chune.dart';
+import 'ShareAChune.dart';
 import 'UserScreens/EditProfileScreen.dart';
-
-
+import 'UserScreens/LikedChunes.dart';
 
 class MyProfileScreen extends StatefulWidget {
   @override
@@ -231,60 +228,6 @@ class CountWidget extends StatelessWidget {
           ),
         )
       ],
-    );
-  }
-}
-
-class ChuneRow extends StatelessWidget {
-  ChuneRow(this.chune);
-
-  final Chune chune;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(16.0),
-                  child: Image.network(
-                    chune.albumArt,
-                    height: 70,
-                    width: 70,
-                  ),
-                ),
-                SizedBox(width: 10),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      chune.songName,
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      chune.artistName,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

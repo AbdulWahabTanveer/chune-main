@@ -19,7 +19,12 @@ abstract class ProfileRepository {
   Future<ProfileModel> createProfile(String userId, ProfileModel profile);
 
   void updateLikes(String id, bool likeStatus);
+
   void updateFollows(String id, bool followStatus);
+
+  Future<ProfileModel> loadUserProfile(String userId);
+
+  Query userChunesQuery(String id);
 }
 
 class ProfileRepositoryImpl extends ProfileRepository {
@@ -31,7 +36,10 @@ class ProfileRepositoryImpl extends ProfileRepository {
           whereIn: me.likedChunes.isNotEmpty ? me.likedChunes : ['notfound']);
 
   Query get myNotificationsQuery => FirebaseFirestore.instance
-      .collection(usersCollection).doc(me.id).collection(notificationCollection).orderBy('timestamp',descending: true);
+      .collection(usersCollection)
+      .doc(me.id)
+      .collection(notificationCollection)
+      .orderBy('timestamp', descending: true);
 
   @override
   Future<bool> isNewUser(String userId) async {
@@ -109,4 +117,17 @@ class ProfileRepositoryImpl extends ProfileRepository {
       me.followings.remove(id);
     }
   }
+
+  @override
+  Future<ProfileModel> loadUserProfile(String userId) async {
+    final profile =
+        await fireStore.collection(usersCollection).doc(userId).get();
+    return ProfileModel.fromMap(profile.data()).copyWith(id: userId);
+  }
+
+  @override
+  Query<Object> userChunesQuery(String id) => fireStore
+      .collection(chunesCollection)
+      .where('userId', isEqualTo: id)
+      .orderBy('timestamp', descending: true);
 }

@@ -42,13 +42,8 @@ class _LikedChunes extends State<LikedChunes> {
           final chune = Chune.fromMap(documentSnapshots[index].data() as Map)
               .copyWith(id: documentSnapshots[index].id);
           return Container(
-            child: HomePostWidget(
+            child: ChuneRow(
               chune,
-              (post, likePost, listenPost) => ChuneRow(
-                post,
-                listenPost: listenPost,
-                likePost: likePost,
-              ),
             ),
           );
         },
@@ -62,76 +57,76 @@ class _LikedChunes extends State<LikedChunes> {
 }
 
 class ChuneRow extends StatelessWidget {
-  final Chune chune;
+  final Chune post;
 
-  final VoidCallback likePost;
-
-  final VoidCallback listenPost;
-
-  const ChuneRow(this.chune, {Key key, this.likePost, this.listenPost})
-      : super(key: key);
+  const ChuneRow(this.post, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      splashColor: Colors.white,
-      onTap: listenPost,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(16.0),
-                  child: Image.network(
-                    chune.albumArt,
-                    height: 70,
-                    width: 70,
-                  ),
-                ),
-                SizedBox(width: 10),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      chune.songName,
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
+    return HomePostWidget(
+      post,
+      (chune, likePost, listenPost) => InkWell(
+        splashColor: Colors.white,
+        onTap: listenPost,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16.0),
+                    child: Image.network(
+                      chune.albumArt,
+                      height: 70,
+                      width: 70,
                     ),
-                    SizedBox(height: 5),
-                    Text(
-                      chune.artistName,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                IconButton(
-                  onPressed: likePost,
-                  padding: EdgeInsets.all(0),
-                  icon: Icon(
-                    chune.isLiked
-                        ? Icons.favorite
-                        : Icons.favorite_border_outlined,
-                    color: chune.isLiked
-                        ? Colors.red
-                        : Colors.grey.withOpacity(0.7),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  SizedBox(width: 10),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        chune.songName,
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        chune.artistName.length > 24
+                            ? "${chune.artistName.substring(0, 23)}.."
+                            : chune.artistName,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: likePost,
+                    padding: EdgeInsets.all(0),
+                    icon: Icon(
+                      chune.isLiked
+                          ? Icons.favorite
+                          : Icons.favorite_border_outlined,
+                      color: chune.isLiked
+                          ? Colors.red
+                          : Colors.grey.withOpacity(0.7),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -30,7 +30,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) async {
     if (event.user.isNotEmpty) {
-      await FirebaseMessaging.instance.subscribeToTopic(event.user.id);
+       FirebaseMessaging.instance.subscribeToTopic(event.user.id);
     }
     emit(
       event.user.isNotEmpty

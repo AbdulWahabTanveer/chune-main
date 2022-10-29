@@ -58,7 +58,6 @@ class ShareAChuneRepoImpl extends ShareAChuneRepository {
                 source: MusicSourceType.apple,
                 playUri: item.id,
                 artistName: item.attributes.artistName,
-                appleObj: item
               ),
             ),
           );

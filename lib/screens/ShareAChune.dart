@@ -153,7 +153,7 @@ class _ShareAChune extends State<_ShareAChuneContent> {
                     itemCount: state.chunes.length,
                     itemBuilder: (context, index) {
                       final chune = state.chunes[index];
-                      return ChuneRow(chune, () => isSelected(chune),
+                      return _ChuneRow(chune, () => isSelected(chune),
                           selectedChune?.playUri == chune.playUri);
                     },
                   ),
@@ -196,10 +196,10 @@ class _ShareAChune extends State<_ShareAChuneContent> {
   }
 }
 
-class ChuneRow extends StatelessWidget {
+class _ChuneRow extends StatelessWidget {
   final bool isSelected;
 
-  ChuneRow(this.chune, this.onSelect, this.isSelected);
+  _ChuneRow(this.chune, this.onSelect, this.isSelected);
 
   final Chune chune;
   final VoidCallback onSelect;

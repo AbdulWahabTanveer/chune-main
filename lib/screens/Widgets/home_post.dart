@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:newapp/Useful_Code/utils.dart';
+import 'package:newapp/screens/Profile.dart';
 import 'package:newapp/screens/Widgets/FollowCard.dart';
 
 import '../../models/chune.dart';
-
 
 class HomePostCard extends StatelessWidget {
   final Chune post;
@@ -20,23 +21,28 @@ class HomePostCard extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Column(
         children: <Widget>[
-          Row(
-            children: [
-              AvatarImage(post.userImage, 17),
-              SizedBox(
-                width: 10,
-              ), //Profile Image
-              Text(
-                post.username,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16),
-              ), //Username
-              SizedBox(
-                height: 50,
-              )
-            ],
+          InkWell(
+            onTap: () {
+              pushTo(context, UserProfileScreen(post.userId));
+            },
+            child: Row(
+              children: [
+                AvatarImage(post.userImage, 17),
+                SizedBox(
+                  width: 10,
+                ), //Profile Image
+                Text(
+                  post.username,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ), //Username
+                SizedBox(
+                  height: 50,
+                )
+              ],
+            ),
           ),
           GestureDetector(
             child: ClipRRect(

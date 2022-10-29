@@ -1,6 +1,5 @@
 import 'package:newapp/models/current_user.dart';
 
-import 'apple_model.dart';
 
 class Chune {
   final String id;
@@ -18,7 +17,6 @@ class Chune {
   final int timestamp;
 
   bool isLiked = false;
-  Datum appleObj;
 
 //<editor-fold desc="Data Methods">
 
@@ -35,7 +33,6 @@ class Chune {
     this.userImage,
     this.likeCount,
     this.timestamp,
-    this.appleObj,
     this.isLiked = false,
   });
 

@@ -39,6 +39,8 @@
 	<string>????</string>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>This app needs to access Apple Music to play chunes</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs to access Microphone for some of the features to work properly.</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>

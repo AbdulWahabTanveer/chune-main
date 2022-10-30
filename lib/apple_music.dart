@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
+// import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:music_kit/music_kit.dart';
 
 class ApplyApp extends StatefulWidget {
@@ -69,16 +69,16 @@ class _ApplyAppState extends State<ApplyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    final now = DateTime.now().toUtc().millisecondsSinceEpoch ~/ 1000;
+    // final now = DateTime.now().toUtc().millisecondsSinceEpoch ~/ 1000;
     final status = await _musicKitPlugin.authorizationStatus;
-    final jwt = JWT({
-      "iat": now,
-      "exp": now + Duration(hours: 12).inSeconds,
-      'iss': 'DZQ6SRZXKQ'
-    }, header: {
-      "alg": "ES256",
-      "kid": "9RULML4U2U"
-    });
+    // final jwt = JWT({
+    //   "iat": now,
+    //   "exp": now + Duration(hours: 12).inSeconds,
+    //   'iss': 'DZQ6SRZXKQ'
+    // }, header: {
+    //   "alg": "ES256",
+    //   "kid": "9RULML4U2U"
+    // });
 
 // Sign it (default with HS256 algorithm)
     final token =

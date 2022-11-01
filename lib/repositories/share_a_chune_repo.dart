@@ -54,6 +54,7 @@ class ShareAChuneRepoImpl extends ShareAChuneRepository {
                     .replaceFirst(
                         '{h}', item.attributes.artwork.height.toString()),
                 songName: item.attributes.name,
+                appleObj:item.toJson(),
                 preview: item.attributes.previews[0].url,
                 source: MusicSourceType.apple,
                 playUri: item.id,

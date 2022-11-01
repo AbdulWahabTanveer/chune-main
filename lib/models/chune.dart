@@ -1,6 +1,5 @@
 import 'package:newapp/models/current_user.dart';
 
-
 class Chune {
   final String id;
   final String preview;
@@ -18,6 +17,8 @@ class Chune {
 
   bool isLiked = false;
 
+  Map<String, dynamic> appleObj;
+
 //<editor-fold desc="Data Methods">
 
   Chune({
@@ -34,6 +35,7 @@ class Chune {
     this.likeCount,
     this.timestamp,
     this.isLiked = false,
+    this.appleObj,
   });
 
   @override
@@ -137,25 +139,26 @@ class Chune {
       'likeCount': this.likeCount,
       'timestamp': this.timestamp,
       'isLiked': this.isLiked,
+      'appleObj': this.appleObj
     };
   }
 
   factory Chune.fromMap(Map<String, dynamic> map) {
     return Chune(
-      id: map['id'] as String,
-      preview: map['preview'] as String,
-      playUri: map['playUri'] as String,
-      albumArt: map['albumArt'] as String,
-      songName: map['songName'] as String,
-      artistName: map['artistName'] as String,
-      source: _stringToSource[map['source']],
-      userId: map['userId'] as String,
-      username: map['username'] as String,
-      userImage: map['userImage'] as String,
-      likeCount: map['likeCount'] as int,
-      timestamp: map['timestamp'] as int,
-      isLiked: map['isLiked'] as bool,
-    );
+        id: map['id'] as String,
+        preview: map['preview'] as String,
+        playUri: map['playUri'] as String,
+        albumArt: map['albumArt'] as String,
+        songName: map['songName'] as String,
+        artistName: map['artistName'] as String,
+        source: _stringToSource[map['source']],
+        userId: map['userId'] as String,
+        username: map['username'] as String,
+        userImage: map['userImage'] as String,
+        likeCount: map['likeCount'] as int,
+        timestamp: map['timestamp'] as int,
+        isLiked: map['isLiked'] as bool,
+        appleObj: map['appleObj']);
   }
 
 //</editor-fold>

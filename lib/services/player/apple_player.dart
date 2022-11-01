@@ -40,14 +40,16 @@ class ApplePlayer extends BaseAudioPlayer {
         onCancel: stopTimer);
     return controller.stream;
   }
+
   void startTimer() {
     timer = Timer.periodic(interval, tick);
   }
-  void tick(_) async{
-   final pos =await _musicKitPlugin.playbackTime;
-    controller.add(pos.toInt());
 
+  void tick(_) async {
+    final pos = await _musicKitPlugin.playbackTime;
+    controller.add(pos.toInt());
   }
+
   void stopTimer() {
     timer?.cancel();
     timer = null;
@@ -84,8 +86,7 @@ class ApplePlayer extends BaseAudioPlayer {
 
   @override
   Future<void> queue(Chune mediaItem) {
-    return _musicKitPlugin.setQueueWithItems("songs", items: [
-      {'id': mediaItem.playUri}
-    ]);
+    return _musicKitPlugin
+        .setQueueWithItems("songs", items: [mediaItem.appleObj]);
   }
 }

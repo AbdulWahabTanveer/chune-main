@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/screens/NavScreen.dart';
 import 'package:newapp/screens/UserScreens/UserProfile.dart';
+import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:newapp/screens/globalvariables.dart';
 
 import '../core/bloc/music_player/music_player_bloc.dart';
@@ -17,6 +18,7 @@ class PlayerScreen extends StatefulWidget {
 
 class _PlayerScreen extends State<PlayerScreen> {
   bool liked = false;
+
   // int likeCount =
   //     homePosts.map((post) => post.likeCount).elementAt(selectedPost);
   var likeColor = Colors.grey;
@@ -50,7 +52,6 @@ class _PlayerScreen extends State<PlayerScreen> {
           selectedPost--;
         });
       }
-
     });
     context
         .read<MusicPlayerBloc>()
@@ -117,17 +118,16 @@ class _PlayerScreen extends State<PlayerScreen> {
                                 builder: (context) => MyProfileScreen()),
                           );
                         },
-                        child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage('${state.post.albumArt}'),
-                          radius: 35,
+                        child: AvatarImage(
+                          '${state.post.userImage ?? state.post.albumArt}',
+                          35,
                         ),
                       ),
                       SizedBox(
                         height: 10.0,
                       ),
                       Text(
-                        '${state.post.artistName}',
+                        '${state.post.username ?? state.post.artistName}',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -222,28 +222,29 @@ class _PlayerScreen extends State<PlayerScreen> {
                       ],
                     ), //Song Name/Artist
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '${state.post.likeCount}',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
-                        ),
-                        SizedBox(height: 8),
-                        IconButton(
-                          icon: Icon(
-                              liked ? Icons.favorite : Icons.favorite_border,
-                              color: likeColor),
-                          onPressed: () {
-                            isLiked();
-                          },
-                          padding: EdgeInsets.all(0),
-                        ),
-                      ],
-                    ),
+                    if (state.post.likeCount != null)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${state.post.likeCount}',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
+                          SizedBox(height: 8),
+                          IconButton(
+                            icon: Icon(
+                                liked ? Icons.favorite : Icons.favorite_border,
+                                color: likeColor),
+                            onPressed: () {
+                              isLiked();
+                            },
+                            padding: EdgeInsets.all(0),
+                          ),
+                        ],
+                      ),
                   ],
                 ),
               ),

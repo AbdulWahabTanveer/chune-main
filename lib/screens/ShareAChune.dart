@@ -4,9 +4,11 @@ import 'package:newapp/core/bloc/profile/profile_bloc.dart';
 import 'package:newapp/screens/NavScreen.dart';
 import '../Useful_Code/utils.dart';
 import '../auth_flow/app/bloc/app_bloc.dart';
+import '../core/bloc/login/login_bloc.dart';
 import '../core/bloc/music_player/music_player_bloc.dart';
 import '../core/bloc/share_a_chune/share_a_chune_bloc.dart';
 import '../models/chune.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ShareAChune extends StatelessWidget {
   const ShareAChune({Key key}) : super(key: key);
@@ -55,6 +57,16 @@ class _ShareAChune extends State<_ShareAChuneContent> {
       listener: (context, state) {
         if (state is ChuneShareSuccessState) {
           Navigator.of(context).pop();
+        }
+        if (state is ChuneShareErrorState) {
+          Fluttertoast.showToast(
+              msg: "Login session expired!. Please login again",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          context.read<LoginBloc>().add(ResetMusicSourceEvent());
         }
       },
       builder: (context, state) {
@@ -371,6 +383,3 @@ class _ChuneRow extends StatelessWidget {
 // ),
 // ],
 // ),
-
-
-

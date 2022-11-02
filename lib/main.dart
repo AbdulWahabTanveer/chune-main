@@ -2,19 +2,15 @@
 
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:newapp/auth_flow/app/app.dart';
 import 'package:newapp/core/bloc/login/login_bloc.dart';
 import 'package:newapp/core/bloc/music_player/music_player_bloc.dart';
-import 'package:newapp/screens/LoginScreens/CreateUsername.dart';
-import 'package:newapp/screens/LoginScreens/Login.dart';
+import 'package:newapp/repositories/auth_repository.dart';
 import 'package:newapp/screens/splash_screen.dart';
 import 'package:newapp/services/injector.dart';
-import 'package:newapp/spotify_main.dart';
-import 'apple_music.dart';
+import 'core/bloc/notification_counter/notification_counter_bloc.dart';
 import 'core/bloc/profile/profile_bloc.dart';
-import 'screens/NavScreen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
@@ -30,13 +26,16 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => LoginBloc(),
+          create: (context) => LoginBloc(GetIt.I.get<AuthRepository>()),
         ),
         BlocProvider(
           create: (context) => ProfileBloc(),
         ),
         BlocProvider(
           create: (context) => MusicPlayerBloc(),
+        ),
+        BlocProvider(
+          create: (context) => NotificationCounterBloc(),
         ),
         BlocProvider(
           create: (_) => AppBloc(
@@ -47,23 +46,28 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          textTheme: TextTheme(subtitle1: TextStyle(color: Colors.white)),
-          textSelectionTheme: TextSelectionThemeData(
-            cursorColor: Colors.white,
-          ),
-        inputDecorationTheme: InputDecorationTheme(
-            labelStyle: TextStyle(color: Colors.white),
-            border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-            focusedErrorBorder:OutlineInputBorder(borderSide: BorderSide(color: Colors.white)) ,
-            errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.pinkAccent.shade100)),
-            errorStyle: TextStyle(color: Colors.white,backgroundColor: Colors.red),
-
-
-          ),
-            primarySwatch: Colors.pink, secondaryHeaderColor: Colors.blue),
-        home: false?ApplyApp():SplashScreen(),
+            textTheme: TextTheme(subtitle1: TextStyle(color: Colors.white)),
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: Colors.white,
+            ),
+            inputDecorationTheme: InputDecorationTheme(
+              labelStyle: TextStyle(color: Colors.white),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)),
+              focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)),
+              errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.pinkAccent.shade100)),
+              errorStyle:
+                  TextStyle(color: Colors.white, backgroundColor: Colors.red),
+            ),
+            primarySwatch: Colors.pink,
+            secondaryHeaderColor: Colors.blue),
+        home: SplashScreen(),
       ),
     );
   }

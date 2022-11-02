@@ -11,12 +11,21 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final authRepo = GetIt.I.get<AuthRepository>();
+  final AuthRepository authRepo;
 
-  LoginBloc() : super(LoginInitial()) {
+  LoginBloc(this.authRepo) : super(LoginInitial()) {
     on<LoginWithSpotifyEvent>(_onLoginWithSpotify);
     on<LoginWithAppleEvent>(_onLoginWithApple);
-    on<ResetMusicSourceEvent>((event, emit) => emit(LoginInitial()));
+    on<LoginWithCachedUserEvent>(
+      (event, emit) => emit(LoginSuccessState(event.user)),
+    );
+    on<ResetMusicSourceEvent>((event, emit) async {
+      authRepo.clearUser();
+      emit(LoginInitial());
+    });
+    if (authRepo.getLoggedInUser() != null) {
+      add(LoginWithCachedUserEvent(authRepo.getLoggedInUser()));
+    }
   }
 
   FutureOr<void> _onLoginWithSpotify(

@@ -11,6 +11,12 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _Notifications extends State<NotificationsScreen> {
+  @override
+  void initState() {
+    repo.resetNotifications();
+    super.initState();
+  }
+
   final repo = GetIt.I.get<ProfileRepository>();
 
   @override
@@ -26,6 +32,8 @@ class _Notifications extends State<NotificationsScreen> {
             notification,
           );
         },
+        isLive: true,
+        onEmpty: Text('No Notifications found'),
         query: repo.myNotificationsQuery,
         itemBuilderType: PaginateBuilderType.listView,
       ),

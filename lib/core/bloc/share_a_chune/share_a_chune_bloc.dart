@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:newapp/models/spotify_model.dart';
 import 'package:newapp/repositories/share_a_chune_repo.dart';
 import 'package:newapp/repositories/spotify_repo.dart';
+import 'package:paginate_firestore/bloc/pagination_listeners.dart';
 
 import '../../../models/chune.dart';
 import '../../../models/profile_model.dart';
@@ -59,6 +60,7 @@ class ShareAChuneBloc extends Bloc<ShareAChuneEvent, ShareAChuneState> {
         username: event.publishedBy.username,
         userImage: event.publishedBy.image));
     if (result) {
+      GetIt.I.get<PaginateRefreshedChangeListener>().refreshed = true;
       emit(ChuneShareSuccessState());
     } else {
       emit(ChuneShareErrorState());

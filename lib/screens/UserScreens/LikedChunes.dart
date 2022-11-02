@@ -48,6 +48,7 @@ class _LikedChunes extends State<LikedChunes> {
           );
         },
         shrinkWrap: true,
+        onEmpty: Text('No liked chunes'),
         onError: (p0) => Text('$p0'),
         query: repo.likedChunesQuery,
         itemBuilderType: PaginateBuilderType.listView,

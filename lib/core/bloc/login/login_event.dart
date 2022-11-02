@@ -5,5 +5,13 @@ abstract class LoginEvent {
 }
 
 class LoginWithSpotifyEvent extends LoginEvent {}
+
 class LoginWithAppleEvent extends LoginEvent {}
+
+class LoginWithCachedUserEvent extends LoginEvent {
+  final MusicSourceModel user;
+
+  LoginWithCachedUserEvent(this.user);
+}
+
 class ResetMusicSourceEvent extends LoginEvent {}

@@ -9,6 +9,8 @@ import 'package:newapp/repositories/home_page_repo.dart';
 import 'package:newapp/repositories/share_a_chune_repo.dart';
 import 'package:newapp/services/http_service.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:paginate_firestore/bloc/pagination_listeners.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../auth_flow/app/bloc_observer.dart';
 import '../repositories/profile_repository.dart';
@@ -21,10 +23,13 @@ class Injector {
     WidgetsFlutterBinding.ensureInitialized();
     Bloc.observer = AppBlocObserver();
 
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
 
     final authenticationRepository = AuthenticationRepository();
     await authenticationRepository.user.first;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    GetIt.I.registerSingleton<SharedPreferences>(prefs);
 
     GetIt.I.registerSingleton<HttpService>(HttpService());
     GetIt.I.registerSingleton<AuthRepository>(AuthRepoImpl());
@@ -38,6 +43,8 @@ class Injector {
         AuthenticationRepository());
     GetIt.I.registerSingleton<ProfileRepositoryImpl>(ProfileRepositoryImpl());
     GetIt.I.registerSingleton<ShareAChuneRepository>(ShareAChuneRepoImpl());
+    GetIt.I.registerSingleton<PaginateRefreshedChangeListener>(
+        PaginateRefreshedChangeListener());
     appRunner();
   }
 }

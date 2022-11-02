@@ -8,6 +8,8 @@ abstract class ProfileRepository {
 
   Query get myNotificationsQuery;
 
+  Stream<DocumentSnapshot<Map<String, dynamic>>> get myNotificationsCount;
+
   Future<bool> isNewUser(String userId);
 
   Future<bool> usernameExists(String userName);
@@ -19,6 +21,8 @@ abstract class ProfileRepository {
   Future<ProfileModel> createProfile(String userId, ProfileModel profile);
 
   void updateLikes(String id, bool likeStatus);
+
+  void resetNotifications();
 
   void updateFollows(String id, bool followStatus);
 
@@ -40,6 +44,12 @@ class ProfileRepositoryImpl extends ProfileRepository {
       .doc(me.id)
       .collection(notificationCollection)
       .orderBy('timestamp', descending: true);
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>> get myNotificationsCount =>
+      FirebaseFirestore.instance
+          .collection(usersCollection)
+          .doc(me.id)
+          .snapshots();
 
   @override
   Future<bool> isNewUser(String userId) async {
@@ -130,4 +140,11 @@ class ProfileRepositoryImpl extends ProfileRepository {
       .collection(chunesCollection)
       .where('userId', isEqualTo: id)
       .orderBy('timestamp', descending: true);
+
+  @override
+  void resetNotifications() async {
+    await fireStore.collection(usersCollection).doc(me.id).update({
+      'unreadNotifications': 0,
+    });
+  }
 }

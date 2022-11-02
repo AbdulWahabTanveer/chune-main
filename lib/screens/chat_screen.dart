@@ -17,10 +17,7 @@ class _ChatScreenState extends State<ChatScreen> {
         Center(
           child: const Text('Chats coming soon'),
         ),
-           Positioned(
-          bottom: 0,
-          child: PlayerPanel(),
-        )
+
       ]),
     );
   }

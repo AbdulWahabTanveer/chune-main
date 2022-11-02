@@ -16,10 +16,7 @@ class _SearchScreenState extends State<SearchScreen> {
         Center(
           child: const Text('Search coming soon'),
         ),
-        Positioned(
-          bottom: 0,
-          child: PlayerPanel(),
-        )
+
       ]),
     );
   }

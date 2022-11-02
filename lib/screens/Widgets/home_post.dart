@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:newapp/Useful_Code/utils.dart';
 import 'package:newapp/screens/Profile.dart';
@@ -47,13 +48,8 @@ class HomePostCard extends StatelessWidget {
           GestureDetector(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
-              child: Image.network(
-                post.albumArt,
-                // ignore: missing_return
-                errorBuilder: (BuildContext context, Object exception,
-                    StackTrace stackTrace) {
-                  return Text('Your error widget...');
-                },
+              child: CachedNetworkImage(
+                imageUrl:post.albumArt,
                 //post.albumArt,
                 height: 370,
                 width: 370,

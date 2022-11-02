@@ -1,6 +1,7 @@
 ///import 'package:spotify_sdk/spotify_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:newapp/screens/Player.dart';
 
 //import 'package:newapp/screens/UserScreens/UserProfile.dart';
@@ -8,6 +9,7 @@ import 'package:newapp/screens/ViewAllAccounts.dart';
 import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:newapp/screens/Widgets/Post.dart';
 import 'package:newapp/screens/globalvariables.dart';
+import 'package:paginate_firestore/bloc/pagination_listeners.dart';
 
 import '../core/bloc/music_player/music_player_bloc.dart';
 import 'Widgets/AudioPlayer.dart';
@@ -30,47 +32,26 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
-        SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              WhoToFollowList(),
-              ChunesListWidget(),
-              SizedBox(height: 100)
-            ],
+        RefreshIndicator(
+          onRefresh: () async {
+              GetIt.I.get<PaginateRefreshedChangeListener>().refreshed = true;
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                WhoToFollowList(),
+                ChunesListWidget(),
+                SizedBox(height: 100)
+              ],
+            ),
           ),
         ),
-        Positioned(
-          bottom: 0,
-          child: PlayerPanel(),
-        )
       ]),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 *    ///The lists are declared one for the Home posts and one for the user accounts

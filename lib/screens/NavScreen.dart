@@ -1,11 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/core/bloc/login/login_bloc.dart';
 import 'package:newapp/screens/Home.dart';
 import 'package:newapp/screens/Notifications.dart';
-import 'package:newapp/screens/Profile.dart';
 import 'package:newapp/screens/ShareAChune.dart';
 import 'package:newapp/screens/UserProfile.dart';
 import 'package:newapp/screens/Widgets/FollowCard.dart';
@@ -13,11 +10,9 @@ import 'package:newapp/screens/chat_screen.dart';
 import 'package:newapp/screens/search_screen.dart';
 
 import '../auth_flow/app/bloc/app_bloc.dart';
+import '../core/bloc/notification_counter/notification_counter_bloc.dart';
 import '../core/bloc/profile/profile_bloc.dart';
-
-import 'package:get_it/get_it.dart';
-
-import '../services/cloud_functions_service.dart';
+import 'Widgets/player_panel.dart';
 
 class NavScreen extends StatefulWidget {
   final int index;
@@ -41,9 +36,7 @@ class _NavScreen extends State<NavScreen> {
 
   @override
   void initState() {
-    FirebaseMessaging.onMessage.listen((event) {
-      print("ON MESSAGE->${event.data}");
-    });
+
     selectedIndex = widget.index;
     super.initState();
   }
@@ -79,9 +72,10 @@ class _NavScreen extends State<NavScreen> {
               color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
         ),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(selectedIndex),
-      ),
+      body: Column(children: [
+        Expanded(child: _widgetOptions.elementAt(selectedIndex)),
+        Positioned(bottom: 0, child: PlayerPanel())
+      ]),
       floatingActionButton: FloatingActionButton(
         elevation: 10,
         onPressed: () {
@@ -104,7 +98,41 @@ class _NavScreen extends State<NavScreen> {
               label: 'Home',
               backgroundColor: Colors.teal),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
+            icon: Stack(
+              children: [
+                Icon(Icons.notifications),
+                if (selectedIndex != 1)
+                  BlocBuilder<NotificationCounterBloc, int>(
+                    builder: (context, state) {
+                      if (state < 0) {
+                        return Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Container(
+                            height: 14,
+                            width: 14,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            child: Center(
+                                child: Text(
+                              '$state',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                            )),
+                          ),
+                        );
+                      }
+                      return SizedBox.shrink();
+                    },
+                  )
+              ],
+            ),
             label: 'Notification',
           ),
           BottomNavigationBarItem(

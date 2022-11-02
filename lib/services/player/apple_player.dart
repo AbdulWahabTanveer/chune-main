@@ -1,12 +1,18 @@
 import 'dart:async';
 
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
 import 'package:music_kit/music_kit.dart';
 import 'package:newapp/models/chune.dart';
+import 'package:newapp/models/current_user.dart';
 import 'package:newapp/services/player/audio_player.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../repositories/apple_repo.dart';
+
 class ApplePlayer extends BaseAudioPlayer {
   final _musicKitPlugin = MusicKit();
+  final appleRepo = GetIt.I.get<AppleRepository>();
 
   StreamController<int> controller;
   Timer timer;
@@ -76,6 +82,7 @@ class ApplePlayer extends BaseAudioPlayer {
 
   @override
   Future<void> seek(Duration duration) {
+    Fluttertoast.showToast(msg: 'Cannot seek on Apple Music player');
     // return _musicKitPlugin.beginSeekingBackward();
   }
 
@@ -85,8 +92,13 @@ class ApplePlayer extends BaseAudioPlayer {
   }
 
   @override
-  Future<void> queue(Chune mediaItem) {
-    return _musicKitPlugin
-        .setQueueWithItems("songs", items: [mediaItem.appleObj]);
+  Future<void> queue(Chune mediaItem) async {
+
+      final result = await appleRepo.search(mediaItem.songName);
+      if (result?.results?.songs?.data != null &&
+          result.results.songs.data.isNotEmpty) {
+        return _musicKitPlugin.setQueueWithItems("songs",
+            items: [result.results.songs.data.first.toJson()]);
+      }
   }
 }

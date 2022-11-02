@@ -1,30 +1,36 @@
 import 'dart:async';
 
+import 'package:get_it/get_it.dart';
 import 'package:newapp/models/chune.dart';
 import 'package:newapp/services/player/audio_player.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:spotify_sdk/models/player_state.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
+import '../../models/current_user.dart';
+import '../../repositories/spotify_repo.dart';
+
 class SpotifyPlayer extends BaseAudioPlayer {
   Timer timer;
+  final spotifyRepo = GetIt.I.get<SpotifyRepository>();
 
   StreamController<int> controller;
   final interval = Duration(seconds: 1);
 
   @override
-  Stream<PlayerStatus> get playerState => Rx.combineLatest2<PlayerState, int, PlayerStatus>(
-    SpotifySdk.subscribePlayerState(),
-    _timedCounter(),
+  Stream<PlayerStatus> get playerState =>
+      Rx.combineLatest2<PlayerState, int, PlayerStatus>(
+        SpotifySdk.subscribePlayerState(),
+        _timedCounter(),
         (event, b) => PlayerStatus(
-      event.isPaused,
-      event.playbackSpeed,
-      b,
-      TrackInfo(
-        Duration(milliseconds: event.track.duration),
-      ),
-    ),
-  );
+          event.isPaused,
+          event.playbackSpeed,
+          b,
+          TrackInfo(
+            Duration(milliseconds: event.track.duration),
+          ),
+        ),
+      );
 
   Stream<int> _timedCounter() {
     controller = StreamController<int>(
@@ -80,11 +86,13 @@ class SpotifyPlayer extends BaseAudioPlayer {
   }
 
   @override
-  Future<void> queue(Chune mediaItem, {bool playNow = true}) async {
-    if (playNow) {
-      await SpotifySdk.play(spotifyUri: mediaItem.playUri);
-    } else {
-      await SpotifySdk.queue(spotifyUri: mediaItem.playUri);
+  Future<void> queue(Chune mediaItem) async {
+    if (mediaItem.source == MusicSourceType.apple) {
+      final result = await spotifyRepo.search(mediaItem.songName);
+      if (result?.tracks?.items != null && result.tracks.items.isNotEmpty) {
+        return SpotifySdk.queue(spotifyUri: result.tracks.items.first.uri);
+      }
     }
+    await SpotifySdk.queue(spotifyUri: mediaItem.playUri);
   }
 }

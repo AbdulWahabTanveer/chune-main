@@ -37,9 +37,9 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
 
   FutureOr<void> _onSetAudio(
       SetAudioEvent event, Emitter<MusicPlayerState> emit) async {
-    if (state is MusicPlayerInitial) {
+    // if (state is MusicPlayerInitial) {
       emit(MusicPlayerLoading());
-    }
+    // }
     await player.init(chune: event.post);
     await player.play();
     if (event.post.id != null) {
@@ -88,7 +88,9 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
     bounce?.cancel();
     bounce = Timer(Duration(milliseconds: 500), () async {
       await player.seek(event.duration);
-      lock = false;
+     Timer(Duration(seconds: 1), () {
+       lock = false;
+     });
     });
   }
 }

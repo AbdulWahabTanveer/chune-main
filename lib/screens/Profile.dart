@@ -7,11 +7,13 @@ import 'package:newapp/Useful_Code/utils.dart';
 import 'package:newapp/core/bloc/follow_card/follow_card_bloc.dart';
 import 'package:newapp/models/chune.dart';
 import 'package:newapp/models/profile_model.dart';
+import 'package:newapp/screens/UserProfile.dart';
 import 'package:newapp/screens/UserScreens/LikedChunes.dart';
 import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:newapp/screens/Widgets/Post.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 
+import '../auth_flow/app/bloc/app_bloc.dart';
 import '../core/bloc/user_profile/user_profile_bloc.dart';
 import '../repositories/profile_repository.dart';
 
@@ -25,6 +27,10 @@ class UserProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final myId = context.read<AppBloc>().state.user.id;
+    if(myId == userId){
+      return MyProfileScreen();
+    }
     return BlocProvider(
       create: (context) => UserProfileBloc()..add(LoadUserProfileEvent(userId)),
       child: _UserProfileContent(),

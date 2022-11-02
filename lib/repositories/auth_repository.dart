@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:music_kit/music_kit.dart';
 import 'package:newapp/repositories/apple_repo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
 import '../models/current_user.dart';
@@ -12,11 +15,17 @@ abstract class AuthRepository {
   Future<MusicSourceModel> loginWithSpotify();
 
   Future<MusicSourceModel> loginWithApple();
+
+  MusicSourceModel getLoggedInUser();
+
+  void clearUser();
 }
 
 class AuthRepoImpl extends AuthRepository {
   static const CLIENT_ID = '5f70513e09194d8489541fa36fa452c8';
   static const REDIRECT_URL = 'chune://chuneApp.com/callback';
+
+  final prefs = GetIt.I.get<SharedPreferences>();
 
   @override
   Future<MusicSourceModel> loginWithSpotify() async {
@@ -33,7 +42,7 @@ class AuthRepoImpl extends AuthRepository {
           clientId: CLIENT_ID, redirectUrl: REDIRECT_URL);
       final currentUser = MusicSourceModel(
           token: authenticationToken, type: MusicSourceType.spotify);
-      super.user = currentUser;
+      await _saveUser(currentUser);
       return currentUser;
     } on PlatformException catch (e) {
       return Future.error('$e.code: $e.message');
@@ -62,7 +71,34 @@ class AuthRepoImpl extends AuthRepository {
       storeFront: storeFront,
       appleDevToken: token,
     );
-    super.user = currentUser;
+    await _saveUser(currentUser);
     return currentUser;
+  }
+
+  _saveUser(MusicSourceModel currentUser) {
+    super.user = currentUser;
+    prefs.setString('currentUser', jsonEncode(currentUser.toMap()));
+  }
+
+  @override
+  MusicSourceModel getLoggedInUser() {
+    try {
+      final user = MusicSourceModel.fromMap(
+        jsonDecode(
+          prefs.getString('currentUser'),
+        ),
+      );
+      super.user = user;
+      return user;
+    } catch (e, t) {
+      print(e);
+      print(t);
+      return null;
+    }
+  }
+
+  @override
+  void clearUser() {
+    prefs.remove('currentUser');
   }
 }

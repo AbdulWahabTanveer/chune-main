@@ -132,7 +132,7 @@ class Chune {
       'albumArt': this.albumArt,
       'songName': this.songName,
       'artistName': this.artistName,
-      'source': _sourceToString[this.source],
+      'source': sourceToString[this.source],
       'userId': this.userId,
       'username': this.username,
       'userImage': this.userImage,
@@ -151,7 +151,7 @@ class Chune {
         albumArt: map['albumArt'] as String,
         songName: map['songName'] as String,
         artistName: map['artistName'] as String,
-        source: _stringToSource[map['source']],
+        source: stringToSource[map['source']],
         userId: map['userId'] as String,
         username: map['username'] as String,
         userImage: map['userImage'] as String,
@@ -164,12 +164,4 @@ class Chune {
 //</editor-fold>
 }
 
-Map<String, MusicSourceType> _stringToSource = {
-  "spotify": MusicSourceType.spotify,
-  "apple": MusicSourceType.apple
-};
 
-Map<MusicSourceType, String> _sourceToString = {
-  MusicSourceType.spotify: "spotify",
-  MusicSourceType.apple: "apple"
-};

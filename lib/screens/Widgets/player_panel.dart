@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newapp/Useful_Code/utils.dart';
 
 import '../../core/bloc/music_player/music_player_bloc.dart';
 import '../Notifications.dart';
@@ -112,6 +113,11 @@ class PlayerPanel extends StatelessWidget {
               ),
             ),
           );
+        }
+        if(state is MusicPlayerLoading){
+          return Container(height: 70,
+          color: Colors.white,
+          child: loader(),);
         }
         return SizedBox.shrink();
       },

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
@@ -75,8 +76,11 @@ class ApplePlayer extends BaseAudioPlayer {
   }
 
   @override
-  Future<void> resume() {
+  Future<void> resume()async {
     startTimer();
+    if (Platform.isIOS && !( await _musicKitPlugin.isPreparedToPlay)) {
+    await _musicKitPlugin.prepareToPlay();
+    }
     return _musicKitPlugin.play();
   }
 

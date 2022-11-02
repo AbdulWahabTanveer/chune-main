@@ -17,3 +17,12 @@ class LoginSuccessState extends LoginState {
   @override
   List<Object> get props => [user];
 }
+
+class LoginErrorState extends LoginState {
+  final String user;
+
+  LoginErrorState(this.user);
+
+  @override
+  List<Object> get props => [user];
+}

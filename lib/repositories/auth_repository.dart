@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:music_kit/music_kit.dart';
@@ -48,14 +50,17 @@ class AuthRepoImpl extends AuthRepository {
 
     final token = //TODO: GET FROM API
         'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjlSVUxNTDRVMlUifQ.eyJpc3MiOiJEWlE2U1JaWEtRIiwiZXhwIjoxNjc5NTk4MDA5LCJpYXQiOjE2NjM4MjEwMDl9.o35PTIc1QY_C_AdOp0ziaD2cCuTyTRvwLntz0I4uSTwXxli3WpnH2qE-NW_ZlvWTwRHDItjkLuVik5OOUQkutA';
-    await _musicKitPlugin.initialize(
-      token,
-    );
+    if(Platform.isIOS){
+      await _musicKitPlugin.requestAuthorizationStatus(
+        // token,
+      );
 
+    }else{
+      await _musicKitPlugin.initialize(token);
+    }
     final userToken = await _musicKitPlugin.requestUserToken(token);
     final storeFront =
         await GetIt.I.get<AppleRepository>().getStoreFront(token, userToken);
-    await _musicKitPlugin.play();
     final currentUser = MusicSourceModel(
       token: userToken,
       type: MusicSourceType.apple,

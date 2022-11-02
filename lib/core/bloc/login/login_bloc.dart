@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:newapp/models/current_user.dart';
@@ -29,8 +30,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   FutureOr<void> _onLoginWithApple(
       LoginWithAppleEvent event, Emitter<LoginState> emit) async {
-    final user = await authRepo.loginWithApple();
-    print("USer TOKEN +> ${user.token}");
-    emit(LoginSuccessState(user));
+   try{
+     final user = await authRepo.loginWithApple();
+     print("USer TOKEN +> ${user.token}");
+     emit(LoginSuccessState(user));
+   }catch(e,trace){
+     FirebaseFirestore.instance.collection('Logs').add({"Error":'$e',
+     'trace':'$trace',
+     'time':DateTime.now().toString()});
+     emit(LoginErrorState("$e"));
+   }
   }
 }

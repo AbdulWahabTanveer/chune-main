@@ -104,7 +104,7 @@ class _NavScreen extends State<NavScreen> {
                 if (selectedIndex != 1)
                   BlocBuilder<NotificationCounterBloc, int>(
                     builder: (context, state) {
-                      if (state < 0) {
+                      if (state > 0) {
                         return Positioned(
                           top: 0,
                           right: 0,

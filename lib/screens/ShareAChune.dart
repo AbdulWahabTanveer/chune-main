@@ -204,7 +204,7 @@ class _ShareAChune extends State<_ShareAChuneContent> {
         selectedChune = chune;
       },
     );
-    context.read<MusicPlayerBloc>().add(SetAudioEvent(chune));
+    // context.read<MusicPlayerBloc>().add(SetAudioEvent(chune));
   }
 }
 

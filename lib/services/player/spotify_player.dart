@@ -100,11 +100,12 @@ class SpotifyPlayer extends BaseAudioPlayer {
     if (mediaItem.source == MusicSourceType.apple) {
       final result = await spotifyRepo.search(mediaItem.songName);
       if (result?.tracks?.items != null && result.tracks.items.isNotEmpty) {
-        return SpotifySdk.queue(spotifyUri: result.tracks.items.first.uri);
+        return SpotifySdk.play(spotifyUri: result.tracks.items.first.uri);
       }else{
         Fluttertoast.showToast(msg: 'ERROR');
       }
     }else {
+      await SpotifySdk.play(spotifyUri: mediaItem.playUri);
       await SpotifySdk.queue(spotifyUri: mediaItem.playUri);
     }
   }

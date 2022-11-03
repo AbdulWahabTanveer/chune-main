@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:music_kit/music_kit.dart';
 import 'package:newapp/repositories/apple_repo.dart';
+import 'package:open_store/open_store.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
@@ -47,9 +49,18 @@ class AuthRepoImpl extends AuthRepository {
       await _saveUser(currentUser);
       return currentUser;
     } on PlatformException catch (e) {
+      print(e);
+      if (e.code == 'CouldNotFindSpotifyApp') {
+        OpenStore.instance.open(
+            appStoreId: 'id324684580', androidAppBundleId: 'com.spotify.music');
+
+        Fluttertoast.showToast(msg: '${e.message}');
+      }
       return Future.error('$e.code: $e.message');
     } on MissingPluginException {
       return Future.error('not implemented');
+    } catch (e) {
+      Fluttertoast.showToast(msg: '$e');
     }
   }
 
@@ -59,12 +70,11 @@ class AuthRepoImpl extends AuthRepository {
 
     final token = //TODO: GET FROM API
         'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjlSVUxNTDRVMlUifQ.eyJpc3MiOiJEWlE2U1JaWEtRIiwiZXhwIjoxNjc5NTk4MDA5LCJpYXQiOjE2NjM4MjEwMDl9.o35PTIc1QY_C_AdOp0ziaD2cCuTyTRvwLntz0I4uSTwXxli3WpnH2qE-NW_ZlvWTwRHDItjkLuVik5OOUQkutA';
-    if(Platform.isIOS){
+    if (Platform.isIOS) {
       await _musicKitPlugin.requestAuthorizationStatus(
-        // token,
-      );
-
-    }else{
+          // token,
+          );
+    } else {
       await _musicKitPlugin.initialize(token);
     }
     final userToken = await _musicKitPlugin.requestUserToken(token);

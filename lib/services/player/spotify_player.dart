@@ -106,7 +106,7 @@ class SpotifyPlayer extends BaseAudioPlayer {
       }
     }else {
       await SpotifySdk.play(spotifyUri: mediaItem.playUri);
-      await SpotifySdk.queue(spotifyUri: mediaItem.playUri);
+      // await SpotifySdk.queue(spotifyUri: mediaItem.playUri);
     }
   }
 }

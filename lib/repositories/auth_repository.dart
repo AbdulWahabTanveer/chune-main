@@ -5,9 +5,9 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:music_kit/music_kit.dart';
 import 'package:newapp/repositories/apple_repo.dart';
-import 'package:open_store/open_store.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
@@ -51,8 +51,9 @@ class AuthRepoImpl extends AuthRepository {
     } on PlatformException catch (e) {
       print(e);
       if (e.code == 'CouldNotFindSpotifyApp') {
-        OpenStore.instance.open(
-            appStoreId: 'id324684580', androidAppBundleId: 'com.spotify.music');
+
+        LaunchReview.launch(
+            iOSAppId: 'id324684580', androidAppId: 'com.spotify.music');
 
         Fluttertoast.showToast(msg: '${e.message}');
       }

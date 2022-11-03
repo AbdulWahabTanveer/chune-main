@@ -74,7 +74,7 @@ class _NavScreen extends State<NavScreen> {
       ),
       body: Column(children: [
         Expanded(child: _widgetOptions.elementAt(selectedIndex)),
-        Positioned(bottom: 0, child: PlayerPanel())
+        PlayerPanel()
       ]),
       floatingActionButton: FloatingActionButton(
         elevation: 10,

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:newapp/models/chune.dart';
 import 'package:newapp/services/player/audio_player.dart';
@@ -19,6 +20,15 @@ class SpotifyPlayer extends BaseAudioPlayer {
 
   @override
   Stream<PlayerStatus> get playerState =>
+      // SpotifySdk.subscribePlayerState().map((event) =>
+  //     PlayerStatus(
+  //   event.isPaused,
+  //   event.playbackSpeed,
+  //   event.,
+  //   TrackInfo(
+  //     Duration(milliseconds: event.track?.duration??0),
+  //   ),
+  // ),);
       Rx.combineLatest2<PlayerState, int, PlayerStatus>(
         SpotifySdk.subscribePlayerState(),
         _timedCounter(),
@@ -27,7 +37,7 @@ class SpotifyPlayer extends BaseAudioPlayer {
           event.playbackSpeed,
           b,
           TrackInfo(
-            Duration(milliseconds: event.track.duration),
+            Duration(milliseconds: event.track?.duration??0),
           ),
         ),
       );
@@ -91,8 +101,11 @@ class SpotifyPlayer extends BaseAudioPlayer {
       final result = await spotifyRepo.search(mediaItem.songName);
       if (result?.tracks?.items != null && result.tracks.items.isNotEmpty) {
         return SpotifySdk.queue(spotifyUri: result.tracks.items.first.uri);
+      }else{
+        Fluttertoast.showToast(msg: 'ERROR');
       }
+    }else {
+      await SpotifySdk.queue(spotifyUri: mediaItem.playUri);
     }
-    await SpotifySdk.queue(spotifyUri: mediaItem.playUri);
   }
 }

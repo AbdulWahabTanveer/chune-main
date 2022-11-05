@@ -23,6 +23,8 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
     on<SetAudioEvent>(_onSetAudio);
     on<ChangePositionEvent>(_onChangePosition);
     on<ChangeStateEvent>(_onChangeState);
+    on<PlayNextEvent>(_onPlayNext);
+    on<PlayPreviousEvent>(_onPlayPrevious);
     on<SetPositionEvent>(_onSetPosition);
     player.playerState.listen((event) {
       if (!lock) {
@@ -38,7 +40,7 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
   FutureOr<void> _onSetAudio(
       SetAudioEvent event, Emitter<MusicPlayerState> emit) async {
     // if (state is MusicPlayerInitial) {
-      emit(MusicPlayerLoading());
+    emit(MusicPlayerLoading());
     // }
     await player.init(chune: event.post);
     await player.play();
@@ -47,11 +49,11 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
     }
     emit(
       MusicPlayerLoaded(
-        totalDuration: Duration.zero,
-        currentDuration: Duration.zero,
-        playing: false,
-        post: event.post,
-      ),
+          totalDuration: Duration.zero,
+          currentDuration: Duration.zero,
+          playing: false,
+          post: event.post,
+          list: event.chunes),
     );
   }
 
@@ -88,9 +90,31 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
     bounce?.cancel();
     bounce = Timer(Duration(milliseconds: 500), () async {
       await player.seek(event.duration);
-     Timer(Duration(seconds: 1), () {
-       lock = false;
-     });
+      Timer(Duration(seconds: 1), () {
+        lock = false;
+      });
     });
+  }
+
+  FutureOr<void> _onPlayNext(
+      PlayNextEvent event, Emitter<MusicPlayerState> emit) async {
+    if (state is MusicPlayerLoaded) {
+      final cast = state as MusicPlayerLoaded;
+      final currentIndex = cast.list.indexOf(cast.post);
+      final newIndex =
+          currentIndex <= cast.list.length - 1 ? currentIndex + 1 : 0;
+      add(SetAudioEvent(cast.list.elementAt(newIndex), chunes: cast.list));
+    }
+  }
+
+  FutureOr<void> _onPlayPrevious(
+      PlayPreviousEvent event, Emitter<MusicPlayerState> emit) async {
+    if (state is MusicPlayerLoaded) {
+      final cast = state as MusicPlayerLoaded;
+      final currentIndex = cast.list.indexOf(cast.post);
+      final newIndex =
+          currentIndex == 0 ? cast.list.length - 1 : currentIndex - 1;
+      add(SetAudioEvent(cast.list.elementAt(newIndex), chunes: cast.list));
+    }
   }
 }

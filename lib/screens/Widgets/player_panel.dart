@@ -75,7 +75,9 @@ class PlayerPanel extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${state.post.songName}',
+                                  '${state.post.songName}'.length < 24
+                                      ? '${state.post.songName}'
+                                      : '${state.post.songName.substring(0, 23)}..',
                                   style: TextStyle(
                                       color: Colors.blue,
                                       fontWeight: FontWeight.bold,
@@ -83,7 +85,9 @@ class PlayerPanel extends StatelessWidget {
                                 ),
                                 SizedBox(height: 8),
                                 Text(
-                                  '${state.post.artistName}',
+                                  '${state.post.artistName}'.length < 24
+                                      ? '${state.post.artistName}'
+                                      : '${state.post.artistName.substring(0, 23)}..',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,
@@ -114,10 +118,12 @@ class PlayerPanel extends StatelessWidget {
             ),
           );
         }
-        if(state is MusicPlayerLoading){
-          return Container(height: 70,
-          color: Colors.white,
-          child: loader(),);
+        if (state is MusicPlayerLoading) {
+          return Container(
+            height: 70,
+            color: Colors.white,
+            child: loader(),
+          );
         }
         return SizedBox.shrink();
       },

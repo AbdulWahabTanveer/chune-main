@@ -12,17 +12,17 @@ typedef Widget ChuneCardBuilder(
 
 class HomePostWidget extends StatelessWidget {
   final Chune post;
+  final List<Chune> chunes;
   final ChuneCardBuilder builder;
 
-  const HomePostWidget(this.post, this.builder, {Key key}) : super(key: key);
+  const HomePostWidget(this.post, this.chunes, this.builder, {Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HomePostBloc()..add(LoadHomePost(post)),
-      child: _HomePostWidgetContent(
-        builder: builder,
-      ),
+      child: _HomePostWidgetContent(builder: builder, chunes: chunes),
     );
   }
 }
@@ -30,7 +30,10 @@ class HomePostWidget extends StatelessWidget {
 class _HomePostWidgetContent extends StatelessWidget {
   final ChuneCardBuilder builder;
 
-  const _HomePostWidgetContent({Key key, this.builder}) : super(key: key);
+  final List<Chune> chunes;
+
+  const _HomePostWidgetContent({Key key, this.builder, this.chunes})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +46,8 @@ class _HomePostWidgetContent extends StatelessWidget {
           final VoidCallback likePost = () => bloc.add(
                 LikeHomePost(post),
               );
-          final VoidCallback listenPost =
-              () => context.read<MusicPlayerBloc>().add(SetAudioEvent(post));
+          final VoidCallback listenPost = () =>
+              context.read<MusicPlayerBloc>().add(SetAudioEvent(post, chunes:chunes));
 
           return builder(post, likePost, listenPost);
         }

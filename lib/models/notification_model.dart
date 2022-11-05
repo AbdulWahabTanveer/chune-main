@@ -1,8 +1,10 @@
-class NotificationModel{
+class NotificationModel {
   final String chuneImage;
   final String userImage;
   final String message;
   final String type;
+  final String userId;
+  final String chuneId;
   final DateTime timeStamp;
 
 //<editor-fold desc="Data Methods">
@@ -12,6 +14,8 @@ class NotificationModel{
     this.userImage,
     this.message,
     this.type,
+    this.userId,
+    this.chuneId,
     this.timeStamp,
   });
 
@@ -24,6 +28,8 @@ class NotificationModel{
           userImage == other.userImage &&
           message == other.message &&
           type == other.type &&
+          userId == other.userId &&
+          chuneId == other.chuneId &&
           timeStamp == other.timeStamp);
 
   @override
@@ -32,6 +38,8 @@ class NotificationModel{
       userImage.hashCode ^
       message.hashCode ^
       type.hashCode ^
+      userId.hashCode ^
+      chuneId.hashCode ^
       timeStamp.hashCode;
 
   @override
@@ -41,6 +49,8 @@ class NotificationModel{
         ' userImage: $userImage,' +
         ' message: $message,' +
         ' type: $type,' +
+        ' userId: $userId,' +
+        ' chuneId: $chuneId,' +
         ' timeStamp: $timeStamp,' +
         '}';
   }
@@ -50,6 +60,8 @@ class NotificationModel{
     String userImage,
     String message,
     String type,
+    String userId,
+    String chuneId,
     DateTime timeStamp,
   }) {
     return NotificationModel(
@@ -57,6 +69,8 @@ class NotificationModel{
       userImage: userImage ?? this.userImage,
       message: message ?? this.message,
       type: type ?? this.type,
+      userId: userId ?? this.userId,
+      chuneId: chuneId ?? this.chuneId,
       timeStamp: timeStamp ?? this.timeStamp,
     );
   }
@@ -67,6 +81,8 @@ class NotificationModel{
       'userImage': this.userImage,
       'message': this.message,
       'type': this.type,
+      'userId': this.userId,
+      'chuneId': this.chuneId,
       'timeStamp': this.timeStamp,
     };
   }
@@ -77,6 +93,8 @@ class NotificationModel{
       userImage: map['user_image'] as String,
       message: map['message'] as String,
       type: map['type'] as String,
+      userId: map['userId'] as String,
+      chuneId: map['chuneId'] as String,
       timeStamp: DateTime.fromMillisecondsSinceEpoch(map['timestamp']),
     );
   }

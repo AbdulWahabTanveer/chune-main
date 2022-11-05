@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:newapp/Useful_Code/utils.dart';
+import 'package:newapp/screens/Profile.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import '../models/notification_model.dart';
 import '../repositories/profile_repository.dart';
@@ -74,9 +76,15 @@ class NotificationPost extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  AvatarImage(
-                                    post.userImage,
-                                    17,
+                                  InkWell(
+                                    onTap: () {
+                                      pushTo(context,
+                                          UserProfileScreen(post.userId),);
+                                    },
+                                    child: AvatarImage(
+                                      post.userImage,
+                                      17,
+                                    ),
                                   ),
                                 ],
                               ),

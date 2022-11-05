@@ -97,7 +97,7 @@ class _PasswordInput extends StatelessWidget {
           decoration: InputDecoration(
             labelText: 'password',
             helperText: '',
-            errorText: state.password.invalid ? 'invalid password' : null,
+            errorText: state.password.invalid ? 'Password must be 8 characters long \n\nMust contain at least one number and one alphabet\n' : null,
           ),
         );
       },

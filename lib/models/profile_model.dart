@@ -8,7 +8,7 @@ class ProfileModel {
   final String image;
   final String username;
   final int chunesShared;
-  final int followerCount;
+  final int followersCount;
   final int followingCount;
   final String fcmToken;
   bool isFollowing;
@@ -26,7 +26,7 @@ class ProfileModel {
     this.image,
     this.username,
     this.chunesShared = 0,
-    this.followerCount = 0,
+    this.followersCount = 0,
     this.followingCount = 0,
     this.fcmToken,
     this.isFollowing,
@@ -46,7 +46,7 @@ class ProfileModel {
           image == other.image &&
           username == other.username &&
           chunesShared == other.chunesShared &&
-          followerCount == other.followerCount &&
+          followersCount == other.followersCount &&
           followingCount == other.followingCount &&
           fcmToken == other.fcmToken &&
           isFollowing == other.isFollowing &&
@@ -62,7 +62,7 @@ class ProfileModel {
       image.hashCode ^
       username.hashCode ^
       chunesShared.hashCode ^
-      followerCount.hashCode ^
+      followersCount.hashCode ^
       followingCount.hashCode ^
       fcmToken.hashCode ^
       isFollowing.hashCode ^
@@ -79,7 +79,7 @@ class ProfileModel {
         ' image: $image,' +
         ' username: $username,' +
         ' chunesShared: $chunesShared,' +
-        ' followerCount: $followerCount,' +
+        ' followersCount: $followersCount,' +
         ' followingCount: $followingCount,' +
         ' fcmToken: $fcmToken,' +
         ' isFollowing: $isFollowing,' +
@@ -96,7 +96,7 @@ class ProfileModel {
     String image,
     String username,
     int chunesShared,
-    int followerCount,
+    int followersCount,
     int followingCount,
     String fcmToken,
     bool isFollowing,
@@ -111,7 +111,7 @@ class ProfileModel {
       image: image ?? this.image,
       username: username ?? this.username,
       chunesShared: chunesShared ?? this.chunesShared,
-      followerCount: followerCount ?? this.followerCount,
+      followersCount: followersCount ?? this.followersCount,
       followingCount: followingCount ?? this.followingCount,
       fcmToken: fcmToken ?? this.fcmToken,
       isFollowing: isFollowing ?? this.isFollowing,
@@ -129,7 +129,7 @@ class ProfileModel {
       'image': this.image,
       'username': this.username,
       'chunesShared': this.chunesShared,
-      'followerCount': this.followerCount,
+      'followersCount': this.followersCount,
       'followingCount': this.followingCount,
       'fcmToken': this.fcmToken,
       'isFollowing': this.isFollowing,
@@ -147,7 +147,7 @@ class ProfileModel {
       image: map['image'] as String,
       username: map['username'] as String,
       chunesShared: map['chunesShared'] as int,
-      followerCount: map['followerCount'] as int,
+      followersCount: map['followersCount'] as int,
       followingCount: map['followingCount'] as int,
       fcmToken: map['fcmToken'] as String,
       isFollowing: map['isFollowing'] as bool,

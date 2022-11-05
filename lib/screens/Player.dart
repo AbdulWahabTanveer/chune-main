@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/screens/NavScreen.dart';
+import 'package:newapp/screens/Profile.dart';
 import 'package:newapp/screens/UserScreens/UserProfile.dart';
 import 'package:newapp/screens/Widgets/FollowCard.dart';
+import 'package:newapp/screens/Widgets/Post.dart';
 import 'package:newapp/screens/globalvariables.dart';
 
 import '../core/bloc/music_player/music_player_bloc.dart';
@@ -41,44 +43,12 @@ class _PlayerScreen extends State<PlayerScreen> {
     });
   }
 
-  playpreviousSong() {
-    setState(() {
-      if (selectedPost == 0) {
-        setState(() {
-          selectedPost = (homePostListlength - 1);
-        });
-      } else {
-        setState(() {
-          selectedPost--;
-        });
-      }
-    });
-    context
-        .read<MusicPlayerBloc>()
-        .add(SetAudioEvent(homePosts.elementAt(selectedPost)));
-  }
-
-  playnextSong() {
-    setState(() {
-      if (selectedPost == (homePostListlength - 1)) {
-        setState(() {
-          selectedPost = 0;
-        });
-      } else {
-        setState(() {
-          selectedPost++;
-        });
-      }
-
-      context
-          .read<MusicPlayerBloc>()
-          .add(SetAudioEvent(homePosts.elementAt(selectedPost)));
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<MusicPlayerBloc>();
     return BlocBuilder<MusicPlayerBloc, MusicPlayerState>(
+      buildWhen: (previous, current) => current is MusicPlayerLoaded,
+      bloc: bloc,
       builder: (context, state) {
         if (state is MusicPlayerLoaded) {
           return Scaffold(
@@ -91,22 +61,7 @@ class _PlayerScreen extends State<PlayerScreen> {
                   IconButton(
                       icon: Icon(Icons.keyboard_arrow_down),
                       onPressed: () {
-                        if (selectedIndex == 0) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => NavScreen()),
-                          );
-                        } else {
-                          setState(() {
-                            selectedIndex = 1;
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => NavScreen()),
-                            );
-                          });
-                        }
+                        Navigator.pop(context);
                       }),
                   Center(
                     child: Column(children: [
@@ -115,7 +70,8 @@ class _PlayerScreen extends State<PlayerScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyProfileScreen()),
+                                builder: (context) =>
+                                    UserProfileScreen(state.post.userId)),
                           );
                         },
                         child: AvatarImage(
@@ -127,7 +83,11 @@ class _PlayerScreen extends State<PlayerScreen> {
                         height: 10.0,
                       ),
                       Text(
-                        '${state.post.username ?? state.post.artistName}',
+                        '${state.post.username ?? state.post.artistName}'
+                                    .length <
+                                24
+                            ? '${state.post.username ?? state.post.artistName}'
+                            : '${(state.post.username ?? state.post.artistName).substring(0, 23)}..',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -205,7 +165,9 @@ class _PlayerScreen extends State<PlayerScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${state.post.songName}',
+                          '${state.post.songName}'.length < 24
+                              ? '${state.post.songName}'
+                              : '${state.post.songName.substring(0, 23)}..',
                           style: TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,
@@ -213,7 +175,9 @@ class _PlayerScreen extends State<PlayerScreen> {
                         ),
                         SizedBox(height: 8),
                         Text(
-                          '${state.post.artistName}',
+                          '${state.post.artistName}'.length < 24
+                              ? '${state.post.artistName}'
+                              : '${state.post.artistName.substring(0, 23)}..',
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -223,27 +187,31 @@ class _PlayerScreen extends State<PlayerScreen> {
                     ), //Song Name/Artist
 
                     if (state.post.likeCount != null)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '${state.post.likeCount}',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16),
-                          ),
-                          SizedBox(height: 8),
-                          IconButton(
-                            icon: Icon(
-                                liked ? Icons.favorite : Icons.favorite_border,
-                                color: likeColor),
-                            onPressed: () {
-                              isLiked();
-                            },
-                            padding: EdgeInsets.all(0),
-                          ),
-                        ],
+                      HomePostWidget(
+                        state.post,
+                        [],
+                        (post, likePost, listenPost) => Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '${post.likeCount}',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            ),
+                            SizedBox(height: 8),
+                            IconButton(
+                              icon: Icon(
+                                  post.isLiked
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: likeColor),
+                              onPressed: likePost,
+                              padding: EdgeInsets.all(0),
+                            ),
+                          ],
+                        ),
                       ),
                   ],
                 ),
@@ -265,16 +233,14 @@ class _PlayerScreen extends State<PlayerScreen> {
                         size: 80,
                       ),
                       onPressed: () {
-                        playpreviousSong();
+                        bloc.add(PlayPreviousEvent());
                       },
                     ),
                   ),
                   SizedBox(
                       child: InkWell(
                     onTap: () {
-                      context
-                          .read<MusicPlayerBloc>()
-                          .add(ChangeStateEvent(state.playing));
+                      bloc.add(ChangeStateEvent(state.playing));
                     },
                     child: Icon(
                       state.playing
@@ -292,7 +258,7 @@ class _PlayerScreen extends State<PlayerScreen> {
                         size: 80,
                       ),
                       onPressed: () {
-                        playnextSong();
+                        bloc.add(PlayNextEvent());
                       },
                     ),
                   ),

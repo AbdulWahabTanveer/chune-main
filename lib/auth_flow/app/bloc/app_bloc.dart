@@ -41,7 +41,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   void _onLogoutRequested(
       AppLogoutRequested event, Emitter<AppState> emit) async {
-    FirebaseMessaging.instance.unsubscribeFromTopic(state.user.id);
+    try {
+      FirebaseMessaging.instance.unsubscribeFromTopic(state.user.id);
+    } catch (e, t) {
+      print(e);
+      print(t);
+    }
     unawaited(_authenticationRepository.logOut());
   }
 

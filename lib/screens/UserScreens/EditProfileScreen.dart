@@ -24,13 +24,12 @@ class _EditProfile extends State<EditProfile> {
         ),
         backgroundColor: Colors.white,
         elevation: 1,
+        centerTitle: true,
         toolbarHeight: 70,
-        title: Center(
-          child: Text(
-            'chune',
-            style: TextStyle(
-                color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
-          ),
+        title: Text(
+          'chune',
+          style: TextStyle(
+              color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
         ),
       ),
       body: Stack(children: [

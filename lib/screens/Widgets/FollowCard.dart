@@ -32,14 +32,16 @@ class _FollowCardContent extends StatelessWidget {
       builder: (context, state) {
         if (state is FollowCardLoaded) {
           final card = state.card;
-          if(card.id == context.read<AppBloc>().state.user.id){
+          if (card.id == context.read<AppBloc>().state.user.id) {
             return SizedBox.shrink();
           }
           return Padding(
             padding: const EdgeInsets.only(left: 8, bottom: 12, right: 8),
             child: InkWell(
               onTap: () {
-                pushTo(context, UserProfileScreen(card.id));
+                pushTo(context, UserProfileScreen(card.id)).then((value) {
+                  bloc.add(LoadFollowCard(card));
+                });
               },
               child: Container(
                   width: 250,

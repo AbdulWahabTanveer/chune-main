@@ -7,7 +7,9 @@ abstract class MusicPlayerEvent {
 class SetAudioEvent extends MusicPlayerEvent {
   final Chune post;
 
-  SetAudioEvent(this.post);
+  final List<Chune> chunes;
+
+  SetAudioEvent(this.post, {this.chunes});
 }
 
 class ChangePositionEvent extends MusicPlayerEvent {
@@ -24,6 +26,10 @@ class ChangeStateEvent extends MusicPlayerEvent {
 
   ChangeStateEvent(this.playing);
 }
+
+class PlayNextEvent extends MusicPlayerEvent {}
+
+class PlayPreviousEvent extends MusicPlayerEvent {}
 
 class SetPositionEvent extends MusicPlayerEvent {
   final Duration duration;

@@ -45,6 +45,8 @@ class Injector {
     GetIt.I.registerSingleton<ShareAChuneRepository>(ShareAChuneRepoImpl());
     GetIt.I.registerSingleton<PaginateRefreshedChangeListener>(
         PaginateRefreshedChangeListener());
+    GetIt.I.registerSingleton<ScrollController>(ScrollController());
+
     appRunner();
   }
 }

@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:newapp/models/current_user.dart';
 
-class Chune {
+class Chune extends Equatable {
   final String id;
   final String preview;
   final String playUri;
@@ -38,40 +39,7 @@ class Chune {
     this.appleObj,
   });
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Chune &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          preview == other.preview &&
-          playUri == other.playUri &&
-          albumArt == other.albumArt &&
-          songName == other.songName &&
-          artistName == other.artistName &&
-          source == other.source &&
-          userId == other.userId &&
-          username == other.username &&
-          userImage == other.userImage &&
-          likeCount == other.likeCount &&
-          timestamp == other.timestamp &&
-          isLiked == other.isLiked);
 
-  @override
-  int get hashCode =>
-      id.hashCode ^
-      preview.hashCode ^
-      playUri.hashCode ^
-      albumArt.hashCode ^
-      songName.hashCode ^
-      artistName.hashCode ^
-      source.hashCode ^
-      userId.hashCode ^
-      username.hashCode ^
-      userImage.hashCode ^
-      likeCount.hashCode ^
-      timestamp.hashCode ^
-      isLiked.hashCode;
 
   @override
   String toString() {
@@ -161,7 +129,8 @@ class Chune {
         appleObj: map['appleObj']);
   }
 
+  @override
+  List<Object> get props => [id, playUri];
+
 //</editor-fold>
 }
-
-

@@ -48,6 +48,11 @@ class _ChunesListWidgetState extends State<ChunesListWidget> {
         return Container(
           child: HomePostWidget(
             chune,
+            List<Chune>.from(
+              documentSnapshots.map(
+                (e) => Chune.fromMap(e.data() as Map).copyWith(id: e.id),
+              ),
+            ),
             (post, likePost, listenPost) => HomePostCard(
               post,
               listenPost: listenPost,

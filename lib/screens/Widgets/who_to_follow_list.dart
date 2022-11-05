@@ -45,7 +45,9 @@ class _WhoToFollowContent extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (context) => ViewAllAccounts(),
                           ),
-                        );
+                        ).then((value) {
+                          // bloc.add(LoadWhoToFollowEvent());
+                        });
                       },
                     )
                   ],

@@ -64,7 +64,10 @@ class HomePostCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  post.songName,
+
+                  '${post.songName}'.length < 24
+                      ? '${post.songName}'
+                      : '${post.songName.substring(0, 23)}..',
                   style: TextStyle(
                       color: Colors.blue,
                       fontWeight: FontWeight.bold,
@@ -100,7 +103,9 @@ class HomePostCard extends StatelessWidget {
             children: [
               SizedBox(width: 20),
               Text(
-                post.artistName,
+                '${post.artistName}'.length < 24
+                    ? '${post.artistName}'
+                    : '${post.artistName.substring(0, 23)}..',
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

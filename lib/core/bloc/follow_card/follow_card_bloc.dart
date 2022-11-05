@@ -23,9 +23,9 @@ class FollowCardBloc extends Bloc<FollowCardEvent, FollowCardState> {
       (event, emit) => emit(FollowCardLoaded(
         event.card.copyWith(
             isFollowing: !event.card.isFollowing,
-            followerCount: event.card.isFollowing
-                ? event.card.followerCount - 1
-                : event.card.followerCount + 1),
+            followersCount: event.card.isFollowing
+                ? event.card.followersCount - 1
+                : event.card.followersCount + 1),
       )),
     );
   }
@@ -57,7 +57,11 @@ class FollowCardBloc extends Bloc<FollowCardEvent, FollowCardState> {
       profileRepo.updateFollows(cast.card.id, followStatus);
       emit(
         FollowCardLoaded(
-          cast.card.copyWith(isFollowing: !cast.card.isFollowing),
+          cast.card.copyWith(
+              isFollowing: followStatus,
+              followersCount: followStatus
+                  ? (cast.card.followersCount ?? 0) + 1
+                  : (cast.card.followersCount ?? 0) - 1),
         ),
       );
     }

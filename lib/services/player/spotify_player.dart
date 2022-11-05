@@ -9,6 +9,7 @@ import 'package:spotify_sdk/models/player_state.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
 import '../../models/current_user.dart';
+import '../../repositories/auth_repository.dart';
 import '../../repositories/spotify_repo.dart';
 
 class SpotifyPlayer extends BaseAudioPlayer {
@@ -56,8 +57,14 @@ class SpotifyPlayer extends BaseAudioPlayer {
   }
 
   void tick(_) async {
-    final pos = await SpotifySdk.getPlayerState();
-    controller.add(pos.playbackPosition);
+    try {
+      final pos = await SpotifySdk.getPlayerState();
+      controller.add(pos.playbackPosition);
+    } catch (e, t) {
+      GetIt.I.get<AuthRepository>().getLoggedInUser();
+      print(e);
+      print(t);
+    }
   }
 
   void stopTimer() {

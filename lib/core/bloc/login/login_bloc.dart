@@ -17,16 +17,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc(this.authRepo) : super(LoginInitial()) {
     on<LoginWithSpotifyEvent>(_onLoginWithSpotify);
     on<LoginWithAppleEvent>(_onLoginWithApple);
-    on<LoginWithCachedUserEvent>(
-      (event, emit) => emit(LoginSuccessState(event.user)),
-    );
+    on<LoginWithCachedUserEvent>(_onLoginWithCache);
     on<ResetMusicSourceEvent>((event, emit) async {
       authRepo.clearUser();
       emit(LoginInitial());
     });
-    if (authRepo.getLoggedInUser() != null) {
-      add(LoginWithCachedUserEvent(authRepo.getLoggedInUser()));
-    }
+
+    add(LoginWithCachedUserEvent());
   }
 
   FutureOr<void> _onLoginWithSpotify(
@@ -39,15 +36,29 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   FutureOr<void> _onLoginWithApple(
       LoginWithAppleEvent event, Emitter<LoginState> emit) async {
-   try{
-     final user = await authRepo.loginWithApple();
-     print("USer TOKEN +> ${user.token}");
-     emit(LoginSuccessState(user));
-   }catch(e,trace){
-     FirebaseFirestore.instance.collection('Logs').add({"Error":'$e',
-     'trace':'$trace',
-     'time':DateTime.now().toString()});
-     emit(LoginErrorState("$e"));
-   }
+    try {
+      final user = await authRepo.loginWithApple();
+      print("USer TOKEN +> ${user.token}");
+      emit(LoginSuccessState(user));
+    } catch (e, trace) {
+      FirebaseFirestore.instance.collection('Logs').add({
+        "Error": '$e',
+        'trace': '$trace',
+        'time': DateTime.now().toString()
+      });
+      emit(LoginErrorState("$e"));
+    }
+  }
+
+  FutureOr<void> _onLoginWithCache(
+      LoginWithCachedUserEvent event, Emitter<LoginState> emit) async {
+    final user = authRepo.getLoggedInUser();
+    if (user != null) {
+      if (user.type == MusicSourceType.spotify) {
+        add(LoginWithSpotifyEvent());
+      } else {
+        emit(LoginSuccessState(user));
+      }
+    }
   }
 }

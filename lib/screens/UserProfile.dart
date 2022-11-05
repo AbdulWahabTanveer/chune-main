@@ -19,7 +19,7 @@ class MyProfileScreen extends StatefulWidget {
 
 class _MyProfileState extends State<MyProfileScreen> {
   var chuneCount = 0;
-  int followerCount = 0;
+  int followersCount = 0;
   int followingCount = 0;
 
   @override
@@ -81,7 +81,7 @@ class _MyProfileState extends State<MyProfileScreen> {
                               label: "Chunes",
                             ),
                             CountWidget(
-                              value: state.profile.followerCount ?? 0,
+                              value: state.profile.followersCount ?? 0,
                               label: "Followers",
                             ),
                             CountWidget(
@@ -109,7 +109,8 @@ class _MyProfileState extends State<MyProfileScreen> {
                                         const Radius.circular(100))),
                                 child: TextButton(
                                   child: Text('Edit Profile',
-                                      style: TextStyle(fontSize: 21)),
+                                      style: TextStyle(
+                                          fontSize: 21, color: Colors.blue)),
                                   onPressed: () {
                                     pushTo(context, EditProfile());
                                   },
@@ -143,7 +144,11 @@ class MyChunesList extends StatelessWidget {
       itemBuilder: (context, documentSnapshots, index) {
         final chune = Chune.fromMap(documentSnapshots[index].data() as Map)
             .copyWith(id: documentSnapshots[index].id);
-        return Container(color: Colors.white, child: ChuneRow(chune));
+        return Container(
+            color: Colors.white,
+            child: ChuneRow(chune,
+                chunes: List<Chune>.from(documentSnapshots.map((e) =>
+                    Chune.fromMap(e.data() as Map).copyWith(id: e.id)))));
       },
       itemBuilderType: PaginateBuilderType.listView,
       onError: (e) => Text('$e'),

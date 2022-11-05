@@ -44,6 +44,11 @@ class _LikedChunes extends State<LikedChunes> {
           return Container(
             child: ChuneRow(
               chune,
+              chunes: List<Chune>.from(
+                documentSnapshots.map(
+                  (e) => Chune.fromMap(e.data() as Map).copyWith(id: e.id),
+                ),
+              ),
             ),
           );
         },
@@ -60,12 +65,15 @@ class _LikedChunes extends State<LikedChunes> {
 class ChuneRow extends StatelessWidget {
   final Chune post;
 
-  const ChuneRow(this.post, {Key key}) : super(key: key);
+  final List<Chune> chunes;
+
+  const ChuneRow(this.post, {Key key, this.chunes}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return HomePostWidget(
       post,
+      chunes,
       (chune, likePost, listenPost) => InkWell(
         splashColor: Colors.white,
         onTap: listenPost,
@@ -90,7 +98,9 @@ class ChuneRow extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        chune.songName,
+                        '${chune.songName}'.length < 24
+                            ? '${chune.songName}'
+                            : '${chune.songName.substring(0, 23)}..',
                         style: TextStyle(
                             color: Colors.blue,
                             fontWeight: FontWeight.bold,

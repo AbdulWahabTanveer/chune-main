@@ -9,9 +9,8 @@ class LoginWithSpotifyEvent extends LoginEvent {}
 class LoginWithAppleEvent extends LoginEvent {}
 
 class LoginWithCachedUserEvent extends LoginEvent {
-  final MusicSourceModel user;
 
-  LoginWithCachedUserEvent(this.user);
+  LoginWithCachedUserEvent();
 }
 
 class ResetMusicSourceEvent extends LoginEvent {}

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/core/bloc/profile/profile_bloc.dart';
@@ -32,6 +34,8 @@ class _ShareAChune extends State<_ShareAChuneContent> {
   // int selectedCounter = 0;
   Chune selectedChune;
   ScrollController _controller;
+
+  Timer timer;
 
   // List chuneList;
 
@@ -124,7 +128,14 @@ class _ShareAChune extends State<_ShareAChuneContent> {
                             child: TextField(
                               cursorColor: primary,
                               style: TextStyle(color: Colors.black),
-                              enabled: state is! ChunesLoadingState,
+                              // enabled: state is! ChunesLoadingState,
+                              onChanged: (chune) {
+                                timer?.cancel();
+                                timer = Timer(Duration(milliseconds: 500), () {
+                                  context.read<ShareAChuneBloc>().add(
+                                      SearchChuneEvent(chune, force: true));
+                                });
+                              },
                               onSubmitted: (String chune) {
                                 context
                                     .read<ShareAChuneBloc>()
@@ -185,7 +196,8 @@ class _ShareAChune extends State<_ShareAChuneContent> {
                               as ProfileLoadedState;
                           print("<><><><><><> PROFILE MODEL ${state.profile}");
                           context.read<ShareAChuneBloc>().add(
-                              ShareChuneEvent(selectedChune, state.profile));
+                                ShareChuneEvent(selectedChune, state.profile),
+                              );
                         },
                   child: Icon(
                     Icons.send,
@@ -244,7 +256,9 @@ class _ChuneRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      chune.songName,
+                      '${chune.songName}'.length < 24
+                          ? '${chune.songName}'
+                          : '${chune.songName.substring(0, 23)}..',
                       style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
@@ -252,7 +266,9 @@ class _ChuneRow extends StatelessWidget {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      chune.artistName,
+                      '${chune.artistName}'.length < 24
+                          ? '${chune.artistName}'
+                          : '${chune.artistName.substring(0, 23)}..',
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,

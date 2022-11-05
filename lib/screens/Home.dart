@@ -34,9 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(children: [
         RefreshIndicator(
           onRefresh: () async {
-              GetIt.I.get<PaginateRefreshedChangeListener>().refreshed = true;
+            GetIt.I.get<PaginateRefreshedChangeListener>().refreshed = true;
           },
           child: SingleChildScrollView(
+            controller: GetIt.I.get<ScrollController>(),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,

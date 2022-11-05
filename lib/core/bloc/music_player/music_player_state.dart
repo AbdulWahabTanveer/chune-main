@@ -19,26 +19,30 @@ class MusicPlayerLoaded extends MusicPlayerState {
   final Duration currentDuration;
   final bool playing;
   final Chune post;
+  final List<Chune> list;
 
   MusicPlayerLoaded(
-      {this.totalDuration, this.currentDuration, this.playing, this.post});
-
-
+      {this.totalDuration,
+      this.currentDuration,
+      this.playing,
+      this.post,
+      this.list});
 
   @override
-  List<Object> get props => [totalDuration, currentDuration, playing, post];
+  List<Object> get props =>
+      [totalDuration, currentDuration, playing, post, list];
 
-  MusicPlayerLoaded copyWith({
-    Duration totalDuration,
-    Duration currentDuration,
-    bool state,
-    PostDetails post,
-  }) {
+  MusicPlayerLoaded copyWith(
+      {Duration totalDuration,
+      Duration currentDuration,
+      bool state,
+      PostDetails post,
+      List<Chune> list}) {
     return MusicPlayerLoaded(
-      totalDuration: totalDuration ?? this.totalDuration,
-      currentDuration: currentDuration ?? this.currentDuration,
-      playing: state ?? this.playing,
-      post: post ?? this.post,
-    );
+        totalDuration: totalDuration ?? this.totalDuration,
+        currentDuration: currentDuration ?? this.currentDuration,
+        playing: state ?? this.playing,
+        post: post ?? this.post,
+        list: list ?? this.list);
   }
 }

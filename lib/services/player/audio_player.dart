@@ -35,6 +35,7 @@ class PlayerStatus {
 
 class TrackInfo {
   final Duration totalDuration;
+  final String id;
 
-  TrackInfo(this.totalDuration);
+  TrackInfo(this.totalDuration,this.id);
 }

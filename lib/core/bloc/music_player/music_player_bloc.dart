@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../Useful_Code/constants.dart';
 import '../../../models/chune.dart';
 import '../../../screens/Widgets/Post.dart';
 import '../../../services/audio_service.dart';
@@ -21,6 +23,8 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
 
   MusicPlayerBloc() : super(MusicPlayerInitial()) {
     on<SetAudioEvent>(_onSetAudio);
+    on<GetAudioEvent>(_onGetAudio);
+    on<StopAudioEvent>(_onStopAudio);
     on<ChangePositionEvent>(_onChangePosition);
     on<ChangeStateEvent>(_onChangeState);
     on<PlayNextEvent>(_onPlayNext);
@@ -115,6 +119,40 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
       final newIndex =
           currentIndex == 0 ? cast.list.length - 1 : currentIndex - 1;
       add(SetAudioEvent(cast.list.elementAt(newIndex), chunes: cast.list));
+    }
+  }
+
+  FutureOr<void> _onStopAudio(
+      StopAudioEvent event, Emitter<MusicPlayerState> emit) async {
+    await player.pause();
+    emit(MusicPlayerInitial());
+  }
+
+  FutureOr<void> _onGetAudio(
+      GetAudioEvent event, Emitter<MusicPlayerState> emit) async {
+    try {
+      final state = await player.getPlayerState();
+      final doc = await FirebaseFirestore.instance
+          .collection(chunesCollection)
+          .where('playUri', isEqualTo: state.chune.id)
+          .limit(1)
+          .get();
+      final chune = doc.size > 0
+          ? Chune.fromMap(doc.docs.first.data()).copyWith(id: doc.docs.first.id)
+          : null;
+      if (chune != null) {
+        emit(
+          MusicPlayerLoaded(
+              totalDuration: state.chune.totalDuration,
+              currentDuration: Duration(milliseconds: state.playbackPosition),
+              playing: !state.isPaused,
+              post: chune,
+              list: []),
+        );
+      }
+    } catch (e, t) {
+      print(e);
+      print(t);
     }
   }
 }

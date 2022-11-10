@@ -5,6 +5,7 @@ import 'package:newapp/core/bloc/login/login_bloc.dart';
 
 import '../auth_flow/app/bloc/app_bloc.dart';
 import '../auth_flow/login/view/login_page.dart';
+import '../core/bloc/music_player/music_player_bloc.dart';
 import '../core/bloc/profile/profile_bloc.dart';
 import 'LoginScreens/Login.dart';
 
@@ -18,6 +19,7 @@ class SplashScreen extends StatelessWidget {
         if (state.status == AppStatus.unauthenticated) {
           context.read<ProfileBloc>().add(LogoutProfileEvent());
           context.read<LoginBloc>().add(ResetMusicSourceEvent());
+          context.read<MusicPlayerBloc>().add(StopAudioEvent());
         }
       },
       builder: (context, state) {

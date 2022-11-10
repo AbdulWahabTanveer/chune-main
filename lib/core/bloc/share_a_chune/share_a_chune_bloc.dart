@@ -30,12 +30,15 @@ class ShareAChuneBloc extends Bloc<ShareAChuneEvent, ShareAChuneState> {
 
   FutureOr<void> _onSearchChune(
       SearchChuneEvent event, Emitter<ShareAChuneState> emit) async {
-    if (state is ChunesLoadingState || end) {
+    if (state is ChunesLoadingState) {
       return;
     }
     List<Chune> chunes = [];
     var s = event.s;
     if (!event.force && state is ChunesLoadSuccess) {
+      if (end) {
+        return;
+      }
       final cast = state as ChunesLoadSuccess;
       page++;
       chunes = List<Chune>.from(cast.chunes);
@@ -45,11 +48,17 @@ class ShareAChuneBloc extends Bloc<ShareAChuneEvent, ShareAChuneState> {
       end = false;
       emit(ChunesLoadingState());
     }
-    final newChunes = await chuneRepo.search(s, page: page);
-    if (newChunes.isEmpty) {
-      end = true;
+    try {
+      final newChunes = await chuneRepo.search(s, page: page);
+      if (newChunes.isEmpty) {
+        end = true;
+      }
+      emit(ChunesLoadSuccess(chunes..addAll(newChunes), end: end, search: s));
+    } catch (e, t) {
+      print(e);
+      print(t);
+      emit(ChunesLoadSuccess(chunes, end: true, search: s));
     }
-    emit(ChunesLoadSuccess(chunes..addAll(newChunes), end: end, search: s));
   }
 
   FutureOr<void> _onShareChune(

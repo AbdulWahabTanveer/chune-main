@@ -29,6 +29,10 @@ class ChangeStateEvent extends MusicPlayerEvent {
 
 class PlayNextEvent extends MusicPlayerEvent {}
 
+class GetAudioEvent extends MusicPlayerEvent {}
+
+class StopAudioEvent extends MusicPlayerEvent {}
+
 class PlayPreviousEvent extends MusicPlayerEvent {}
 
 class SetPositionEvent extends MusicPlayerEvent {

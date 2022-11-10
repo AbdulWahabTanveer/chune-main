@@ -11,30 +11,32 @@ class AudioHandler {
 
   /// Creates an empty [BehaviorSubject] so as to allow new listeners
   /// to get the latest emission on subscription.
-  final BehaviorSubject<PlayerStatus> _playerState = BehaviorSubject();
+  BehaviorSubject<PlayerStatus> _playerState = BehaviorSubject();
 
   Stream<PlayerStatus> get playerState => _playerState;
 
   Future<void> init({
-    @required Chune chune,
+    Chune chune,
   }) async {
-      _player = GetIt.I.get<BaseAudioPlayer>();
-      _player.playerState.listen((event) {
-        return _playerState.add(event);
-      });
-
-    await addQueueItem(chune);
+    _player = GetIt.I.get<BaseAudioPlayer>();
+    if(_playerState.isClosed){
+      _playerState = BehaviorSubject<PlayerStatus>();
+    }
+    _player.playerState.listen((event) {
+      return _playerState.add(event);
+    });
+    if (chune != null) {
+      await addQueueItem(chune);
+    }
   }
 
   Future<void> addQueueItem(Chune mediaItem) async {
     try {
       await _player.queue(mediaItem);
     } catch (e, t) {
-      FirebaseFirestore.instance.collection('AppleQueueLogs').add({
-        'error':'$e',
-        'trace':'$t',
-        'time':"${DateTime.now()}"
-      });
+      FirebaseFirestore.instance
+          .collection('AppleQueueLogs')
+          .add({'error': '$e', 'trace': '$t', 'time': "${DateTime.now()}"});
       print(e);
       print(t);
     }
@@ -44,11 +46,9 @@ class AudioHandler {
     try {
       await _player.resume();
     } catch (e, t) {
-      FirebaseFirestore.instance.collection('ApplePlayLogs').add({
-        'error':'$e',
-        'trace':'$t',
-        'time':"${DateTime.now()}"
-      });
+      FirebaseFirestore.instance
+          .collection('ApplePlayLogs')
+          .add({'error': '$e', 'trace': '$t', 'time': "${DateTime.now()}"});
       print(t);
     }
   }
@@ -68,5 +68,10 @@ class AudioHandler {
   Future<void> dispose() async {
     await _player.dispose();
     await _playerState.close();
+  }
+
+  Future<PlayerStatus> getPlayerState() async {
+    await init();
+    return _playerState.first;
   }
 }

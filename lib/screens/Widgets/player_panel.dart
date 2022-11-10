@@ -29,7 +29,10 @@ class PlayerPanel extends StatelessWidget {
                       height: 1,
                       child: SliderTheme(
                         child: Slider(
-                          value: state.currentDuration.inSeconds.toDouble(),
+                          value: state.currentDuration.inSeconds.toDouble() >
+                                  state.totalDuration.inSeconds.toDouble()
+                              ? state.totalDuration.inSeconds.toDouble()
+                              : state.currentDuration.inSeconds.toDouble(),
                           max: state.totalDuration.inSeconds.toDouble(),
                           onChanged: null,
                         ),

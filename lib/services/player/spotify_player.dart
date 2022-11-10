@@ -22,14 +22,14 @@ class SpotifyPlayer extends BaseAudioPlayer {
   @override
   Stream<PlayerStatus> get playerState =>
       // SpotifySdk.subscribePlayerState().map((event) =>
-  //     PlayerStatus(
-  //   event.isPaused,
-  //   event.playbackSpeed,
-  //   event.,
-  //   TrackInfo(
-  //     Duration(milliseconds: event.track?.duration??0),
-  //   ),
-  // ),);
+      //     PlayerStatus(
+      //   event.isPaused,
+      //   event.playbackSpeed,
+      //   event.,
+      //   TrackInfo(
+      //     Duration(milliseconds: event.track?.duration??0),
+      //   ),
+      // ),);
       Rx.combineLatest2<PlayerState, int, PlayerStatus>(
         SpotifySdk.subscribePlayerState(),
         _timedCounter(),
@@ -37,22 +37,20 @@ class SpotifyPlayer extends BaseAudioPlayer {
           event.isPaused,
           event.playbackSpeed,
           b,
-          TrackInfo(
-            Duration(milliseconds: event.track?.duration??0),
-          ),
+          TrackInfo(Duration(milliseconds: event.track?.duration ?? 0),
+              event.track?.uri),
         ),
       );
 
   Stream<int> _timedCounter() {
     controller = StreamController<int>(
-        onListen: startTimer,
         onPause: stopTimer,
-        onResume: startTimer,
         onCancel: stopTimer);
     return controller.stream;
   }
 
   void startTimer() {
+    timer?.cancel();
     timer = Timer.periodic(interval, tick);
   }
 
@@ -74,9 +72,9 @@ class SpotifyPlayer extends BaseAudioPlayer {
 
   @override
   Future<void> dispose() async {
+    await stop();
     controller?.close();
-    timer?.cancel();
-    SpotifySdk.getCrossFadeState();
+    stopTimer();
     await SpotifySdk.disconnect();
   }
 
@@ -107,11 +105,18 @@ class SpotifyPlayer extends BaseAudioPlayer {
     if (mediaItem.source == MusicSourceType.apple) {
       final result = await spotifyRepo.search(mediaItem.songName);
       if (result?.tracks?.items != null && result.tracks.items.isNotEmpty) {
-        return SpotifySdk.play(spotifyUri: result.tracks.items.first.uri);
-      }else{
+        var track = result.tracks.items.firstWhere(
+          (element) => element.artists
+              .map((e) => e.name)
+              .join(',')
+              .contains(mediaItem.artistName.split(',')[0]),
+          orElse: () => result.tracks.items.first,
+        );
+        return SpotifySdk.play(spotifyUri: track.uri);
+      } else {
         Fluttertoast.showToast(msg: 'ERROR');
       }
-    }else {
+    } else {
       await SpotifySdk.play(spotifyUri: mediaItem.playUri);
       // await SpotifySdk.queue(spotifyUri: mediaItem.playUri);
     }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:music_kit/music_kit.dart';
@@ -9,6 +10,7 @@ import 'package:newapp/models/current_user.dart';
 import 'package:newapp/services/player/audio_player.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../Useful_Code/constants.dart';
 import '../../repositories/apple_repo.dart';
 
 class ApplePlayer extends BaseAudioPlayer {
@@ -26,24 +28,24 @@ class ApplePlayer extends BaseAudioPlayer {
         MusicKit().onPlayerQueueChanged,
         MusicKit().onMusicPlayerStateChanged,
         _timedCounter(Duration(seconds: 1)),
-        (queue, state, duration) => PlayerStatus(
-          state.playbackStatus != MusicPlayerPlaybackStatus.playing,
-          1.0,
-          duration,
-          TrackInfo(
-            Duration(
-                milliseconds: queue.currentEntry.item['attributes']
+            (queue, state, duration) =>
+            PlayerStatus(
+              state.playbackStatus != MusicPlayerPlaybackStatus.playing,
+              1.0,
+              duration,
+              TrackInfo(
+                Duration(
+                    milliseconds: queue.currentEntry.item['attributes']
                     ['durationInMillis']),
-          ),
-        ),
+                queue.currentEntry.id
+              ),
+            ),
       );
 
   // #docregion better-stream
   Stream<int> _timedCounter(Duration interval, [int maxCount]) {
     controller = StreamController<int>(
-        onListen: startTimer,
         onPause: stopTimer,
-        onResume: startTimer,
         onCancel: stopTimer);
     return controller.stream;
   }
@@ -65,7 +67,7 @@ class ApplePlayer extends BaseAudioPlayer {
   @override
   Future<void> dispose() {
     controller?.close();
-    timer?.cancel();
+    stopTimer();
     return _musicKitPlugin.stop();
   }
 
@@ -76,10 +78,10 @@ class ApplePlayer extends BaseAudioPlayer {
   }
 
   @override
-  Future<void> resume()async {
+  Future<void> resume() async {
     startTimer();
-    if (Platform.isIOS && !( await _musicKitPlugin.isPreparedToPlay)) {
-    await _musicKitPlugin.prepareToPlay();
+    if (Platform.isIOS && !(await _musicKitPlugin.isPreparedToPlay)) {
+      await _musicKitPlugin.prepareToPlay();
     }
     return _musicKitPlugin.play();
   }
@@ -97,12 +99,25 @@ class ApplePlayer extends BaseAudioPlayer {
 
   @override
   Future<void> queue(Chune mediaItem) async {
-
+    if (mediaItem.appleObj == null || mediaItem.appleObj.isEmpty) {
       final result = await appleRepo.search(mediaItem.songName);
       if (result?.results?.songs?.data != null &&
           result.results.songs.data.isNotEmpty) {
-        return _musicKitPlugin.setQueueWithItems("songs",
-            items: [result.results.songs.data.first.toJson()]);
+        var track = result.results.songs.data.firstWhere(
+              (element) =>
+          element.attributes.artistName
+              .contains(mediaItem.artistName.split(',')[0]) ||
+              mediaItem.artistName
+                  .split(',')[0]
+                  .contains(element.attributes.artistName),
+          orElse: () => result.results.songs.data.first,
+        );
+        return _musicKitPlugin
+            .setQueueWithItems("songs", items: [track.toJson()]);
       }
+    }
+    return _musicKitPlugin
+        .setQueueWithItems("songs", items: [mediaItem.appleObj]);
   }
+
 }

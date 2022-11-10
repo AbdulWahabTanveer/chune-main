@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:newapp/core/bloc/music_player/music_player_bloc.dart';
 import 'package:newapp/screens/Home.dart';
 import 'package:newapp/screens/Notifications.dart';
 import 'package:newapp/screens/ShareAChune.dart';
@@ -39,6 +40,7 @@ class _NavScreen extends State<NavScreen> {
   @override
   void initState() {
     selectedIndex = widget.index;
+    context.read<MusicPlayerBloc>().add(GetAudioEvent());
     super.initState();
   }
 

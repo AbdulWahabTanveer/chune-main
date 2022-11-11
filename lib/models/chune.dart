@@ -130,7 +130,7 @@ class Chune extends Equatable {
   }
 
   @override
-  List<Object> get props => [id, playUri];
+  List<Object> get props => [id, playUri,likeCount,isLiked];
 
 //</editor-fold>
 }

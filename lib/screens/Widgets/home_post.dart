@@ -48,8 +48,8 @@ class HomePostCard extends StatelessWidget {
           GestureDetector(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
-              child: CachedNetworkImage(
-                imageUrl:post.albumArt,
+              child: Image.network(
+                post.albumArt,
                 //post.albumArt,
                 height: 370,
                 width: 370,

@@ -57,6 +57,7 @@ dependencies:
   shared_preferences: ^2.0.15
   fluttertoast: ^8.1.1
   launch_review: ^3.0.1
+  firebase_crashlytics: ^2.9.0
 
 
 dev_dependencies:

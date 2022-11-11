@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -25,6 +28,14 @@ class Injector {
 
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
+    FlutterError.onError = (errorDetails) {
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+    };
+    // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
 
     final authenticationRepository = AuthenticationRepository();
     await authenticationRepository.user.first;

@@ -35,8 +35,8 @@ class ApplePlayer extends BaseAudioPlayer {
               duration,
               TrackInfo(
                 Duration(
-                    milliseconds: queue.currentEntry.item['attributes']
-                    ['durationInMillis']),
+                    milliseconds: queue?.currentEntry?.item?['attributes']
+                    ?['durationInMillis']??0),
                 queue.currentEntry.id
               ),
             ),

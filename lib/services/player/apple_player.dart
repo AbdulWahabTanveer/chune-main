@@ -28,25 +28,23 @@ class ApplePlayer extends BaseAudioPlayer {
         MusicKit().onPlayerQueueChanged,
         MusicKit().onMusicPlayerStateChanged,
         _timedCounter(Duration(seconds: 1)),
-            (queue, state, duration) =>
-            PlayerStatus(
-              state.playbackStatus != MusicPlayerPlaybackStatus.playing,
-              1.0,
-              duration,
-              TrackInfo(
-                Duration(
-                    milliseconds: queue?.currentEntry?.item?['attributes']
-                    ?['durationInMillis']??0),
-                queue.currentEntry.id
-              ),
-            ),
+        (queue, state, duration) => PlayerStatus(
+          state.playbackStatus != MusicPlayerPlaybackStatus.playing,
+          1.0,
+          duration,
+          TrackInfo(
+              Duration(
+                  milliseconds:
+                      ((queue?.currentEntry?.item ?? {})['attributes'] ??
+                              {})['durationInMillis'] ??
+                          0),
+              queue?.currentEntry?.id ?? ""),
+        ),
       );
 
   // #docregion better-stream
   Stream<int> _timedCounter(Duration interval, [int maxCount]) {
-    controller = StreamController<int>(
-        onPause: stopTimer,
-        onCancel: stopTimer);
+    controller = StreamController<int>(onPause: stopTimer, onCancel: stopTimer);
     return controller.stream;
   }
 
@@ -104,9 +102,9 @@ class ApplePlayer extends BaseAudioPlayer {
       if (result?.results?.songs?.data != null &&
           result.results.songs.data.isNotEmpty) {
         var track = result.results.songs.data.firstWhere(
-              (element) =>
-          element.attributes.artistName
-              .contains(mediaItem.artistName.split(',')[0]) ||
+          (element) =>
+              element.attributes.artistName
+                  .contains(mediaItem.artistName.split(',')[0]) ||
               mediaItem.artistName
                   .split(',')[0]
                   .contains(element.attributes.artistName),
@@ -119,5 +117,4 @@ class ApplePlayer extends BaseAudioPlayer {
     return _musicKitPlugin
         .setQueueWithItems("songs", items: [mediaItem.appleObj]);
   }
-
 }

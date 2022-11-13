@@ -22,7 +22,8 @@ class AudioHandler {
     if(_playerState.isClosed){
       _playerState = BehaviorSubject<PlayerStatus>();
     }
-    _player.playerState.listen((event) {
+
+    _player?.playerState?.listen((event) {
       return _playerState.add(event);
     });
     if (chune != null) {
@@ -54,24 +55,50 @@ class AudioHandler {
   }
 
   Future<void> pause() async {
-    await _player.pause();
+    try {
+      await _player.pause();
+    } catch (e, t) {
+      FirebaseFirestore.instance
+          .collection('ApplePlayLogs')
+          .add({'error': '$e', 'trace': '$t', 'time': "${DateTime.now()}"});
+      print(t);
+    }
   }
 
   Future<void> seek(Duration position) async {
-    await _player.seek(position);
+    try {
+      await _player.seek(position);
+    } catch (e, t) {
+      FirebaseFirestore.instance
+          .collection('ApplePlayLogs')
+          .add({'error': '$e', 'trace': '$t', 'time': "${DateTime.now()}"});
+      print(t);
+    }
   }
 
   Future<void> stop() async {
-    await _player.stop();
+    try {
+      await _player.stop();
+    } catch (e, t) {
+      FirebaseFirestore.instance
+          .collection('ApplePlayLogs')
+          .add({'error': '$e', 'trace': '$t', 'time': "${DateTime.now()}"});
+      print(t);
+    }
   }
 
   Future<void> dispose() async {
-    await _player.dispose();
-    await _playerState.close();
+    try {
+      await _player?.dispose();
+      await _playerState?.close();
+    } catch (e, t) {
+      print(e);
+      print(t);
+    }
   }
 
   Future<PlayerStatus> getPlayerState() async {
     await init();
-    return _playerState.first;
+    return _playerState?.first;
   }
 }

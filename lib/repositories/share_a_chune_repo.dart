@@ -50,9 +50,9 @@ class ShareAChuneRepoImpl extends ShareAChuneRepository {
               (item) => Chune(
                 albumArt: item.attributes.artwork.url
                     .replaceFirst(
-                        '{w}', item.attributes.artwork.width.toString())
+                        '{w}', '600')
                     .replaceFirst(
-                        '{h}', item.attributes.artwork.height.toString()),
+                        '{h}', "600"),
                 songName: item.attributes.name,
                 appleObj:item.toJson(),
                 preview: item.attributes.previews[0].url,

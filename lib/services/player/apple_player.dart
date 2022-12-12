@@ -98,6 +98,7 @@ class ApplePlayer extends BaseAudioPlayer {
   @override
   Future<void> queue(Chune mediaItem) async {
     if (mediaItem.appleObj == null || mediaItem.appleObj.isEmpty) {
+
       final result = await appleRepo.search(mediaItem.songName);
       if (result?.results?.songs?.data != null &&
           result.results.songs.data.isNotEmpty) {

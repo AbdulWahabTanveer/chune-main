@@ -9,7 +9,7 @@ class Chune extends Equatable {
   final String songName;
   final String artistName;
   final MusicSourceType source;
-
+  final int durationInMills;
   final String userId;
   final String username;
   final String userImage;
@@ -37,6 +37,7 @@ class Chune extends Equatable {
     this.timestamp,
     this.isLiked = false,
     this.appleObj,
+    this.durationInMills
   });
 
 
@@ -57,6 +58,7 @@ class Chune extends Equatable {
         ' likeCount: $likeCount,' +
         ' timestamp: $timestamp,' +
         ' isLiked: $isLiked,' +
+        ' durationInMills: $durationInMills,' +
         '}';
   }
 
@@ -74,6 +76,7 @@ class Chune extends Equatable {
     int likeCount,
     int timestamp,
     bool isLiked,
+    int durationInMills,
   }) {
     return Chune(
       id: id ?? this.id,
@@ -89,6 +92,7 @@ class Chune extends Equatable {
       likeCount: likeCount ?? this.likeCount,
       timestamp: timestamp ?? this.timestamp,
       isLiked: isLiked ?? this.isLiked,
+      durationInMills: durationInMills ?? this.durationInMills,
     );
   }
 
@@ -107,7 +111,8 @@ class Chune extends Equatable {
       'likeCount': this.likeCount,
       'timestamp': this.timestamp,
       'isLiked': this.isLiked,
-      'appleObj': this.appleObj
+      'appleObj': this.appleObj,
+      'durationInMills': this.durationInMills
     };
   }
 
@@ -125,6 +130,7 @@ class Chune extends Equatable {
         userImage: map['userImage'] as String,
         likeCount: map['likeCount'] as int,
         timestamp: map['timestamp'] as int,
+        durationInMills: map['durationInMills'] as int,
         isLiked: map['isLiked'] as bool,
         appleObj: map['appleObj']);
   }

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:newapp/Useful_Code/utils.dart';
-import 'package:newapp/models/current_user.dart';
 import 'package:newapp/screens/Profile.dart';
 import 'package:newapp/screens/Widgets/FollowCard.dart';
 
@@ -36,10 +35,9 @@ class HomePostCard extends StatelessWidget {
                 Text(
                   post.username,
                   style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
                 ), //Username
                 SizedBox(
                   height: 50,
@@ -51,7 +49,7 @@ class HomePostCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
               child: CachedNetworkImage(
-                imageUrl: post.source == MusicSourceType.apple?shrink(post.albumArt):post.albumArt,
+                imageUrl: post.albumArt,
                 //post.albumArt,
                 height: 370,
                 width: 370,
@@ -66,6 +64,7 @@ class HomePostCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
+
                   '${post.songName}'.length < 24
                       ? '${post.songName}'
                       : '${post.songName.substring(0, 23)}..',
@@ -120,13 +119,5 @@ class HomePostCard extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String shrink(String albumArt) {
-    final list = albumArt.split('/');
-    final newL = list.removeLast().split('.');
-    newL[0] = "600x600bb";
-    list.add(newL.join('.'));
-    return list.join("/");
   }
 }

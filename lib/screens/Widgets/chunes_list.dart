@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:newapp/core/bloc/login/login_bloc.dart';
+import 'package:newapp/responsive.dart';
 import 'package:paginate_firestore/bloc/pagination_listeners.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../core/bloc/music_player/music_player_bloc.dart';
 import '../../models/chune.dart';
@@ -62,6 +64,8 @@ class _ChunesListWidgetState extends State<ChunesListWidget> {
         );
       },
       shrinkWrap: true,
+      padding: EdgeInsets.symmetric(
+          horizontal: largerThan(context, layout: TABLET) ? 150 : 0),
       physics: const NeverScrollableScrollPhysics(),
       query: repo.homePageChunesQuery,
       itemBuilderType: PaginateBuilderType.listView,

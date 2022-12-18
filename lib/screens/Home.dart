@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:newapp/responsive.dart';
 import 'package:newapp/screens/Player.dart';
 
 //import 'package:newapp/screens/UserScreens/UserProfile.dart';
@@ -10,6 +11,7 @@ import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:newapp/screens/Widgets/Post.dart';
 import 'package:newapp/screens/globalvariables.dart';
 import 'package:paginate_firestore/bloc/pagination_listeners.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 import '../core/bloc/music_player/music_player_bloc.dart';
 import 'Widgets/AudioPlayer.dart';
@@ -38,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           child: SingleChildScrollView(
             controller: GetIt.I.get<ScrollController>(),
+
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,

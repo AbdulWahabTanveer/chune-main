@@ -15,8 +15,8 @@ import '../../services/player/apple_player.dart';
 import '../../services/player/spotify_player.dart';
 
 class MusicSource extends StatefulWidget {
-
   const MusicSource({Key key}) : super(key: key);
+
   @override
   _MusicSourceState createState() => _MusicSourceState();
 
@@ -41,7 +41,6 @@ class _MusicSourceState extends State<MusicSource> {
             get.registerSingleton<BaseAudioPlayer>(ApplePlayer());
           }
         }
-
       },
       builder: (context, state) {
         if (state is LoginSuccessState) {
@@ -49,8 +48,6 @@ class _MusicSourceState extends State<MusicSource> {
         }
         return Scaffold(
           body: Container(
-            width: 500,
-            height: 1000,
             decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
                 Theme.of(context).primaryColor,
@@ -66,14 +63,18 @@ class _MusicSourceState extends State<MusicSource> {
                   'chune',
                   style: TextStyle(
                       fontFamily: '',
-                      fontSize: 90,
+                      fontSize: 80,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
+                SizedBox(height: 50),
                 ElevatedButton.icon(
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.resolveWith(
-                                (states) => Color(0xff00d157))),
+                      backgroundColor: MaterialStateProperty.resolveWith(
+                          (states) => Color(0xff00d157)),
+                      foregroundColor: MaterialStateProperty.resolveWith(
+                          (states) => Colors.white),
+                    ),
                     onPressed: () {
                       context.read<LoginBloc>().add(LoginWithSpotifyEvent());
                     },
@@ -87,10 +88,10 @@ class _MusicSourceState extends State<MusicSource> {
                 ),
                 ElevatedButton.icon(
                   style: ButtonStyle(
-                      foregroundColor:
-                      MaterialStateProperty.resolveWith((states) => Colors.black),
+                      foregroundColor: MaterialStateProperty.resolveWith(
+                          (states) => Colors.black),
                       backgroundColor: MaterialStateProperty.resolveWith(
-                              (states) => Colors.white)),
+                          (states) => Colors.white)),
                   onPressed: () {
                     context.read<LoginBloc>().add(LoginWithAppleEvent());
                   },

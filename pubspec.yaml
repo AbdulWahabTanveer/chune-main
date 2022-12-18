@@ -58,7 +58,10 @@ dependencies:
   fluttertoast: ^8.1.1
   launch_review: ^3.0.1
   firebase_crashlytics: ^2.9.0
-
+  responsive_framework: ^0.2.0
+  image_picker: ^0.8.6
+  image_cropper: ^3.0.1
+  device_preview: ^1.1.0
 
 dev_dependencies:
   flutter_test:

@@ -113,7 +113,10 @@ class _FollowCardContent extends StatelessWidget {
             ),
           );
         }
-        return loader();
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50),
+          child: loader(),
+        );
       },
     );
   }

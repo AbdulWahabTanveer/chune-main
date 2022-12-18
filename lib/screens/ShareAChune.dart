@@ -110,53 +110,43 @@ class _ShareAChune extends State<_ShareAChuneContent> {
                       fontSize: 25),
                 ),
                 SizedBox(height: 8),
-                Row(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Share A Chune',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 35,
-                                  fontWeight: FontWeight.bold)),
-                          SizedBox(height: 8),
-                          SizedBox(
-                            width: 300,
-                            child: TextField(
-                              cursorColor: primary,
-                              style: TextStyle(color: Colors.black),
-                              // enabled: state is! ChunesLoadingState,
-                              onChanged: (chune) {
-                                timer?.cancel();
-                                timer = Timer(Duration(milliseconds: 500), () {
-                                  context.read<ShareAChuneBloc>().add(
-                                      SearchChuneEvent(chune, force: true));
-                                });
-                              },
-                              onSubmitted: (String chune) {
-                                context
-                                    .read<ShareAChuneBloc>()
-                                    .add(SearchChuneEvent(chune, force: true));
-                              },
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.search),
-                                hintText: 'Enter artists & songs...',
-                                focusColor: Colors.grey,
-                                border: border,
-                                focusedBorder: border,
-                                enabledBorder: border,
-                                focusedErrorBorder: border,
-                                errorBorder: border,
-                                errorStyle: TextStyle(
-                                    color: Colors.white,
-                                    backgroundColor: Colors.red),
-                              ),
-                            ),
-                          ),
-                        ],
+                    Text('Share A Chune',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold)),
+                    SizedBox(height: 8),
+                    TextField(
+                      cursorColor: primary,
+                      style: TextStyle(color: Colors.black),
+                      // enabled: state is! ChunesLoadingState,
+                      onChanged: (chune) {
+                        timer?.cancel();
+                        timer = Timer(Duration(milliseconds: 500), () {
+                          context.read<ShareAChuneBloc>().add(
+                              SearchChuneEvent(chune, force: true));
+                        });
+                      },
+                      onSubmitted: (String chune) {
+                        context
+                            .read<ShareAChuneBloc>()
+                            .add(SearchChuneEvent(chune, force: true));
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.search),
+                        hintText: 'Enter artists & songs...',
+                        focusColor: Colors.grey,
+                        border: border,
+                        focusedBorder: border,
+                        enabledBorder: border,
+                        focusedErrorBorder: border,
+                        errorBorder: border,
+                        errorStyle: TextStyle(
+                            color: Colors.white,
+                            backgroundColor: Colors.red),
                       ),
                     ),
                   ],

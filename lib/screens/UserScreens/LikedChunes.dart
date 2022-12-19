@@ -82,59 +82,53 @@ class ChuneRow extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16.0),
-                    child: Image.network(
-                      chune.albumArt,
-                      height: 70,
-                      width: 70,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${chune.songName}'.length < 24
-                            ? '${chune.songName}'
-                            : '${chune.songName.substring(0, 23)}..',
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        chune.artistName.length > 24
-                            ? "${chune.artistName.substring(0, 23)}.."
-                            : chune.artistName,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ],
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16.0),
+                child: Image.network(
+                  chune.albumArt,
+                  height: 60,
+                  width: 60,
+                ),
               ),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: likePost,
-                    padding: EdgeInsets.all(0),
-                    icon: Icon(
-                      chune.isLiked
-                          ? Icons.favorite
-                          : Icons.favorite_border_outlined,
-                      color: chune.isLiked
-                          ? Colors.red
-                          : Colors.grey.withOpacity(0.7),
+              SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${chune.songName}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 5),
+                    Text(
+                      chune.artistName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: likePost,
+                padding: EdgeInsets.all(0),
+                icon: Icon(
+                  chune.isLiked
+                      ? Icons.favorite
+                      : Icons.favorite_border_outlined,
+                  color: chune.isLiked
+                      ? Colors.red
+                      : Colors.grey.withOpacity(0.7),
+                ),
               ),
             ],
           ),

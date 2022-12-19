@@ -52,17 +52,23 @@ class _PlayerScreen extends State<PlayerScreen> {
       builder: (context, state) {
         if (state is MusicPlayerLoaded) {
           return Scaffold(
-              body: Column(
+              body: ListView(
             children: [
-              SizedBox(height: 100),
+              SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      }),
+                  Expanded(
+                    child: Row(
+                      children: [
+                        IconButton(
+                            icon: Icon(Icons.keyboard_arrow_down),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }),
+                      ],
+                    ),
+                  ),
                   Center(
                     child: Column(children: [
                       GestureDetector(
@@ -96,34 +102,36 @@ class _PlayerScreen extends State<PlayerScreen> {
                       ),
                     ]),
                   ),
-                  SizedBox(width: 50)
+                  Expanded(child: Container()),
                 ],
               ),
               SizedBox(height: 20),
-              GestureDetector(
-                child: Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
+              Center(
+                child: GestureDetector(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12.0),
+                      child: Image.network(
+                        '${state.post.albumArt}',
+                        height: 370,
+                        width: 370,
                       ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12.0),
-                    child: Image.network(
-                      '${state.post.albumArt}',
-                      height: 370,
-                      width: 370,
                     ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+                padding: const EdgeInsets.fromLTRB(40, 30, 40, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -217,7 +225,7 @@ class _PlayerScreen extends State<PlayerScreen> {
                 ),
               ),
               SizedBox(
-                width: 30,
+                height: 30,
               ),
 
               Row(
@@ -263,7 +271,11 @@ class _PlayerScreen extends State<PlayerScreen> {
                     ),
                   ),
                 ],
-              )
+              ),
+
+              SizedBox(
+                height: 50,
+              ),
             ],
           ));
         }

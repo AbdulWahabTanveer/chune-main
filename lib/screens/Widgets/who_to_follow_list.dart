@@ -55,25 +55,15 @@ class _WhoToFollowContent extends StatelessWidget {
               ),
               SizedBox(
                 height: 350,
-                child: SingleChildScrollView(
+                child: ListView.builder(
+                  shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  physics:const BouncingScrollPhysics(),
-                  child: Row(
-                    // physics:const BouncingScrollPhysics(),
-                    // shrinkWrap: true,
-                    // scrollDirection: Axis.horizontal,
-                    // itemCount: state.users.length,
-                    // itemBuilder: (context, index) {
-                      /*return*/
-                        children: [
-                          for(final i in state.users)
-                          FollowCard(i
-                            // state.users[index],
-                          ),
-                        ],
-                      //;
-                    // },
-                  ),
+                  itemCount: state.users.length,
+                  itemBuilder: (context, index) {
+                    return FollowCard(
+                      state.users[index],
+                    );
+                  },
                 ),
               ),
             ],
@@ -82,7 +72,10 @@ class _WhoToFollowContent extends StatelessWidget {
         if (state is WhoToFollowErrorState) {
           return ErrorWidget(state.error);
         }
-        return loader();
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50),
+          child: loader(),
+        );
       },
     );
   }

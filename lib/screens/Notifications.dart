@@ -50,83 +50,63 @@ class NotificationPost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Card(
+      color: Colors.white,
+      surfaceTintColor: Colors.white,
+      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              children: [
+                if (post.type == 'like')
+                  Icon(Icons.favorite, color: Colors.red),
+                if (post.type == 'follow')
+                  Icon(Icons.account_circle_outlined, color: Colors.blue),
+                if (post.type == 'listen')
+                  Icon(Icons.library_music, color: Colors.blue),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          if (post.type == 'like')
-                            Icon(Icons.favorite, color: Colors.red),
-                          if (post.type == 'follow')
-                            Icon(Icons.account_circle_outlined,
-                                color: Colors.blue),
-                          if (post.type == 'listen')
-                            Icon(Icons.library_music, color: Colors.blue),
-                          SizedBox(width: 20),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      pushTo(context,
-                                          UserProfileScreen(post.userId),);
-                                    },
-                                    child: AvatarImage(
-                                      post.userImage,
-                                      17,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                '@${post.message}',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                      InkWell(
+                        onTap: () {
+                          pushTo(
+                            context,
+                            UserProfileScreen(post.userId),
+                          );
+                        },
+                        child: AvatarImage(
+                          post.userImage,
+                          17,
+                        ),
                       ),
-                      Row(
-                        children: [
-                          if (post.chuneImage != null &&
-                              post.chuneImage.isNotEmpty)
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12.0),
-                              child: Image.network(
-                                post.chuneImage,
-                                height: 50,
-                                width: 50,
-                              ),
-                            ),
-                        ],
-                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        '@${post.message}',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      )
                     ],
                   ),
-                ],
-              ),
+                ),
+                if (post.chuneImage != null && post.chuneImage.isNotEmpty)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12.0),
+                    child: Image.network(
+                      post.chuneImage,
+                      height: 50,
+                      width: 50,
+                    ),
+                  ),
+              ],
             ),
-            SizedBox(height: 20),
-            Container(
-              width: 390,
-              height: 1,
-              color: Colors.grey[300],
-            ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

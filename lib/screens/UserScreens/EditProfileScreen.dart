@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newapp/screens/Player.dart';
+import 'package:newapp/screens/UserScreens/ChangeUsername.dart';
+import 'package:newapp/screens/UserScreens/UploadProfilePhoto.dart';
 import 'package:newapp/screens/globalvariables.dart';
 import 'package:newapp/screens/UserScreens/LikedChunes.dart';
 
@@ -55,7 +57,12 @@ class _EditProfile extends State<EditProfile> {
           ),
           InkWell(
             splashColor: Colors.white,
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ChangeUsername()),
+              );
+            },
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -69,7 +76,12 @@ class _EditProfile extends State<EditProfile> {
           ),
           InkWell(
             splashColor: Colors.white,
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UploadProfilePhoto()),
+              );
+            },
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -82,7 +94,6 @@ class _EditProfile extends State<EditProfile> {
             ),
           ),
         ]),
-       
       ]),
     );
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:newapp/responsive.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../sign_up/view/sign_up_page.dart';
 import '../cubit/login_cubit.dart';
@@ -34,6 +36,7 @@ class LoginForm extends StatelessWidget {
         child: Align(
           alignment: const Alignment(0, -1 / 3),
           child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: largerThan(context, layout: TABLET) ? 150 : 0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -41,7 +44,7 @@ class LoginForm extends StatelessWidget {
                   'chune',
                   style: TextStyle(
                       fontFamily: '',
-                      fontSize: 90,
+                      fontSize: 80,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
@@ -75,7 +78,7 @@ class _EmailInput extends StatelessWidget {
           onChanged: (email) => context.read<LoginCubit>().emailChanged(email),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            labelText: 'email',
+            labelText: 'Email',
             helperText: '',
             errorText: state.email.invalid ? 'invalid email' : null,
           ),
@@ -97,7 +100,7 @@ class _PasswordInput extends StatelessWidget {
               context.read<LoginCubit>().passwordChanged(password),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: 'password',
+            labelText: 'Password',
             helperText: '',
             errorText: state.password.invalid ? 'invalid password' : null,
           ),

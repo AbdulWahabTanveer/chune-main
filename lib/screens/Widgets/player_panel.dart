@@ -21,8 +21,7 @@ class PlayerPanel extends StatelessWidget {
               color: Colors.white,
               duration: Duration(seconds: 1),
               child: SizedBox(
-                height: 70,
-                width: 430,
+                width: double.infinity,
                 child: Column(
                   children: [
                     SizedBox(
@@ -37,7 +36,7 @@ class PlayerPanel extends StatelessWidget {
                           onChanged: null,
                         ),
                         data: SliderTheme.of(context).copyWith(
-                          activeTrackColor: Colors.blue,
+                          activeTrackColor: Colors.pink,
                           inactiveTrackColor: Colors.white.withOpacity(0.3),
                           trackShape: SpotifyMiniPlayerTrackShape(),
                           trackHeight: 2,
@@ -73,45 +72,51 @@ class PlayerPanel extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 12),
-                          Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${state.post.songName}'.length < 24
-                                      ? '${state.post.songName}'
-                                      : '${state.post.songName.substring(0, 23)}..',
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  '${state.post.artistName}'.length < 24
-                                      ? '${state.post.artistName}'
-                                      : '${state.post.artistName.substring(0, 23)}..',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ]),
                           Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                context
-                                    .read<MusicPlayerBloc>()
-                                    .add(ChangeStateEvent(state.playing));
-                              },
-                              child: Icon(
-                                  state.playing
-                                      ? Icons.pause
-                                      : Icons.play_arrow,
-                                  color: Colors.black),
-                            ),
+                            flex: 5,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${state.post.songName}',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    '${state.post.artistName}',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ]),
                           ),
+                          Expanded(
+                              flex: 2,
+                              child: Center(
+                                child: IconButton(
+                                  padding: EdgeInsets.all(15),
+                                  onPressed: () {
+                                    context
+                                        .read<MusicPlayerBloc>()
+                                        .add(ChangeStateEvent(state.playing));
+                                  },
+                                  icon: Icon(
+                                      state.playing
+                                          ? Icons.pause
+                                          : Icons.play_arrow,
+                                      color: Colors.black),
+                                ),
+                              )),
                         ],
                       ),
                     ),

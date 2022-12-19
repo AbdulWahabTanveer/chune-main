@@ -20,7 +20,7 @@ class HomePostCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Column(
         children: <Widget>[
           InkWell(
@@ -36,10 +36,9 @@ class HomePostCard extends StatelessWidget {
                 Text(
                   post.username,
                   style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15),
                 ), //Username
                 SizedBox(
                   height: 50,
@@ -65,14 +64,36 @@ class HomePostCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  '${post.songName}'.length < 24
-                      ? '${post.songName}'
-                      : '${post.songName.substring(0, 23)}..',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        '${post.songName}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        '${post.artistName}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12),
+                      ),
+                    ],
+                  ),
                 ), //Song Name/Artist
 
                 Row(
@@ -97,23 +118,7 @@ class HomePostCard extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            width: 30,
-          ),
-          Row(
-            children: [
-              SizedBox(width: 20),
-              Text(
-                '${post.artistName}'.length < 24
-                    ? '${post.artistName}'
-                    : '${post.artistName.substring(0, 23)}..',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12),
-              ), //Song Name/Artist
-            ],
-          ),
+
           SizedBox(
             height: 30,
           ),

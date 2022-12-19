@@ -4,7 +4,7 @@ import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:newapp/screens/globalvariables.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import '../models/profile_model.dart';
-import 'UserScreens/Userprofile.dart';
+// import 'UserScreens/Userprofile.dart';
 import '../../repositories/home_page_repo.dart';
 import 'package:get_it/get_it.dart';
 

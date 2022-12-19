@@ -29,17 +29,15 @@ class _MyProfileState extends State<MyProfileScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: Navigator.canPop(context)
-            ? BackButton(
+      appBar: Navigator.canPop(context)
+          ? AppBar(
+              elevation: 0,
+              backgroundColor: Colors.white,
+              leading: BackButton(
                 color: Colors.black,
-              )
-            : null,
-      ),
+              ))
+          : null,
       body: ListView(
-        // mainAxisAlignment: MainAxisAlignment.start,
         children: [
           BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
@@ -127,7 +125,8 @@ class _MyProfileState extends State<MyProfileScreen> {
               return Text("ERROR $state");
             },
           ),
-          MyChunesList()
+          MyChunesList(),
+          SizedBox(height: 150,)
         ],
       ),
     );

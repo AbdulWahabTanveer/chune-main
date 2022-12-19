@@ -79,24 +79,28 @@ class _NavScreen extends State<NavScreen> {
               color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
         ),
       ),
-      body: Column(children: [
-        Expanded(child: _widgetOptions.elementAt(selectedIndex)),
-        PlayerPanel()
-      ]),
-      floatingActionButton: FloatingActionButton(
-        elevation: 10,
-        onPressed: () {
-          // GetIt.I.get<CloudFunctionsService>().sendNotification();
-          // return;
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ShareAChune(),
-            ),
-          );
-        },
-        backgroundColor: Colors.blue,
-        child: const Icon(Icons.add),
+      body: _widgetOptions.elementAt(selectedIndex),
+      bottomSheet: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [PlayerPanel()],
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 40),
+        child: FloatingActionButton(
+          elevation: 10,
+          onPressed: () {
+            // GetIt.I.get<CloudFunctionsService>().sendNotification();
+            // return;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ShareAChune(),
+              ),
+            );
+          },
+          backgroundColor: Colors.pink,
+          child: const Icon(Icons.add),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
@@ -155,7 +159,7 @@ class _NavScreen extends State<NavScreen> {
                 (profile is ProfileLoadedState)
                     ? profile.profile?.image
                     : 'https://media.vogue.co.uk/photos/6041f07c107e7ce55db43e7d/2:3/w_1600,c_limit/wiz.jpg',
-                18),
+                13),
             label: 'Profile',
           ),
         ],

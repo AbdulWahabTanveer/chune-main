@@ -16,46 +16,51 @@ class ViewAllAccounts extends StatefulWidget {
 class _ViewAllAccounts extends State<ViewAllAccounts> {
   final repo = GetIt.I.get<HomePageRepository>();
 
+  final c = ScrollController();
+
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(
-                context,
-              );
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-          ),
-          actions: [
-            SizedBox(
-              width: 24,
-            )
-          ],
-          backgroundColor: Colors.white,
-          elevation: 1,
-          toolbarHeight: 70,
-          title: Center(
-            child: Text(
-              'chune',
-              style: TextStyle(
-                  color: Colors.pink,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25),
-            ),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(
+              context,
+            );
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(top:20.0),
+        actions: [
+          SizedBox(
+            width: 24,
+          )
+        ],
+        backgroundColor: Colors.white,
+        elevation: 1,
+        toolbarHeight: 70,
+        title: Center(
+          child: Text(
+            'chune',
+            style: TextStyle(
+                color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
+          ),
+        ),
+      ),
+      body:
+      SingleChildScrollView(
+        controller: c,
+        child:
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0),
           child: PaginateFirestore(
+            scrollController: c,
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, documentSnapshots, index) {
               var e = documentSnapshots[index];
-              final profile =
-                  ProfileModel.fromMap(e.data()).copyWith(id: e.id);
+              final profile = ProfileModel.fromMap(e.data()).copyWith(id: e.id);
               return FollowCard(
                 profile,
               );
@@ -63,7 +68,9 @@ class _ViewAllAccounts extends State<ViewAllAccounts> {
             query: repo.allUserAccountsQuery,
             itemBuilderType: PaginateBuilderType.listView,
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   isFollowing(int index) {}

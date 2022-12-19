@@ -103,13 +103,10 @@ class SpotifyPlayer extends BaseAudioPlayer {
   @override
   Future<void> queue(Chune mediaItem) async {
     if (mediaItem.source == MusicSourceType.apple) {
-      final result = await spotifyRepo.search(mediaItem.songName);
+      final result = await spotifyRepo.search("${mediaItem.songName} ${mediaItem.artistName}",limit: 49);
       if (result?.tracks?.items != null && result.tracks.items.isNotEmpty) {
         var track = result.tracks.items.firstWhere(
-          (element) => element.artists
-              .map((e) => e.name)
-              .join(',')
-              .contains(mediaItem.artistName.split(',')[0]),
+          (element) => element.durationMs==mediaItem.durationInMills,
           orElse: () => result.tracks.items.first,
         );
         return SpotifySdk.play(spotifyUri: track.uri);

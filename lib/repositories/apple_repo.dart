@@ -7,7 +7,7 @@ import 'package:newapp/services/http_service.dart';
 import '../models/apple_model.dart';
 
 abstract class AppleRepository {
-  Future<AppleModel> search(String s, {int page = 0});
+  Future<AppleModel> search(String s, {int page = 0,int limit = 20});
 
   Future<String> getStoreFront(String token, String userToken);
 }
@@ -16,12 +16,12 @@ class AppleRepoImpl extends AppleRepository {
   final httpService = GetIt.I.get<HttpService>();
 
   @override
-  Future<AppleModel> search(String s, {int page = 0}) async {
+  Future<AppleModel> search(String s, {int page = 0,int limit = 20}) async {
     var storefront = GetIt.I.get<AuthRepository>().user.storeFront;
     var params = {
       'term': '$s',
       'types': 'songs',
-      'limit': '20',
+      'limit': '$limit',
     };
     if (page > 0) {
       params['offset'] = '${20 * page}';

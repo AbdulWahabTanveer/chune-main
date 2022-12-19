@@ -99,16 +99,13 @@ class ApplePlayer extends BaseAudioPlayer {
   Future<void> queue(Chune mediaItem) async {
     if (mediaItem.appleObj == null || mediaItem.appleObj.isEmpty) {
 
-      final result = await appleRepo.search(mediaItem.songName);
+      final result = await appleRepo.search("${mediaItem.songName}",limit: 25);
       if (result?.results?.songs?.data != null &&
           result.results.songs.data.isNotEmpty) {
         var track = result.results.songs.data.firstWhere(
           (element) =>
-              element.attributes.artistName
-                  .contains(mediaItem.artistName.split(',')[0]) ||
-              mediaItem.artistName
-                  .split(',')[0]
-                  .contains(element.attributes.artistName),
+              element.attributes.durationInMillis
+                  ==mediaItem.durationInMills,
           orElse: () => result.results.songs.data.first,
         );
         return _musicKitPlugin

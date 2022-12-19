@@ -22,11 +22,26 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("STATE >>>>>>>>>>>> $state");
+   if(state == AppLifecycleState.detached){
+     context.read<MusicPlayerBloc>().add(StopAudioEvent());
+   }
+  }
+
   @override
   void initState() {
     super.initState();
-    //https://pbs.twimg.com/media/EbMPslEXsAQER_U.jpg
+    WidgetsBinding.instance?.addObserver(this);
+
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
   }
 
   Widget build(BuildContext context) {

@@ -32,7 +32,7 @@ class HomePageRepositoryImpl extends HomePageRepository {
 
   Query get allUserAccountsQuery => FirebaseFirestore.instance
       .collection(usersCollection)
-      .orderBy('chunesShared', descending: true);
+      .orderBy('username');
 
   @override
   Future<List<ProfileModel>> loadUserSuggestions() async {

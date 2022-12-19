@@ -18,13 +18,14 @@ class FollowCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FollowCardBloc()..add(LoadFollowCard(card)),
-      child: _FollowCardContent(),
+      create: (context) =>FollowCardBloc()..add(LoadFollowCard(card)),
+      child: const _FollowCardContent(),
     );
   }
 }
 
 class _FollowCardContent extends StatelessWidget {
+  const _FollowCardContent({Key key}):super(key: key);
   Widget build(BuildContext context) {
     final bloc = context.read<FollowCardBloc>();
     return BlocBuilder<FollowCardBloc, FollowCardState>(

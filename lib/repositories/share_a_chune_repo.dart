@@ -37,6 +37,7 @@ class ShareAChuneRepoImpl extends ShareAChuneRepository {
                 albumArt: item.album.images[0].url,
                 songName: item.name,
                 preview: item.previewUrl,
+                durationInMills: item.durationMs,
                 playUri: item.uri,
                 source: MusicSourceType.spotify,
                 artistName: item.artists.map((e) => e.name).join(','),
@@ -50,11 +51,12 @@ class ShareAChuneRepoImpl extends ShareAChuneRepository {
               (item) => Chune(
                 albumArt: item.attributes.artwork.url
                     .replaceFirst(
-                        '{w}', item.attributes.artwork.width.toString())
+                        '{w}', '600')
                     .replaceFirst(
-                        '{h}', item.attributes.artwork.height.toString()),
+                        '{h}', "600"),
                 songName: item.attributes.name,
                 appleObj:item.toJson(),
+                durationInMills: item.attributes.durationInMillis,
                 preview: item.attributes.previews[0].url,
                 source: MusicSourceType.apple,
                 playUri: item.id,

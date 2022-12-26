@@ -3,7 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:newapp/Useful_Code/utils.dart';
 import 'package:newapp/core/bloc/choose_photo_bloc/choose_photo_bloc.dart';
+import 'package:newapp/core/bloc/profile/profile_bloc.dart';
+
+import '../../auth_flow/app/bloc/app_bloc.dart';
+
 
 class UploadProfilePhoto extends StatefulWidget {
   const UploadProfilePhoto({Key key}) : super(key: key);
@@ -19,24 +24,35 @@ class _UploadProfilePhotoState extends State<UploadProfilePhoto> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          child: Icon(
-            Icons.arrow_back,
-            color: Colors.blueGrey,
-          ),
-          onTap: () {
-            Navigator.pop(context);
-          },
-        ),
+        actions: [
+          IconButton(
+            key: const Key('homePage_logout_iconButton'),
+            icon: const Icon(
+              Icons.exit_to_app,
+              color: Colors.red,
+            ),
+            onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
+          )
+        ],
         backgroundColor: Colors.white,
         elevation: 1,
         centerTitle: true,
         toolbarHeight: 70,
         title: Text(
-          'Upload profile photo',
+          'chune',
+          style: TextStyle(
+              color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
         ),
       ),
-      body: BlocBuilder<ChoosePhotoBloc, ChoosePhotoState>(
+      body: BlocConsumer<ChoosePhotoBloc, ChoosePhotoState>(
+        listener: (context, state) {
+          if (state is ProfileImageUploadSuccess) {
+            context
+                .read<ProfileBloc>()
+                .add(ProfileUpdatedEvent(imageUrl: state.file));
+            Navigator.pop(context);
+          }
+        },
         builder: (context, state) {
           return ListView(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
@@ -59,9 +75,11 @@ class _UploadProfilePhotoState extends State<UploadProfilePhoto> {
                           color: Colors.grey.withOpacity(0.2),
                           image: DecorationImage(
                             image: state is PhotoSelectedState &&
-                                    state.path != null
-                                ? FileImage(File(state.path))
-                                : AssetImage('images/chune.jpeg'),
+                                    state.file != null
+                                ? FileImage(state.file)
+                                : state is ChoosePhotoInitial
+                                    ? NetworkImage(state.image)
+                                    : AssetImage('images/chune.jpeg'),
                           ),
                         ),
                       ),
@@ -85,17 +103,35 @@ class _UploadProfilePhotoState extends State<UploadProfilePhoto> {
               SizedBox(
                 height: 20,
               ),
-              if (state is PhotoSelectedState && state.path != null)
+              if (state is PhotoSelectedState && state.file != null)
                 Center(
                     child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: state.uploading
+                            ? null
+                            : () {
+                                context
+                                    .read<ChoosePhotoBloc>()
+                                    .add(UploadPhotoEvent(state.file));
+                              },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.resolveWith(
-                              (states) => primary),
+                              (states) =>
+                                  state.uploading ? Colors.grey : primary),
                           foregroundColor: MaterialStateProperty.resolveWith(
                               (states) => Colors.white),
                         ),
-                        child: Text("Upload"))),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (state.uploading)
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: SizedBox(
+                                    height: 16, width: 16, child: loader()),
+                              ),
+                            Text(state.uploading ? "Uploading" : "Upload"),
+                          ],
+                        ))),
               SizedBox(
                 height: 30,
               ),

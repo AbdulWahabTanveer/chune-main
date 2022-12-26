@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:newapp/models/profile_model.dart';
 
 import '../Useful_Code/constants.dart';
@@ -13,6 +16,8 @@ abstract class ProfileRepository {
   Future<bool> isNewUser(String userId);
 
   Future<bool> usernameExists(String userName);
+
+  Future<String> updateProfileImage(File path);
 
   Future<ProfileModel> getUserProfile(String userId);
 
@@ -29,6 +34,8 @@ abstract class ProfileRepository {
   Future<ProfileModel> loadUserProfile(String userId);
 
   Query userChunesQuery(String id);
+
+  Future<String> updateUsername(String text);
 }
 
 class ProfileRepositoryImpl extends ProfileRepository {
@@ -37,7 +44,9 @@ class ProfileRepositoryImpl extends ProfileRepository {
   Query get likedChunesQuery => FirebaseFirestore.instance
       .collection(chunesCollection)
       .where(FieldPath.documentId,
-          whereIn: me.likedChunes.isNotEmpty ? me.likedChunes : ['notfound']);
+          whereIn: me.likedChunes.isNotEmpty
+              ? me.likedChunes.sublist(0, 10)
+              : ['notfound']);
 
   Query get myNotificationsQuery => FirebaseFirestore.instance
       .collection(usersCollection)
@@ -146,5 +155,36 @@ class ProfileRepositoryImpl extends ProfileRepository {
     await fireStore.collection(usersCollection).doc(me.id).update({
       'unreadNotifications': 0,
     });
+  }
+
+  final storageRef = FirebaseStorage.instance.ref();
+
+  @override
+  Future<String> updateProfileImage(File file) async {
+    final imageRef = storageRef.child('users').child(me.id);
+    final task = await imageRef.putFile(file);
+    final url = await task.ref.getDownloadURL();
+    await FirebaseFirestore.instance
+        .collection(usersCollection)
+        .doc(me.id)
+        .update({"image": url});
+    return url;
+  }
+
+  @override
+  Future<String> updateUsername(String text) async {
+    final list = await FirebaseFirestore.instance
+        .collection(usersCollection)
+        .where('username', isEqualTo: text)
+        .get();
+    if (list.size == 0) {
+      await FirebaseFirestore.instance
+          .collection(usersCollection)
+          .doc(me.id)
+          .update({"username": text});
+      return null;
+    } else {
+      return "Username already exists";
+    }
   }
 }

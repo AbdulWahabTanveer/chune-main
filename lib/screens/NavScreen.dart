@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:newapp/core/bloc/music_player/music_player_bloc.dart';
+import 'package:newapp/core/bloc/nav_bloc/nav_bloc.dart';
 import 'package:newapp/screens/Home.dart';
 import 'package:newapp/screens/Notifications.dart';
 import 'package:newapp/screens/ShareAChune.dart';
@@ -14,6 +15,7 @@ import 'package:newapp/screens/search_screen.dart';
 import '../auth_flow/app/bloc/app_bloc.dart';
 import '../core/bloc/notification_counter/notification_counter_bloc.dart';
 import '../core/bloc/profile/profile_bloc.dart';
+import 'UserScreens/EditProfileScreen.dart';
 import 'Widgets/player_panel.dart';
 
 class NavScreen extends StatefulWidget {
@@ -26,7 +28,7 @@ class NavScreen extends StatefulWidget {
 }
 
 class _NavScreen extends State<NavScreen> {
-  int selectedIndex;
+  // int selectedIndex;
   var iconCOlor = Colors.grey;
   final homeC = ScrollController();
   static List<Widget> _widgetOptions = <Widget>[
@@ -34,12 +36,12 @@ class _NavScreen extends State<NavScreen> {
     NotificationsScreen(),
     SearchScreen(),
     ChatScreen(),
-    MyProfileScreen()
+    MyProfileScreen(),
+    EditProfile(),
   ];
 
   @override
   void initState() {
-    selectedIndex = widget.index;
     context.read<MusicPlayerBloc>().add(GetAudioEvent());
     super.initState();
   }
@@ -49,125 +51,124 @@ class _NavScreen extends State<NavScreen> {
       GetIt.I.get<ScrollController>().animateTo(0,
           duration: Duration(milliseconds: 300), curve: Curves.linear);
     }
-    setState(() {
-      selectedIndex = index;
-    });
+    context.read<NavBloc>().add(index);
   }
 
   @override
   Widget build(BuildContext context) {
     final profile = context.read<ProfileBloc>().state;
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            key: const Key('homePage_logout_iconButton'),
-            icon: const Icon(
-              Icons.exit_to_app,
-              color: Colors.red,
+    return BlocBuilder<NavBloc, int>(
+      builder: (context, selectedIndex) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 1,
+            centerTitle: true,
+            toolbarHeight: 70,
+            title: Text(
+              'chune',
+              style: TextStyle(
+                  color: Colors.pink,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25),
             ),
-            onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
-          )
-        ],
-        backgroundColor: Colors.white,
-        elevation: 1,
-        centerTitle: true,
-        toolbarHeight: 70,
-        title: Text(
-          'chune',
-          style: TextStyle(
-              color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
-        ),
-      ),
-      body: _widgetOptions.elementAt(selectedIndex),
-      bottomSheet: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [PlayerPanel()],
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 40),
-        child: FloatingActionButton(
-          elevation: 10,
-          onPressed: () {
-            // GetIt.I.get<CloudFunctionsService>().sendNotification();
-            // return;
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ShareAChune(),
+          ),
+          body: _widgetOptions.elementAt(selectedIndex),
+          bottomSheet: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [PlayerPanel()],
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          floatingActionButton: Padding(
+            padding: EdgeInsets.only(
+                bottom:
+                    context.read<MusicPlayerBloc>().state is MusicPlayerLoaded
+                        ? 40
+                        : 8),
+            child: FloatingActionButton(
+              elevation: 10,
+              onPressed: () {
+                // GetIt.I.get<CloudFunctionsService>().sendNotification();
+                // return;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ShareAChune(),
+                  ),
+                );
+              },
+              backgroundColor: Colors.pink,
+              child: const Icon(Icons.add),
+            ),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                  backgroundColor: Colors.teal),
+              BottomNavigationBarItem(
+                icon: Stack(
+                  children: [
+                    Icon(Icons.notifications),
+                    if (selectedIndex != 1)
+                      BlocBuilder<NotificationCounterBloc, int>(
+                        builder: (context, state) {
+                          if (state > 0) {
+                            return Positioned(
+                              top: 0,
+                              right: 0,
+                              child: Container(
+                                height: 14,
+                                width: 14,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                child: Center(
+                                    child: Text(
+                                  '$state',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                )),
+                              ),
+                            );
+                          }
+                          return SizedBox.shrink();
+                        },
+                      )
+                  ],
+                ),
+                label: 'Notification',
               ),
-            );
-          },
-          backgroundColor: Colors.pink,
-          child: const Icon(Icons.add),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Colors.teal),
-          BottomNavigationBarItem(
-            icon: Stack(
-              children: [
-                Icon(Icons.notifications),
-                if (selectedIndex != 1)
-                  BlocBuilder<NotificationCounterBloc, int>(
-                    builder: (context, state) {
-                      if (state > 0) {
-                        return Positioned(
-                          top: 0,
-                          right: 0,
-                          child: Container(
-                            height: 14,
-                            width: 14,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            child: Center(
-                                child: Text(
-                              '$state',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                            )),
-                          ),
-                        );
-                      }
-                      return SizedBox.shrink();
-                    },
-                  )
-              ],
-            ),
-            label: 'Notification',
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Search',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.email),
+                label: 'Chats',
+              ),
+              BottomNavigationBarItem(
+                icon: AvatarImage(
+                    (profile is ProfileLoadedState)
+                        ? profile.profile?.image
+                        : 'https://media.vogue.co.uk/photos/6041f07c107e7ce55db43e7d/2:3/w_1600,c_limit/wiz.jpg',
+                    13),
+                label: 'Profile',
+              ),
+            ],
+            type: BottomNavigationBarType.fixed,
+            currentIndex: selectedIndex <= 4 ? selectedIndex : 4,
+            unselectedItemColor: Colors.grey,
+            onTap: _onItemTapped,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.email),
-            label: 'Chats',
-          ),
-          BottomNavigationBarItem(
-            icon: AvatarImage(
-                (profile is ProfileLoadedState)
-                    ? profile.profile?.image
-                    : 'https://media.vogue.co.uk/photos/6041f07c107e7ce55db43e7d/2:3/w_1600,c_limit/wiz.jpg',
-                13),
-            label: 'Profile',
-          ),
-        ],
-        type: BottomNavigationBarType.fixed,
-        currentIndex: selectedIndex,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-      ),
+        );
+      },
     );
   }
 }

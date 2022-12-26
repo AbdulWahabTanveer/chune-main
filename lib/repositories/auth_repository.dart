@@ -26,7 +26,7 @@ abstract class AuthRepository {
 }
 
 class AuthRepoImpl extends AuthRepository {
-  static const CLIENT_ID = '5f70513e09194d8489541fa36fa452c8';
+  static const CLIENT_ID = '2410f3e1923f472095a62ebf4792e638';// '5f70513e09194d8489541fa36fa452c8';
   static const REDIRECT_URL = 'chune://chuneApp.com/callback';
 
   final prefs = GetIt.I.get<SharedPreferences>();
@@ -49,7 +49,7 @@ class AuthRepoImpl extends AuthRepository {
       await _saveUser(currentUser);
       return currentUser;
     } on PlatformException catch (e) {
-      print(e);
+      print("Code -------> $e");
       if (e.code == 'CouldNotFindSpotifyApp') {
 
         LaunchReview.launch(

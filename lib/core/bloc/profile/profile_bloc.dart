@@ -16,6 +16,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc() : super(ProfileInitial()) {
     on<CheckProfileExistsEvent>(_onCheckProfileExists);
     on<LoadProfileEvent>(_onLoadProfile);
+    on<ProfileUpdatedEvent>(_onProfileUpdated);
     on<SetUserProfileEvent>(
       (event, emit) => emit(
         ProfileLoadedState(event.profile),
@@ -40,5 +41,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(ProfileLoadingState());
     final userProfile = await profileRepo.getUserProfile(event.userId);
     emit(ProfileLoadedState(userProfile));
+  }
+
+  FutureOr<void> _onProfileUpdated(
+      ProfileUpdatedEvent event, Emitter<ProfileState> emit) {
+    if (state is ProfileLoadedState) {
+      final cast = state as ProfileLoadedState;
+      emit(ProfileLoadedState(cast.profile
+          .copyWith(image: event.imageUrl, username: event.username)));
+    }
   }
 }

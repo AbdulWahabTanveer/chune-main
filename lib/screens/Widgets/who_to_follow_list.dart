@@ -55,15 +55,19 @@ class _WhoToFollowContent extends StatelessWidget {
               ),
               SizedBox(
                 height: 350,
-                child: ListView.builder(
-                  shrinkWrap: true,
+                child: SingleChildScrollView(
+                  // shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: state.users.length,
-                  itemBuilder: (context, index) {
-                    return FollowCard(
-                      state.users[index],
-                    );
-                  },
+                  child: Row(
+
+                    // itemCount: state.users.length,
+                    children: [
+                      for(final i in state.users)
+                      FollowCard(
+                        i,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],

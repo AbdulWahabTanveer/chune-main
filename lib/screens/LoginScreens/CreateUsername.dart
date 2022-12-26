@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/core/bloc/create_username/create_username_bloc.dart';
+import 'package:newapp/core/bloc/nav_bloc/nav_bloc.dart';
 import 'package:newapp/screens/NavScreen.dart';
 
 import '../../Useful_Code/utils.dart';
@@ -76,6 +77,7 @@ class _CreateUsername extends State<_CreateUsernameContent> {
       },
       builder: (context, state) {
         if (state is UsernameCreateSuccessState) {
+          context.read<NavBloc>().add(4);
           return NavScreen(index: 4);
         }
         return Scaffold(

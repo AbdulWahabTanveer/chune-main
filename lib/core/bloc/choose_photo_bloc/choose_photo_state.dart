@@ -5,17 +5,40 @@ abstract class ChoosePhotoState extends Equatable {
 }
 
 class ChoosePhotoInitial extends ChoosePhotoState {
-  ChoosePhotoInitial();
+  final String image;
+
+  ChoosePhotoInitial(this.image);
+
+  @override
+  List<Object> get props => [image];
+}
+
+class PhotoSelectedState extends ChoosePhotoState {
+  final File file;
+  final bool uploading;
+  PhotoSelectedState({this.file,this.uploading=false});
+
+  @override
+  List<Object> get props => [file,uploading];
+}
+
+
+class UploadProfileImageLoading extends ChoosePhotoState {
+
+  UploadProfileImageLoading();
 
   @override
   List<Object> get props => [];
 }
 
-class PhotoSelectedState extends ChoosePhotoState {
-  final String path;
 
-  PhotoSelectedState({this.path});
+class ProfileImageUploadSuccess extends ChoosePhotoState {
+  final String file;
+
+  ProfileImageUploadSuccess(this.file);
 
   @override
-  List<Object> get props => [path];
+  List<Object> get props => [file];
 }
+
+

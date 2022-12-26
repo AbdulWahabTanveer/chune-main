@@ -16,6 +16,13 @@ class LoadProfileEvent extends ProfileEvent {
   LoadProfileEvent(this.userId);
 }
 
+class ProfileUpdatedEvent extends ProfileEvent {
+  final String imageUrl;
+  final String username;
+
+  ProfileUpdatedEvent({this.imageUrl, this.username});
+}
+
 class SetUserProfileEvent extends ProfileEvent {
   final ProfileModel profile;
 

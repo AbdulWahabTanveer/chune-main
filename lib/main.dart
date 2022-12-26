@@ -8,6 +8,7 @@ import 'package:newapp/auth_flow/app/app.dart';
 import 'package:newapp/core/bloc/choose_photo_bloc/choose_photo_bloc.dart';
 import 'package:newapp/core/bloc/login/login_bloc.dart';
 import 'package:newapp/core/bloc/music_player/music_player_bloc.dart';
+import 'package:newapp/core/bloc/nav_bloc/nav_bloc.dart';
 import 'package:newapp/repositories/auth_repository.dart';
 import 'package:newapp/responsive.dart';
 import 'package:newapp/screens/splash_screen.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
           create: (context) => MusicPlayerBloc(),
         ),
         BlocProvider(
+          create: (context) => NavBloc(),
+        ),
+        BlocProvider(
           create: (context) => NotificationCounterBloc(),
         ),
         BlocProvider(
@@ -55,7 +59,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            useMaterial3: true,
+            // useMaterial3: true,
             textTheme: TextTheme(subtitle1: TextStyle(color: Colors.white)),
             textSelectionTheme: TextSelectionThemeData(
               cursorColor: Colors.white,

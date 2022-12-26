@@ -67,7 +67,7 @@ class _MusicSourceState extends State<MusicSource> {
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 16),
                 ElevatedButton.icon(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith(

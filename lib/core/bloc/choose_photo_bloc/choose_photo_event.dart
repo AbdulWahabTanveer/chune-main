@@ -11,3 +11,11 @@ class ChoosePhoto extends ChoosePhotoEvent {
   @override
   List<Object> get props => [source];
 }
+class UploadPhotoEvent extends ChoosePhotoEvent {
+  final File file;
+
+  UploadPhotoEvent(this.file);
+
+  @override
+  List<Object> get props => [file];
+}

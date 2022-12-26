@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:newapp/repositories/profile_repository.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
@@ -12,6 +13,8 @@ class LikedChunes extends StatefulWidget {
 }
 
 class _LikedChunes extends State<LikedChunes> {
+  int page = 1;
+
   Widget build(BuildContext context) {
     final repo = GetIt.I.get<ProfileRepository>();
     return Scaffold(
@@ -38,6 +41,9 @@ class _LikedChunes extends State<LikedChunes> {
         ),
       ),
       body: PaginateFirestore(
+        onLoaded: (pl) {
+          Fluttertoast.showToast(msg: "${page++}");
+        },
         itemBuilder: (context, documentSnapshots, index) {
           final chune = Chune.fromMap(documentSnapshots[index].data() as Map)
               .copyWith(id: documentSnapshots[index].id);
@@ -125,9 +131,8 @@ class ChuneRow extends StatelessWidget {
                   chune.isLiked
                       ? Icons.favorite
                       : Icons.favorite_border_outlined,
-                  color: chune.isLiked
-                      ? Colors.red
-                      : Colors.grey.withOpacity(0.7),
+                  color:
+                      chune.isLiked ? Colors.red : Colors.grey.withOpacity(0.7),
                 ),
               ),
             ],

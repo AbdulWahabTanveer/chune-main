@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/screens/Player.dart';
 import 'package:newapp/screens/UserScreens/ChangeUsername.dart';
 import 'package:newapp/screens/UserScreens/UploadProfilePhoto.dart';
 import 'package:newapp/screens/globalvariables.dart';
 import 'package:newapp/screens/UserScreens/LikedChunes.dart';
+
+import '../../auth_flow/app/bloc/app_bloc.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -89,6 +92,22 @@ class _EditProfile extends State<EditProfile> {
                 children: [
                   Text('Upload profile photo'),
                   Icon(Icons.chevron_right_outlined)
+                ],
+              ),
+            ),
+          ),
+          InkWell(
+            splashColor: Colors.white,
+            onTap: () {
+              context.read<AppBloc>().add(AppLogoutRequested());
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Log out'),
+                  Icon(Icons.exit_to_app)
                 ],
               ),
             ),

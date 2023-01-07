@@ -57,7 +57,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if (user.type == MusicSourceType.spotify) {
         add(LoginWithSpotifyEvent());
       } else {
-        emit(LoginSuccessState(user));
+        add(LoginWithAppleEvent());
       }
     }
   }

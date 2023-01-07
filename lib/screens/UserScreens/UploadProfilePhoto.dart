@@ -24,15 +24,16 @@ class _UploadProfilePhotoState extends State<UploadProfilePhoto> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: BackButton(color:Colors.black),
         actions: [
-          IconButton(
-            key: const Key('homePage_logout_iconButton'),
-            icon: const Icon(
-              Icons.exit_to_app,
-              color: Colors.red,
-            ),
-            onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
-          )
+          // IconButton(
+          //   key: const Key('homePage_logout_iconButton'),
+          //   icon: const Icon(
+          //     Icons.exit_to_app,
+          //     color: Colors.red,
+          //   ),
+          //   onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
+          // )
         ],
         backgroundColor: Colors.white,
         elevation: 1,
@@ -146,70 +147,55 @@ class _UploadProfilePhotoState extends State<UploadProfilePhoto> {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: Text('Choose Photo'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              title: Text('Choose profile photo from'),
+              content: Row(
+                mainAxisAlignment:MainAxisAlignment.spaceEvenly ,
                 children: [
-                  Text('Choose profile photo from'),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              context
-                                  .read<ChoosePhotoBloc>()
-                                  .add(ChoosePhoto(source: ImageSource.camera));
-                            },
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith((states) =>
-                                      Theme.of(context).primaryColor),
-                              foregroundColor:
-                                  MaterialStateProperty.resolveWith(
-                                      (states) => Colors.white),
-                            ),
-                            child: Text("Camera")),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              context.read<ChoosePhotoBloc>().add(
-                                  ChoosePhoto(source: ImageSource.gallery));
-                            },
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith((states) =>
-                                      Theme.of(context).primaryColor),
-                              foregroundColor:
-                                  MaterialStateProperty.resolveWith(
-                                      (states) => Colors.white),
-                            ),
-                            child: Text("Gallery")),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              actions: [
-                Expanded(
-                  child: OutlinedButton(
+                  ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
+                        context
+                            .read<ChoosePhotoBloc>()
+                            .add(ChoosePhoto(source: ImageSource.camera));
                       },
                       style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.resolveWith(
-                            (states) => Colors.black),
+                        backgroundColor:
+                            MaterialStateProperty.resolveWith((states) =>
+                                Theme.of(context).primaryColor),
+                        foregroundColor:
+                            MaterialStateProperty.resolveWith(
+                                (states) => Colors.white),
                       ),
-                      child: Text("Close")),
-                ),
-              ],
+                      child: Text("Camera")),
+                  // SizedBox(width: 10),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        context.read<ChoosePhotoBloc>().add(
+                            ChoosePhoto(source: ImageSource.gallery));
+                      },
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.resolveWith((states) =>
+                                Theme.of(context).primaryColor),
+                        foregroundColor:
+                            MaterialStateProperty.resolveWith(
+                                (states) => Colors.white),
+                      ),
+                      child: Text("Gallery")),
+                ],
+              ),
+              // actions: [
+              //   OutlinedButton(
+              //       onPressed: () {
+              //         Navigator.pop(context);
+              //       },
+              //       style: ButtonStyle(
+              //         foregroundColor: MaterialStateProperty.resolveWith(
+              //             (states) => Colors.black),
+              //       ),
+              //       child: Text("Close")),
+              // ],
             ));
   }
 }

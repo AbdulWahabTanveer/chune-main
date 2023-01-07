@@ -12,8 +12,10 @@ class HomePostInitial extends HomePostState {
 class HomePostLoaded extends HomePostState {
   final Chune post;
 
-  HomePostLoaded(this.post);
+  final bool showPost;
+
+  HomePostLoaded(this.post, {this.showPost=false});
 
   @override
-  List<Object> get props => [post];
+  List<Object> get props => [post,showPost];
 }

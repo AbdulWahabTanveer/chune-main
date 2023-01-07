@@ -104,7 +104,8 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
       PlayNextEvent event, Emitter<MusicPlayerState> emit) async {
     if (state is MusicPlayerLoaded) {
       final cast = state as MusicPlayerLoaded;
-      final currentIndex = cast.list.indexOf(cast.post);
+      final currentIndex =
+          cast.list.indexWhere((element) => element.id == cast.post.id);
       final newIndex =
           currentIndex <= cast.list.length - 1 ? currentIndex + 1 : 0;
       add(SetAudioEvent(cast.list.elementAt(newIndex), chunes: cast.list));
@@ -115,7 +116,8 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
       PlayPreviousEvent event, Emitter<MusicPlayerState> emit) async {
     if (state is MusicPlayerLoaded) {
       final cast = state as MusicPlayerLoaded;
-      final currentIndex = cast.list.indexOf(cast.post);
+      final currentIndex =
+          cast.list.indexWhere((element) => element.id == cast.post.id);
       final newIndex =
           currentIndex == 0 ? cast.list.length - 1 : currentIndex - 1;
       add(SetAudioEvent(cast.list.elementAt(newIndex), chunes: cast.list));

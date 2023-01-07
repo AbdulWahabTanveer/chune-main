@@ -13,9 +13,9 @@ abstract class HomePageRepository {
 
   Query get allUserAccountsQuery;
 
-  Future followUser(ProfileModel user);
+  Future followUser(String userId);
 
-  Future unFollowUser(ProfileModel user);
+  Future unFollowUser(String userId);
 
   Future likeChune(Chune user);
 
@@ -32,7 +32,7 @@ class HomePageRepositoryImpl extends HomePageRepository {
 
   Query get allUserAccountsQuery => FirebaseFirestore.instance
       .collection(usersCollection)
-      .orderBy('username');
+      .orderBy('username_cs');
 
   @override
   Future<List<ProfileModel>> loadUserSuggestions() async {
@@ -49,13 +49,13 @@ class HomePageRepositoryImpl extends HomePageRepository {
   }
 
   @override
-  Future followUser(ProfileModel user) async {
-    return functions.followUser(user.id);
+  Future followUser(String userId) async {
+    return functions.followUser(userId);
   }
 
   @override
-  Future unFollowUser(ProfileModel user) {
-    return functions.unfollowUser(user.id);
+  Future unFollowUser(String userId) {
+    return functions.unfollowUser(userId);
   }
 
   @override

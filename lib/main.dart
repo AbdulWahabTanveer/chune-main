@@ -64,6 +64,9 @@ class MyApp extends StatelessWidget {
             textSelectionTheme: TextSelectionThemeData(
               cursorColor: Colors.white,
             ),
+            bottomSheetTheme: BottomSheetThemeData(
+              backgroundColor: Colors.transparent
+            ),
             inputDecorationTheme: InputDecorationTheme(
               labelStyle: TextStyle(color: Colors.white),
               border: OutlineInputBorder(

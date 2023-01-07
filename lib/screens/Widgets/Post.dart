@@ -48,8 +48,10 @@ class _HomePostWidgetContent extends StatelessWidget {
               );
           final VoidCallback listenPost = () =>
               context.read<MusicPlayerBloc>().add(SetAudioEvent(post, chunes:chunes));
-
-          return builder(post, likePost, listenPost);
+            if(state.showPost) {
+              return builder(post, likePost, listenPost);
+            }
+            return SizedBox.shrink();
         }
         return loader();
       },

@@ -137,6 +137,7 @@ class ProfileModel {
       'followings': this.followings,
       'likedChunes': this.likedChunes,
       'sharedChunes': this.sharedChunes,
+      'username_cs':this.username?.toLowerCase()
     };
   }
 

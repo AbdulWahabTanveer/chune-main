@@ -74,32 +74,31 @@ class _NavScreen extends State<NavScreen> {
             ),
           ),
           body: _widgetOptions.elementAt(selectedIndex),
+
           bottomSheet: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [PlayerPanel()],
+            children: [
+              Container(
+                height: 40,
+              ),
+              PlayerPanel()
+            ],
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          floatingActionButton: Padding(
-            padding: EdgeInsets.only(
-                bottom:
-                    context.read<MusicPlayerBloc>().state is MusicPlayerLoaded
-                        ? 40
-                        : 8),
-            child: FloatingActionButton(
-              elevation: 10,
-              onPressed: () {
-                // GetIt.I.get<CloudFunctionsService>().sendNotification();
-                // return;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ShareAChune(),
-                  ),
-                );
-              },
-              backgroundColor: Colors.pink,
-              child: const Icon(Icons.add),
-            ),
+          floatingActionButton: FloatingActionButton(
+            elevation: 10,
+            onPressed: () {
+              // GetIt.I.get<CloudFunctionsService>().sendNotification();
+              // return;
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ShareAChune(),
+                ),
+              );
+            },
+            backgroundColor: Colors.pink,
+            child: const Icon(Icons.add),
           ),
           bottomNavigationBar: BottomNavigationBar(
             items: <BottomNavigationBarItem>[

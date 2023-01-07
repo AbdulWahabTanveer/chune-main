@@ -33,15 +33,16 @@ class _ChangeUsernameState extends State<ChangeUsername> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: BackButton(color:Colors.black),
         actions: [
-          IconButton(
-            key: const Key('homePage_logout_iconButton'),
-            icon: const Icon(
-              Icons.exit_to_app,
-              color: Colors.red,
-            ),
-            onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
-          )
+          // IconButton(
+          //   key: const Key('homePage_logout_iconButton'),
+          //   icon: const Icon(
+          //     Icons.exit_to_app,
+          //     color: Colors.red,
+          //   ),
+          //   onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
+          // )
         ],
         backgroundColor: Colors.white,
         elevation: 1,

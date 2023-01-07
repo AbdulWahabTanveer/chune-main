@@ -39,7 +39,7 @@ class WhoToFollowBloc extends Bloc<WhoToFollowEvent, WhoToFollowState> {
     if (state is WhoToFollowSuccessState) {
       final cast = state as WhoToFollowSuccessState;
       final users = List<ProfileModel>.from(cast.users);
-      repo.followUser(users[event.index]).catchError((e) {
+      repo.followUser(users[event.index].id).catchError((e) {
         add(UndoFollowEvent(event.index));
       });
       users[event.index].isFollowing = true;

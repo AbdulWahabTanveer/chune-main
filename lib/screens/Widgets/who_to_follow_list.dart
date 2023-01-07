@@ -32,7 +32,7 @@ class _WhoToFollowContent extends StatelessWidget {
                   children: [
                     GestureDetector(
                       child: Text(
-                        'View All',
+                        'View all accounts',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

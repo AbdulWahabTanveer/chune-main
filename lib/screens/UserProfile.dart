@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/Useful_Code/constants.dart';
 import 'package:newapp/Useful_Code/utils.dart';
+import 'package:newapp/core/bloc/nav_bloc/nav_bloc.dart';
 import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import '../auth_flow/app/bloc/app_bloc.dart';
@@ -110,7 +112,7 @@ class _MyProfileState extends State<MyProfileScreen> {
                                       style: TextStyle(
                                           fontSize: 21, color: Colors.blue)),
                                   onPressed: () {
-                                    pushTo(context, EditProfile());
+                                    context.read<NavBloc>().add(5);
                                   },
                                 ),
                               ),
@@ -126,7 +128,9 @@ class _MyProfileState extends State<MyProfileScreen> {
             },
           ),
           MyChunesList(),
-          SizedBox(height: 150,)
+          SizedBox(
+            height: 150,
+          )
         ],
       ),
     );
@@ -143,11 +147,67 @@ class MyChunesList extends StatelessWidget {
       itemBuilder: (context, documentSnapshots, index) {
         final chune = Chune.fromMap(documentSnapshots[index].data() as Map)
             .copyWith(id: documentSnapshots[index].id);
-        return Container(
-            color: Colors.white,
-            child: ChuneRow(chune,
-                chunes: List<Chune>.from(documentSnapshots.map((e) =>
-                    Chune.fromMap(e.data() as Map).copyWith(id: e.id)))));
+
+        return Dismissible(
+          direction: DismissDirection.endToStart,
+          confirmDismiss: (direction) {
+            if (direction == DismissDirection.endToStart) {
+              return showDialog<bool>(
+                  context: context,
+                  builder: (c) => AlertDialog(
+                        content: Text(
+                          "Are you sure you want to delete this chune? ",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(false);
+                              },
+                              child: Text("Cancel")),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(true);
+                              },
+                              child: Text("Delete"))
+                        ],
+                      ));
+            }
+            return Future.value(false);
+          },
+          background: Container(
+            color: Colors.red,
+            child:
+                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Expanded(
+                child: Container(),
+              ),
+              Text(
+                "Delete",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                ),
+              ),
+            ]),
+          ),
+          onDismissed: (direction) async {
+            await FirebaseFirestore.instance
+                .collection(chunesCollection)
+                .doc(chune.id)
+                .delete();
+          },
+          key: ValueKey(chune.id),
+          child: Container(
+              color: Colors.white,
+              child: ChuneRow(chune,
+                  chunes: List<Chune>.from(documentSnapshots.map((e) =>
+                      Chune.fromMap(e.data() as Map).copyWith(id: e.id))))),
+        );
       },
       itemBuilderType: PaginateBuilderType.listView,
       onError: (e) => Text('$e'),
@@ -196,7 +256,7 @@ class MyChunesList extends StatelessWidget {
           ),
         ],
       ),
-      isLive: true,
+      // isLive: true,
       query: FirebaseFirestore.instance
           .collection(chunesCollection)
           .where('userId', isEqualTo: userId)

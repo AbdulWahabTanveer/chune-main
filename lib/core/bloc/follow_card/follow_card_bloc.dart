@@ -45,11 +45,11 @@ class FollowCardBloc extends Bloc<FollowCardEvent, FollowCardState> {
     if (state is FollowCardLoaded) {
       final cast = state as FollowCardLoaded;
       if (cast.card.isFollowing) {
-        repo.unFollowUser(cast.card).catchError((e) {
+        repo.unFollowUser(cast.card.id).catchError((e) {
           add(UndoFollowEvent(cast.card));
         });
       } else {
-        repo.followUser(cast.card).catchError((e) {
+        repo.followUser(cast.card.id).catchError((e) {
           add(UndoFollowEvent(cast.card));
         });
       }

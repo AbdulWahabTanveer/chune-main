@@ -17,102 +17,100 @@ class _EditProfile extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-          child: Icon(
-            Icons.arrow_back,
-            color: Colors.blueGrey,
-          ),
+      // appBar: AppBar(
+      //   leading: GestureDetector(
+      //     child: Icon(
+      //       Icons.arrow_back,
+      //       color: Colors.blueGrey,
+      //     ),
+      //     onTap: () {
+      //       Navigator.pop(context);
+      //     },
+      //   ),
+      //   backgroundColor: Colors.white,
+      //   elevation: 1,
+      //   centerTitle: true,
+      //   toolbarHeight: 70,
+      //   title: Text(
+      //     'chune',
+      //     style: TextStyle(
+      //         color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
+      //   ),
+      // ),
+      body: Column(children: [
+        InkWell(
+          splashColor: Colors.white,
           onTap: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LikedChunes()),
+            );
           },
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Liked chunes'),
+                Icon(Icons.chevron_right_outlined)
+              ],
+            ),
+          ),
         ),
-        backgroundColor: Colors.white,
-        elevation: 1,
-        centerTitle: true,
-        toolbarHeight: 70,
-        title: Text(
-          'chune',
-          style: TextStyle(
-              color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
+        InkWell(
+          splashColor: Colors.white,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChangeUsername()),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Change username'),
+                Icon(Icons.chevron_right_outlined)
+              ],
+            ),
+          ),
         ),
-      ),
-      body: Stack(children: [
-        Column(children: [
-          InkWell(
-            splashColor: Colors.white,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LikedChunes()),
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Liked chunes'),
-                  Icon(Icons.chevron_right_outlined)
-                ],
-              ),
+        InkWell(
+          splashColor: Colors.white,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => UploadProfilePhoto()),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Upload profile photo'),
+                Icon(Icons.chevron_right_outlined)
+              ],
             ),
           ),
-          InkWell(
-            splashColor: Colors.white,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ChangeUsername()),
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Change username'),
-                  Icon(Icons.chevron_right_outlined)
-                ],
-              ),
+        ),
+        InkWell(
+          splashColor: Colors.white,
+          onTap: () {
+            context.read<AppBloc>().add(AppLogoutRequested());
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Log out'),
+                Icon(Icons.exit_to_app)
+              ],
             ),
           ),
-          InkWell(
-            splashColor: Colors.white,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => UploadProfilePhoto()),
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Upload profile photo'),
-                  Icon(Icons.chevron_right_outlined)
-                ],
-              ),
-            ),
-          ),
-          InkWell(
-            splashColor: Colors.white,
-            onTap: () {
-              context.read<AppBloc>().add(AppLogoutRequested());
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Log out'),
-                  Icon(Icons.exit_to_app)
-                ],
-              ),
-            ),
-          ),
-        ]),
+        ),
       ]),
     );
   }

@@ -28,6 +28,7 @@ class HomePostBloc extends Bloc<HomePostEvent, HomePostState> {
                 ? event.post.likeCount - 1
                 : event.post.likeCount + 1,
           ),
+          showPost: true
         ),
       ),
     );
@@ -35,12 +36,11 @@ class HomePostBloc extends Bloc<HomePostEvent, HomePostState> {
 
   FutureOr<void> _onLoadHomePost(
       LoadHomePost event, Emitter<HomePostState> emit) async {
-    final card = event.post.copyWith(
-        isLiked: profileRepo
-            .getMyCachedProfile()
-            .likedChunes
-            .contains(event.post.id));
-    emit(HomePostLoaded(card));
+    final me = profileRepo.getMyCachedProfile();
+    final card =
+        event.post.copyWith(isLiked: me.likedChunes.contains(event.post.id));
+    final showPost = me.followings.contains(event.post.userId);
+    emit(HomePostLoaded(card, showPost: showPost));
   }
 
   FutureOr<void> _onLikeHomePost(
@@ -64,11 +64,11 @@ class HomePostBloc extends Bloc<HomePostEvent, HomePostState> {
       }
 
       var likeStatus = !cast.post.isLiked;
-      profileRepo.updateLikes(cast.post.id,likeStatus);
+      profileRepo.updateLikes(cast.post.id, likeStatus);
       emit(
         HomePostLoaded(
-          cast.post
-              .copyWith(isLiked: likeStatus, likeCount: likesCount),
+          cast.post.copyWith(isLiked: likeStatus, likeCount: likesCount),
+          showPost: cast.showPost,
         ),
       );
     }

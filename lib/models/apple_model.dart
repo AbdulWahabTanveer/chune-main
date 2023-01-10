@@ -285,7 +285,7 @@ class Attributes {
     "albumName": albumName,
     "genreNames": List<dynamic>.from(genreNames.map((x) => x)),
     "trackNumber": trackNumber,
-    "releaseDate": "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
+    "releaseDate": releaseDate==null?"":"${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
     "durationInMillis": durationInMillis,
     "isrc": isrc,
     "artwork": artwork.toJson(),

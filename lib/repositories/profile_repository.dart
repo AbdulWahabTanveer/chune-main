@@ -45,11 +45,11 @@ class ProfileRepositoryImpl extends ProfileRepository {
   final functions = GetIt.I.get<CloudFunctionsService>();
 
   Query get likedChunesQuery => FirebaseFirestore.instance
-      .collection(chunesCollection)
-      .where(FieldPath.documentId,
-          whereIn: me.likedChunes.isNotEmpty
-              ? me.likedChunes.sublist(0, 10)
-              : ['notfound']);
+      .collection(chunesCollection);
+      // .where(FieldPath.documentId,
+      //     whereIn: me.likedChunes.isNotEmpty
+      //         ? me.likedChunes.sublist(0, 10)
+      //         : ['notfound']);
 
   Query get myNotificationsQuery => FirebaseFirestore.instance
       .collection(usersCollection)
@@ -113,7 +113,11 @@ class ProfileRepositoryImpl extends ProfileRepository {
           .doc(userId)
           .set(profile.toMap());
       this.me = profile.copyWith(id: userId);
-      await functions.followUser(userId);
+      final doc = await fireStore.collection(usersCollection).where('email',isEqualTo: 'chuneapp@gmail.com').get();
+
+      await functions.followUser(doc.docs.first.id);
+      updateFollows(doc.docs.first.id, true);
+
 
       return me;
     } catch (e) {

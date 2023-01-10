@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/core/bloc/login/login_bloc.dart';
 import 'package:newapp/responsive.dart';
 import 'package:paginate_firestore/bloc/pagination_listeners.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-import '../../core/bloc/music_player/music_player_bloc.dart';
 import '../../models/chune.dart';
 import '../../repositories/home_page_repo.dart';
+import '../../repositories/profile_repository.dart';
 import 'Post.dart';
 import 'home_post.dart';
 
@@ -21,6 +19,7 @@ class ChunesListWidget extends StatefulWidget {
 class _ChunesListWidgetState extends State<ChunesListWidget> {
   static int keyL = 0;
   final repo = GetIt.I.get<HomePageRepository>();
+  final profileRepo = GetIt.I.get<ProfileRepository>();
 
   final refreshChangeListener = GetIt.I.get<PaginateRefreshedChangeListener>();
 
@@ -60,6 +59,12 @@ class _ChunesListWidgetState extends State<ChunesListWidget> {
               listenPost: listenPost,
               likePost: likePost,
             ),
+            (c) =>
+                profileRepo
+                    .getMyCachedProfile()
+                    .followings
+                    .contains(c.userId) ||
+                c.userId == profileRepo.getMyCachedProfile().id,
           ),
         );
       },

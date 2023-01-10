@@ -7,10 +7,12 @@ abstract class HomePostEvent extends Equatable {
 class LoadHomePost extends HomePostEvent {
   final Chune post;
 
-  LoadHomePost(this.post);
+  final bool Function(Chune post) filter;
+
+  LoadHomePost(this.post, this.filter);
 
   @override
-  List<Object> get props => [post];
+  List<Object> get props => [post,filter];
 }
 
 class LikeHomePost extends HomePostEvent {

@@ -14,15 +14,18 @@ class HomePostWidget extends StatelessWidget {
   final Chune post;
   final List<Chune> chunes;
   final ChuneCardBuilder builder;
+  final bool Function(Chune post) filter;
 
-  const HomePostWidget(this.post, this.chunes, this.builder, {Key key})
+  const HomePostWidget(this.post, this.chunes, this.builder, this.filter,
+      {Key key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomePostBloc()..add(LoadHomePost(post)),
-      child: _HomePostWidgetContent(builder: builder, chunes: chunes),
+      create: (context) => HomePostBloc()..add(LoadHomePost(post, filter)),
+      child: _HomePostWidgetContent(
+          builder: builder, chunes: chunes, filter: filter),
     );
   }
 }
@@ -31,8 +34,10 @@ class _HomePostWidgetContent extends StatelessWidget {
   final ChuneCardBuilder builder;
 
   final List<Chune> chunes;
+  final bool Function(Chune post) filter;
 
-  const _HomePostWidgetContent({Key key, this.builder, this.chunes})
+  const _HomePostWidgetContent(
+      {Key key, this.builder, this.chunes, this.filter})
       : super(key: key);
 
   @override
@@ -46,12 +51,13 @@ class _HomePostWidgetContent extends StatelessWidget {
           final VoidCallback likePost = () => bloc.add(
                 LikeHomePost(post),
               );
-          final VoidCallback listenPost = () =>
-              context.read<MusicPlayerBloc>().add(SetAudioEvent(post, chunes:chunes));
-            if(state.showPost) {
-              return builder(post, likePost, listenPost);
-            }
-            return SizedBox.shrink();
+          final VoidCallback listenPost = () => context
+              .read<MusicPlayerBloc>()
+              .add(SetAudioEvent(post, chunes: chunes.where(filter).toList()));
+          if (state.showPost) {
+            return builder(post, likePost, listenPost);
+          }
+          return SizedBox.shrink();
         }
         return loader();
       },

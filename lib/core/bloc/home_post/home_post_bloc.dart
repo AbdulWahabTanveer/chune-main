@@ -22,14 +22,13 @@ class HomePostBloc extends Bloc<HomePostEvent, HomePostState> {
     on<UndoLikeEvent>(
       (event, emit) => emit(
         HomePostLoaded(
-          event.post.copyWith(
-            isLiked: !event.post.isLiked,
-            likeCount: event.post.isLiked
-                ? event.post.likeCount - 1
-                : event.post.likeCount + 1,
-          ),
-          showPost: true
-        ),
+            event.post.copyWith(
+              isLiked: !event.post.isLiked,
+              likeCount: event.post.isLiked
+                  ? event.post.likeCount - 1
+                  : event.post.likeCount + 1,
+            ),
+            showPost: true),
       ),
     );
   }
@@ -39,7 +38,7 @@ class HomePostBloc extends Bloc<HomePostEvent, HomePostState> {
     final me = profileRepo.getMyCachedProfile();
     final card =
         event.post.copyWith(isLiked: me.likedChunes.contains(event.post.id));
-    final showPost = me.followings.contains(event.post.userId);
+    final showPost = event.filter != null ? event.filter(event.post) : true;
     emit(HomePostLoaded(card, showPost: showPost));
   }
 

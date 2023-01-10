@@ -58,7 +58,9 @@ class _CreateUsername extends State<_CreateUsernameContent> {
               ProfileModel(
                 username: state.username,
                 email: user.email,
-                image: user.photo,
+                image: (user.photo == null || user.photo.isEmpty)
+                    ? "https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
+                    : user.photo,
                 fcmToken: await FirebaseMessaging.instance.getToken(),
                 followers: [],
                 followings: [],
@@ -85,7 +87,6 @@ class _CreateUsername extends State<_CreateUsernameContent> {
           body: Form(
             key: _formKey,
             child: Container(
-
               decoration: BoxDecoration(
                 gradient: LinearGradient(colors: [
                   Theme.of(context).primaryColor,
@@ -126,7 +127,8 @@ class _CreateUsername extends State<_CreateUsernameContent> {
                           e != username.text ? "Username does not match" : null,
                       style: TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
-                      decoration: _fieldDecor.copyWith(labelText: "Confirm username"),
+                      decoration:
+                          _fieldDecor.copyWith(labelText: "Confirm username"),
                     ),
                   ),
                   if (state is UsernameExistsState)
@@ -150,18 +152,19 @@ class _CreateUsername extends State<_CreateUsernameContent> {
                               },
                         child: state is UsernameLoadingState
                             ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                loader(),
-                                if (state is UsernameLoadingState)
-                                  Text(
-                                    state is CheckingUsernameState
-                                        ? 'Checking availability'
-                                        : 'Creating username',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                              ],
-                            )
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  loader(),
+                                  if (state is UsernameLoadingState)
+                                    Text(
+                                      state is CheckingUsernameState
+                                          ? 'Checking availability'
+                                          : 'Creating username',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                ],
+                              )
                             : Text("CREATE")),
                   ),
                   SizedBox(height: 100),

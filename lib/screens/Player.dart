@@ -196,31 +196,32 @@ class _PlayerScreen extends State<PlayerScreen> {
 
                     if (state.post.likeCount != null)
                       HomePostWidget(
-                        state.post,
-                        [],
-                        (post, likePost, listenPost) => Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '${post.likeCount}',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                            SizedBox(height: 8),
-                            IconButton(
-                              icon: Icon(
-                                  post.isLiked
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: likeColor),
-                              onPressed: likePost,
-                              padding: EdgeInsets.all(0),
-                            ),
-                          ],
-                        ),
-                      ),
+                          state.post,
+                          [],
+                          (post, likePost, listenPost) => Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${post.likeCount}',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  SizedBox(height: 8),
+                                  IconButton(
+                                    icon: Icon(
+                                        post.isLiked
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        color: likeColor),
+                                    onPressed: likePost,
+                                    padding: EdgeInsets.all(0),
+                                  ),
+                                ],
+                              ),
+                          (c) => true),
                   ],
                 ),
               ),

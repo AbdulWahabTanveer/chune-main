@@ -6,6 +6,7 @@ import 'package:paginate_firestore/paginate_firestore.dart';
 
 import '../../models/chune.dart';
 import '../Widgets/Post.dart';
+import '../Widgets/player_panel.dart';
 
 class LikedChunes extends StatefulWidget {
   @override
@@ -40,29 +41,44 @@ class _LikedChunes extends State<LikedChunes> {
               color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 25),
         ),
       ),
-      body: PaginateFirestore(
-        onLoaded: (pl) {
-          Fluttertoast.showToast(msg: "${page++}");
-        },
-        itemBuilder: (context, documentSnapshots, index) {
-          final chune = Chune.fromMap(documentSnapshots[index].data() as Map)
-              .copyWith(id: documentSnapshots[index].id);
-          return Container(
-            child: ChuneRow(chune,
-                chunes: List<Chune>.from(
-                  documentSnapshots.map(
-                    (e) => Chune.fromMap(e.data() as Map).copyWith(id: e.id),
+      bottomSheet: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 40,
+          ),
+          PlayerPanel()
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: PaginateFirestore(
+          onLoaded: (pl) {
+            // Fluttertoast.showToast(msg: "${page++}");
+          },
+          itemBuilder: (context, documentSnapshots, index) {
+            final chune = Chune.fromMap(documentSnapshots[index].data() as Map)
+                .copyWith(id: documentSnapshots[index].id);
+            return Container(
+              child: ChuneRow(chune,
+                  chunes: List<Chune>.from(
+                    documentSnapshots.map(
+                      (e) => Chune.fromMap(e.data() as Map).copyWith(id: e.id),
+                    ),
                   ),
-                ),
-                filter: (c) =>
-                    repo.getMyCachedProfile().likedChunes.contains(c.id)),
-          );
-        },
-        shrinkWrap: true,
-        onEmpty: Text('No liked chunes'),
-        onError: (p0) => Text('$p0'),
-        query: repo.likedChunesQuery,
-        itemBuilderType: PaginateBuilderType.listView,
+                  filter: (c) =>
+                      repo.getMyCachedProfile().likedChunes.contains(c.id)),
+            );
+          },
+          // shrinkWrap: true,
+          isLive: true,
+          itemsPerPage: 200,
+          onEmpty: Text('No liked chunes'),
+          onError: (p0) => Text('$p0'),
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          query: repo.likedChunesQuery,
+          itemBuilderType: PaginateBuilderType.listView,
+        ),
       ),
     );
   }

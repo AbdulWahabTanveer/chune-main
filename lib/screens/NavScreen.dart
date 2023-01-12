@@ -56,7 +56,7 @@ class _NavScreen extends State<NavScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final profile = context.read<ProfileBloc>().state;
+    // final profile = context.read<ProfileBloc>().state;
     return BlocBuilder<NavBloc, int>(
       builder: (context, selectedIndex) {
         return Scaffold(
@@ -74,7 +74,6 @@ class _NavScreen extends State<NavScreen> {
             ),
           ),
           body: _widgetOptions.elementAt(selectedIndex),
-
           bottomSheet: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -153,11 +152,15 @@ class _NavScreen extends State<NavScreen> {
                 label: 'Chats',
               ),
               BottomNavigationBarItem(
-                icon: AvatarImage(
-                    (profile is ProfileLoadedState)
-                        ? profile.profile?.image
-                        : 'https://media.vogue.co.uk/photos/6041f07c107e7ce55db43e7d/2:3/w_1600,c_limit/wiz.jpg',
-                    13),
+                icon: BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, profile) {
+                    return AvatarImage(
+                        (profile is ProfileLoadedState)
+                            ? profile.profile?.image
+                            : 'https://media.vogue.co.uk/photos/6041f07c107e7ce55db43e7d/2:3/w_1600,c_limit/wiz.jpg',
+                        13);
+                  },
+                ),
                 label: 'Profile',
               ),
             ],

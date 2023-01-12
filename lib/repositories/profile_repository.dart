@@ -46,7 +46,8 @@ class ProfileRepositoryImpl extends ProfileRepository {
 
   Query get likedChunesQuery => FirebaseFirestore.instance
       .collection(chunesCollection);
-      // .where(FieldPath.documentId,
+      // .orderBy('timestamp', descending: true);
+  // .where(FieldPath.documentId,
       //     whereIn: me.likedChunes.isNotEmpty
       //         ? me.likedChunes.sublist(0, 10)
       //         : ['notfound']);

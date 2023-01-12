@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 import '../../core/bloc/home_post/home_post_bloc.dart';
 import '../../core/bloc/music_player/music_player_bloc.dart';
 
-typedef Widget ChuneCardBuilder(
-    Chune post, VoidCallback likePost, VoidCallback listenPost);
+typedef Widget ChuneCardBuilder(Chune post, VoidCallback likePost,
+    VoidCallback listenPost);
 
 class HomePostWidget extends StatelessWidget {
   final Chune post;
@@ -23,7 +23,9 @@ class HomePostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomePostBloc()..add(LoadHomePost(post, filter)),
+      create: (context) =>
+      HomePostBloc()
+        ..add(LoadHomePost(post, filter)),
       child: _HomePostWidgetContent(
           builder: builder, chunes: chunes, filter: filter),
     );
@@ -48,12 +50,16 @@ class _HomePostWidgetContent extends StatelessWidget {
       builder: (context, state) {
         if (state is HomePostLoaded) {
           final post = state.post;
-          final VoidCallback likePost = () => bloc.add(
+          final VoidCallback likePost = () =>
+              bloc.add(
                 LikeHomePost(post),
               );
-          final VoidCallback listenPost = () => context
-              .read<MusicPlayerBloc>()
-              .add(SetAudioEvent(post, chunes: chunes.where(filter).toList()));
+          final VoidCallback listenPost = () =>
+              context
+                  .read<MusicPlayerBloc>()
+                  .add(SetAudioEvent(post,
+                  chunes: chunes.where(filter != null ? filter : (c) => true)
+                      .toList()));
           if (state.showPost) {
             return builder(post, likePost, listenPost);
           }
@@ -66,17 +72,16 @@ class _HomePostWidgetContent extends StatelessWidget {
 }
 
 class PostDetails {
-  PostDetails(
-      {this.profilePic,
-      this.userName,
-      this.albumArt,
-      this.songName,
-      this.artistName,
-      this.likeCount,
-      this.isLiked,
-      this.isSelected,
-      this.likeColor,
-      this.url});
+  PostDetails({this.profilePic,
+    this.userName,
+    this.albumArt,
+    this.songName,
+    this.artistName,
+    this.likeCount,
+    this.isLiked,
+    this.isSelected,
+    this.likeColor,
+    this.url});
 
   String profilePic;
   String userName;

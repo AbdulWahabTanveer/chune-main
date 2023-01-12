@@ -28,10 +28,7 @@ class UserProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final myId = context.read<AppBloc>().state.user.id;
-    if (myId == userId) {
-      return MyProfileScreen();
-    }
+
     return BlocProvider(
       create: (context) => UserProfileBloc()..add(LoadUserProfileEvent(userId)),
       child: _UserProfileContent(),
@@ -76,6 +73,8 @@ class __UserProfileState extends State<_UserProfileContent> {
               builder: (context, state) {
                 if (state is UserProfileLoadedState) {
                   final profile = state.profile;
+                  final myId = context.read<AppBloc>().state.user.id;
+
                   return BlocProvider(
                     create: (context) =>
                         FollowCardBloc()..add(LoadFollowCard(profile)),
@@ -191,8 +190,8 @@ class __UserProfileState extends State<_UserProfileContent> {
                             );
                           }),
                         ),
-                        SizedBox(height: 20),
-                        Row(
+                        if(myId!=profile.id)SizedBox(height: 20),
+                        if(myId!=profile.id)Row(
                           children: [
                             Expanded(
                               child: Container(

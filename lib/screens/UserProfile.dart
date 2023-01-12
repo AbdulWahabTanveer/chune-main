@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:newapp/Useful_Code/constants.dart';
 import 'package:newapp/Useful_Code/utils.dart';
 import 'package:newapp/core/bloc/nav_bloc/nav_bloc.dart';
+import 'package:newapp/repositories/profile_repository.dart';
 import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import '../auth_flow/app/bloc/app_bloc.dart';
@@ -196,10 +198,7 @@ class MyChunesList extends StatelessWidget {
             ]),
           ),
           onDismissed: (direction) async {
-            await FirebaseFirestore.instance
-                .collection(chunesCollection)
-                .doc(chune.id)
-                .delete();
+            context.read<ProfileBloc>().add(DeleteChuneEvent(chune.id));
           },
           key: ValueKey(chune.id),
           child: Container(

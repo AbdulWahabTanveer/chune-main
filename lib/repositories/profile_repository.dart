@@ -31,6 +31,8 @@ abstract class ProfileRepository {
 
   void resetNotifications();
 
+  void updateChuneCount(bool inc);
+
   void updateFollows(String id, bool followStatus);
 
   Future<ProfileModel> loadUserProfile(String userId);
@@ -38,6 +40,8 @@ abstract class ProfileRepository {
   Query userChunesQuery(String id);
 
   Future<String> updateUsername(String text);
+
+  Future<void> deleteChune(String id);
 }
 
 class ProfileRepositoryImpl extends ProfileRepository {
@@ -45,8 +49,8 @@ class ProfileRepositoryImpl extends ProfileRepository {
   final functions = GetIt.I.get<CloudFunctionsService>();
 
   Query get likedChunesQuery => FirebaseFirestore.instance
-      .collection(chunesCollection);
-      // .orderBy('timestamp', descending: true);
+      .collection(chunesCollection)
+      .orderBy('timestamp', descending: true);
   // .where(FieldPath.documentId,
       //     whereIn: me.likedChunes.isNotEmpty
       //         ? me.likedChunes.sublist(0, 10)
@@ -196,5 +200,19 @@ class ProfileRepositoryImpl extends ProfileRepository {
     } else {
       return "Username already exists";
     }
+  }
+
+  @override
+  void updateChuneCount(bool inc) {
+    me = me.copyWith(chunesShared: inc?me.chunesShared+1:me.chunesShared-1);
+  }
+
+  @override
+  Future<void> deleteChune(String id)async {
+    await FirebaseFirestore.instance
+        .collection(chunesCollection)
+        .doc(id)
+        .delete();
+    updateChuneCount(false);
   }
 }

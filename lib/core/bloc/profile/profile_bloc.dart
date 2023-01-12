@@ -16,6 +16,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc() : super(ProfileInitial()) {
     on<CheckProfileExistsEvent>(_onCheckProfileExists);
     on<LoadProfileEvent>(_onLoadProfile);
+    on<DeleteChuneEvent>(_onDeleteProfile);
     on<ProfileUpdatedEvent>(_onProfileUpdated);
     on<SetUserProfileEvent>(
       (event, emit) => emit(
@@ -50,5 +51,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(ProfileLoadedState(cast.profile
           .copyWith(image: event.imageUrl, username: event.username)));
     }
+  }
+
+  FutureOr<void> _onDeleteProfile(DeleteChuneEvent event, Emitter<ProfileState> emit)async {
+    await profileRepo.deleteChune(event.chuneId);
+    emit(ProfileLoadedState(profileRepo.getMyCachedProfile()));
+
   }
 }

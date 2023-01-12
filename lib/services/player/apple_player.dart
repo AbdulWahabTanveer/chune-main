@@ -103,7 +103,7 @@ class ApplePlayer extends BaseAudioPlayer {
         return _musicKitPlugin.setQueueWithItems("songs", items: [result]);
       }
       final result = await appleRepo.search(
-          "${mediaItem.songName} ${mediaItem.artistName.split(",").first.split(" ").first}",
+          "${mediaItem.songName.split("(").first.split('[').first} ${mediaItem.artistName.split(",").first.split(" ").first}",
           limit: 25);
       if (result?.results?.songs?.data != null &&
           result.results.songs.data.isNotEmpty) {

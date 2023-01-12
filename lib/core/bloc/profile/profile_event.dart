@@ -16,6 +16,12 @@ class LoadProfileEvent extends ProfileEvent {
   LoadProfileEvent(this.userId);
 }
 
+class DeleteChuneEvent extends ProfileEvent {
+  final String chuneId;
+
+  DeleteChuneEvent(this.chuneId);
+}
+
 class ProfileUpdatedEvent extends ProfileEvent {
   final String imageUrl;
   final String username;

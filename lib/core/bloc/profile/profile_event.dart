@@ -21,6 +21,8 @@ class DeleteChuneEvent extends ProfileEvent {
 
   DeleteChuneEvent(this.chuneId);
 }
+class AddChuneEvent extends ProfileEvent {
+}
 
 class ProfileUpdatedEvent extends ProfileEvent {
   final String imageUrl;

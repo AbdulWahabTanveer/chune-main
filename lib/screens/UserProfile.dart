@@ -255,7 +255,7 @@ class MyChunesList extends StatelessWidget {
           ),
         ],
       ),
-      // isLive: true,
+      isLive: true,
       query: FirebaseFirestore.instance
           .collection(chunesCollection)
           .where('userId', isEqualTo: userId)

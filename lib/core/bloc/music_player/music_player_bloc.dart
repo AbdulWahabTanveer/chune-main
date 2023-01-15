@@ -63,6 +63,10 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
 
   FutureOr<void> _onChangePosition(
       ChangePositionEvent event, Emitter<MusicPlayerState> emit) async {
+    if (event.position.inSeconds >= event.duration.inSeconds) {
+      add(PlayNextEvent());
+      return;
+    }
     if (state is MusicPlayerLoaded) {
       final cast = state as MusicPlayerLoaded;
       emit(

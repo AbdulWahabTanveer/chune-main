@@ -60,6 +60,7 @@ class _ShareAChune extends State<_ShareAChuneContent> {
     return BlocConsumer<ShareAChuneBloc, ShareAChuneState>(
       listener: (context, state) {
         if (state is ChuneShareSuccessState) {
+          context.read<ProfileBloc>().add(AddChuneEvent());
           Navigator.of(context).pop();
         }
         if (state is ChuneShareErrorState) {
@@ -182,9 +183,9 @@ class _ShareAChune extends State<_ShareAChuneContent> {
                   onPressed: selectedChune == null
                       ? null
                       : () {
-                          final state = context.read<ProfileBloc>().state
+                          final bloc = context.read<ProfileBloc>();
+                          final state = bloc.state
                               as ProfileLoadedState;
-                          print("<><><><><><> PROFILE MODEL ${state.profile}");
                           context.read<ShareAChuneBloc>().add(
                                 ShareChuneEvent(selectedChune, state.profile),
                               );

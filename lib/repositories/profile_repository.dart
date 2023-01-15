@@ -42,6 +42,8 @@ abstract class ProfileRepository {
   Future<String> updateUsername(String text);
 
   Future<void> deleteChune(String id);
+ 
+  void addNewChune();
 }
 
 class ProfileRepositoryImpl extends ProfileRepository {
@@ -146,8 +148,10 @@ class ProfileRepositoryImpl extends ProfileRepository {
   void updateFollows(String id, bool followStatus) {
     if (followStatus) {
       me.followings.add(id);
+      me = me.copyWith(followingCount: me.followingCount+1);
     } else {
       me.followings.remove(id);
+      me = me.copyWith(followingCount: me.followingCount-1);
     }
   }
 
@@ -214,5 +218,11 @@ class ProfileRepositoryImpl extends ProfileRepository {
         .doc(id)
         .delete();
     updateChuneCount(false);
+  }
+  
+
+  @override
+  void addNewChune() {
+    updateChuneCount(true);
   }
 }

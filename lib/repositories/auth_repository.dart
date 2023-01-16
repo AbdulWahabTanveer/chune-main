@@ -39,8 +39,8 @@ class AuthRepoImpl extends AuthRepository {
           redirectUrl: REDIRECT_URL,
           scope: 'app-remote-control, '
               'user-modify-playback-state, '
-              'playlist-read-private, '
-              'playlist-modify-public,user-read-currently-playing');
+              // 'playlist-read-private, '
+              'user-read-currently-playing');
       print(authenticationToken);
       await SpotifySdk.connectToSpotifyRemote(
           clientId: CLIENT_ID, redirectUrl: REDIRECT_URL);

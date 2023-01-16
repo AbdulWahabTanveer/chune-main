@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
+import 'package:newapp/Useful_Code/constants.dart';
 import 'package:newapp/models/profile_model.dart';
 import 'package:newapp/repositories/profile_repository.dart';
 
@@ -12,6 +14,8 @@ part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final profileRepo = GetIt.I.get<ProfileRepository>();
+
+  StreamSubscription<DocumentSnapshot<Map<String, dynamic>>> myStream;
 
   ProfileBloc() : super(ProfileInitial()) {
     on<CheckProfileExistsEvent>(_onCheckProfileExists);
@@ -25,6 +29,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ),
     );
     on<LogoutProfileEvent>((event, emit) => emit(ProfileInitial()));
+
+  }
+
+  void openStream(){
+    myStream = FirebaseFirestore.instance
+        .collection(usersCollection)
+        .doc(profileRepo.getMyCachedProfile().id)
+        .snapshots()
+        .listen((event) {
+      add(SetUserProfileEvent(ProfileModel.fromMap(event.data())));
+    });
   }
 
   FutureOr<void> _onCheckProfileExists(
@@ -54,15 +69,21 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-  FutureOr<void> _onDeleteProfile(DeleteChuneEvent event, Emitter<ProfileState> emit)async {
+  FutureOr<void> _onDeleteProfile(
+      DeleteChuneEvent event, Emitter<ProfileState> emit) async {
     await profileRepo.deleteChune(event.chuneId);
     emit(ProfileLoadedState(profileRepo.getMyCachedProfile()));
-
   }
 
-  FutureOr<void> _onAddChune(AddChuneEvent event, Emitter<ProfileState> emit)async {
-    await profileRepo.addNewChune();
-    emit(ProfileLoadedState(profileRepo.getMyCachedProfile()));
+  @override
+  Future<Function> close() {
+    myStream.cancel();
+    return super.close();
+  }
 
+  FutureOr<void> _onAddChune(
+      AddChuneEvent event, Emitter<ProfileState> emit) async {
+    profileRepo.addNewChune();
+    emit(ProfileLoadedState(profileRepo.getMyCachedProfile()));
   }
 }

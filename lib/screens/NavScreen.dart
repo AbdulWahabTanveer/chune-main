@@ -29,7 +29,6 @@ class NavScreen extends StatefulWidget {
 
 class _NavScreen extends State<NavScreen> {
   // int selectedIndex;
-  var iconCOlor = Colors.grey;
   final homeC = ScrollController();
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
@@ -43,6 +42,7 @@ class _NavScreen extends State<NavScreen> {
   @override
   void initState() {
     context.read<MusicPlayerBloc>().add(GetAudioEvent());
+    context.read<ProfileBloc>().openStream();
     super.initState();
   }
 

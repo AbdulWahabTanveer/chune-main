@@ -149,7 +149,7 @@ class _PlayerScreen extends State<PlayerScreen> {
                               RoundSliderThumbShape(enabledThumbRadius: 4),
                         ),
                         child: Slider(
-                          value: state.currentDuration.inSeconds.toDouble(),
+                          value: state.currentDuration.inSeconds.toDouble()>=state.totalDuration.inSeconds.toDouble()?state.totalDuration.inSeconds.toDouble():state.currentDuration.inSeconds.toDouble(),
                           max: state.totalDuration.inSeconds.toDouble(),
                           onChanged: (newPosition) {
                             context.read<MusicPlayerBloc>().add(

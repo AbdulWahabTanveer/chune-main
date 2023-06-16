@@ -8,6 +8,10 @@ class LoginInitial extends LoginState {
   @override
   List<Object> get props => [];
 }
+class LoginLoading extends LoginState {
+  @override
+  List<Object> get props => [];
+}
 
 class LoginSuccessState extends LoginState {
   final MusicSourceModel user;

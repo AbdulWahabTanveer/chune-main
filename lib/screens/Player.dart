@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/screens/NavScreen.dart';
 import 'package:newapp/screens/Profile.dart';
-import 'package:newapp/screens/UserScreens/UserProfile.dart';
 import 'package:newapp/screens/Widgets/FollowCard.dart';
 import 'package:newapp/screens/Widgets/Post.dart';
 import 'package:newapp/screens/globalvariables.dart';

@@ -1,7 +1,9 @@
 //To God be the Glory
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:newapp/Useful_Code/utils.dart';
 import 'package:newapp/core/bloc/follow_card/follow_card_bloc.dart';
@@ -14,7 +16,11 @@ import 'package:newapp/screens/Widgets/Post.dart';
 import 'package:newapp/screens/Widgets/player_panel.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 
+import '../Useful_Code/app_cubits.dart';
+import '../Useful_Code/ids_list/ids_list_check_view.dart';
+import '../Useful_Code/widgets.dart';
 import '../auth_flow/app/bloc/app_bloc.dart';
+import '../core/bloc/report_cubit.dart';
 import '../core/bloc/user_profile/user_profile_bloc.dart';
 import '../repositories/profile_repository.dart';
 
@@ -83,9 +89,35 @@ class __UserProfileState extends State<_UserProfileContent> {
                         SizedBox(height: 30),
                         Column(
                           children: [
-                            AvatarImage(
-                              profile.image,
-                              35,
+                                Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CupertinoButton(
+                                  disabledColor: Colors.white,
+                                  child: Icon(
+                                    Icons.mail,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: null,
+                                ),
+                                AvatarImage(
+                                  profile.image,
+                                  35,
+                                ),
+                                CupertinoButton(
+                                  child: Icon(
+                                    Icons.more_horiz_rounded,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) =>
+                                          _UserProfileActions(profile: profile),
+                                    );
+                                  },
+                                ),
+                              ],
                             ),
                             SizedBox(height: 16),
                             Text(
@@ -282,5 +314,76 @@ class _ChuneList extends StatelessWidget {
           itemBuilderType: PaginateBuilderType.listView,
           query: GetIt.I.get<ProfileRepository>().userChunesQuery(id),
         ));
+  }
+}
+
+
+class _UserProfileActions extends StatefulWidget {
+  const _UserProfileActions({
+    Key key,
+     this.profile,
+  }) : super(key: key);
+
+  final ProfileModel profile;
+
+  @override
+  State<_UserProfileActions> createState() => _UserProfileActionsState();
+}
+
+class _UserProfileActionsState extends State<_UserProfileActions> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const HeightSpace(),
+        const buttomSheetHeader(),
+        const HeightSpace(20),
+        IDsCheck(
+          onSuccess: (isAdd) {
+            if (mounted) {
+              Navigator.pop(context);
+            }
+            return isAdd
+                ? 'Muted @${widget.profile.username} successfully'
+                : 'Unmuted @${widget.profile.username} successfully';
+          },
+          cubit: AppCubits.mutedUsersCubit,
+          id: widget.profile.id,
+          builder: (isAdded) => ListTile(
+            leading: isAdded
+                ? Icon(Icons.volume_up_rounded)
+                : Icon(Icons.volume_off_rounded),
+            title: MText(
+              '${isAdded ? 'Unmute' : 'Mute'} @${widget.profile.username}',
+            ),
+          ),
+        ),
+        ListTile(
+          leading: Icon(Icons.flag_outlined),
+          title: MText('Report this user'),
+          onTap: () async {
+             final userId = context.read<AppBloc>().state.user.id;
+
+            final result = await context
+                .read<ReportCubit>()
+                .reportUser(reportedUserId: widget.profile.id, myID: userId);
+            if (result) {
+              if (mounted) {
+                Navigator.pop(context);
+              }
+              Fluttertoast.showToast(
+                msg: 'Reported successfully',
+              );
+            } else {
+              Fluttertoast.showToast(
+                msg: 'something went worng',
+              );
+            }
+          },
+        ),
+        HeightSpace(),
+      ],
+    );
   }
 }

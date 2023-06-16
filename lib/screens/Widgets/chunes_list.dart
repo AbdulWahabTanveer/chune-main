@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import '../../Useful_Code/app_cubits.dart';
+import '../../Useful_Code/entity.dart';
+import '../../Useful_Code/ids_list/ids_list_cubit.dart';
+import '../../Useful_Code/ids_list/ids_list_state.dart';
+import '../../models/profile_model.dart';
 import '../../responsive.dart';
 import 'package:paginate_firestore/bloc/pagination_listeners.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
@@ -44,28 +50,67 @@ class _ChunesListWidgetState extends State<ChunesListWidget> {
         refreshChangeListener,
       ],
       itemBuilder: (context, documentSnapshots, index) {
-        final chune = Chune.fromMap(documentSnapshots[index].data() as Map)
+        final chune = Chune.fromMap((documentSnapshots[index].data() as Map)
+                as Map<String, dynamic>)
             .copyWith(id: documentSnapshots[index].id);
-        return Container(
-          child: HomePostWidget(
-            chune,
-            List<Chune>.from(
-              documentSnapshots.map(
-                (e) => Chune.fromMap(e.data() as Map).copyWith(id: e.id),
-              ),
-            ),
-            (post, likePost, listenPost) => HomePostCard(
-              post,
-              listenPost: listenPost,
-              likePost: likePost,
-            ),
-            (c) =>
-                profileRepo
-                    .getMyCachedProfile()
-                    .followings
-                    .contains(c.userId) ||
-                c.userId == profileRepo.getMyCachedProfile().id,
+
+        var chunes = List<Chune>.from(
+          documentSnapshots.map(
+            (e) => Chune.fromMap((e.data() as Map) as Map<String, dynamic>)
+                .copyWith(id: e.id),
           ),
+        );
+
+        return BlocBuilder<IDsListCubit<ProfileModel>,
+            IDsListState<ProfileModel>>(
+          bloc: AppCubits.mutedUsersCubit,
+          builder: (context, usersState) {
+            chunes = chunes
+                .where((element) => !usersState.ids.contains(element.userId))
+                .toList();
+
+            return BlocBuilder<IDsListCubit<ID>, IDsListState<ID>>(
+              bloc: AppCubits.blockedArtistsCubit,
+              builder: (context, artistsState) {
+                chunes = chunes
+                    .where((element) =>
+                        !artistsState.ids.contains(element.artistName))
+                    .toList();
+                return BlocBuilder<IDsListCubit<ID>, IDsListState<ID>>(
+                  bloc: AppCubits.hiddenPostsCubit,
+                  builder: (context, state) {
+                    chunes = chunes
+                        .where((element) => !state.ids.contains(element.id))
+                        .toList();
+
+                    final showChune = chunes.contains(chune);
+
+                    if (!showChune) {
+                      return SizedBox();
+                    }
+
+                    return Container(
+                      child: HomePostWidget(
+                        chune,
+                        chunes,
+                        (post, likePost, listenPost) => HomePostCard(
+                          post,
+                          listenPost: listenPost,
+                          likePost: likePost,
+                        ),
+                        (c) =>
+                            profileRepo
+                                .getMyCachedProfile()
+                                .followings
+                                .contains(c.userId) ||
+                            c.userId == profileRepo.getMyCachedProfile().id,
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          },
         );
       },
       shrinkWrap: true,

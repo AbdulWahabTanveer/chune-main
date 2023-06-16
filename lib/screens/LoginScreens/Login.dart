@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import '../../auth_flow/app/app.dart';
 import '../../models/current_user.dart';
 
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:newapp/screens/NavScreen.dart';
-import 'package:newapp/screens/ShareAChune.dart';
 import 'package:newapp/services/player/audio_player.dart';
 
-import '../../Useful_Code/utils.dart';
 import '../../core/bloc/login/login_bloc.dart';
 import '../../services/player/apple_player.dart';
 import '../../services/player/spotify_player.dart';
@@ -41,11 +39,20 @@ class _MusicSourceState extends State<MusicSource> {
             get.registerSingleton<BaseAudioPlayer>(ApplePlayer());
           }
         }
+
+        if (state is LoginErrorState) {
+          Fluttertoast.showToast(
+            msg: state.user,
+            textColor: Colors.white,
+            backgroundColor: Colors.red,
+            toastLength: Toast.LENGTH_LONG,
+          );
+        }
       },
       builder: (context, state) {
-        if (state is LoginSuccessState) {
-          return AuthenticatedScreen();
-        }
+        return AuthenticatedScreen();
+        if (state is LoginSuccessState) {}
+        final isLoading = state is LoginLoading;
         return Scaffold(
           body: Container(
             decoration: BoxDecoration(
@@ -86,17 +93,24 @@ class _MusicSourceState extends State<MusicSource> {
                 SizedBox(
                   height: 16,
                 ),
-                ElevatedButton.icon(
-                  style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.resolveWith(
-                          (states) => Colors.black),
-                      backgroundColor: MaterialStateProperty.resolveWith(
-                          (states) => Colors.white)),
-                  onPressed: () {
-                    context.read<LoginBloc>().add(LoginWithAppleEvent());
-                  },
-                  icon: Icon(Icons.apple_outlined),
-                  label: Text('SIGNIN WITH APPLE'),
+                Opacity(
+                  opacity: isLoading ? 0.5 : 1,
+                  child: ElevatedButton.icon(
+                    style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.resolveWith(
+                            (states) => Colors.black),
+                        backgroundColor: MaterialStateProperty.resolveWith(
+                            (states) => Colors.white)),
+                    onPressed: isLoading
+                        ? null
+                        : () {
+                            context
+                                .read<LoginBloc>()
+                                .add(LoginWithAppleEvent());
+                          },
+                    icon: Icon(Icons.apple_outlined),
+                    label: Text('SIGN IN WITH APPLE'),
+                  ),
                 )
               ],
             ),

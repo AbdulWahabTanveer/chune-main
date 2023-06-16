@@ -21,56 +21,49 @@ environment:
   sdk: ">=2.11.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-
-
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.5
-  spotify_sdk: ^2.3.0
-  flutter_dotenv: ^5.0.2
-  provider: ^6.0.3
-#  just_audio: ^0.9.29
-  flutter_bloc: ^8.1.1
-  equatable: ^2.0.5
-  webview_flutter: ^3.0.4
-  http: ^0.13.5
-  flutter_web_auth: ^0.4.1
-  get_it: ^7.2.0
-  music_kit: ^1.0.0
-#  dart_jsonwebtoken: ^2.4.2
-  paginate_firestore: ^1.0.3+1
   authentication_repository:
     path: packages/authentication_repository
-#  flow_builder: ^0.0.9
+  cached_network_image: ^3.2.2
+  cloud_firestore: ^3.5.1
+  cloud_functions: ^3.3.9
+  cupertino_icons: ^1.0.5
+  dartz: ^0.10.1
+  device_preview: ^1.1.0
+  equatable: ^2.0.5
+  firebase_crashlytics: ^2.9.0
+  firebase_messaging: ^12.0.3
+  firebase_storage: ^10.3.11
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.1
+  flutter_dotenv: ^5.0.2
+  flutter_web_auth: ^0.4.1
+  fluttertoast: ^8.1.1
   form_inputs:
     path: packages/form_inputs
   formz: ^0.4.1
-  cloud_firestore: ^3.5.1
-  cloud_functions: ^3.3.9
-  firebase_messaging: ^12.0.3
-  rxdart: ^0.27.5
-  cached_network_image: ^3.2.2
-  shared_preferences: ^2.0.15
-  fluttertoast: ^8.1.1
-  launch_review: ^3.0.1
-  firebase_crashlytics: ^2.9.0
-  responsive_framework: ^0.2.0
-  image_picker: ^0.8.6
+  get_cubit: ^1.1.0
+  get_it: ^7.2.0
+  http: ^0.13.5
   image_cropper: ^3.0.1
-  device_preview: ^1.1.0
-  firebase_storage: ^10.3.11
+  image_picker: ^0.8.6
+  launch_review: ^3.0.1
+  music_kit: ^1.0.0
+  paginate_firestore: ^1.0.3+1
+  provider: ^6.0.3
+  responsive_framework: ^0.2.0
+  rxdart: ^0.27.5
+  shared_preferences: ^2.0.15
+  spotify_sdk: ^2.3.0
+  webview_flutter: ^3.0.4
 
 dependency_overrides:
   firebase_core_platform_interface: 4.5.1
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.11.0"
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: "^0.11.0"
 
 flutter_icons:
   android: true
@@ -79,29 +72,23 @@ flutter_icons:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
 flutter:
   assets:
     - images/
 
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

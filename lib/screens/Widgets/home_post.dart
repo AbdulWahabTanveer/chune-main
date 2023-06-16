@@ -1,6 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import '../../Useful_Code/app_cubits.dart';
 import '../../Useful_Code/utils.dart';
+import '../../Useful_Code/widgets.dart';
+import '../../auth_flow/app/bloc/app_bloc.dart';
+import '../../core/bloc/report_cubit.dart';
 import '../../models/current_user.dart';
 import '../Profile.dart';
 import 'FollowCard.dart';
@@ -42,7 +49,20 @@ class HomePostCard extends StatelessWidget {
                 ), //Username
                 SizedBox(
                   height: 50,
-                )
+                ),
+                Spacer(),
+                CupertinoButton(
+                  child: Icon(
+                    Icons.more_vert_rounded,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) => HomePostActions(post: post),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -50,7 +70,9 @@ class HomePostCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
               child: CachedNetworkImage(
-                imageUrl: post.source == MusicSourceType.apple?shrink(post.albumArt):post.albumArt,
+                imageUrl: post.source == MusicSourceType.apple
+                    ? shrink(post.albumArt)
+                    : post.albumArt,
                 //post.albumArt,
                 height: 370,
                 width: 370,
@@ -133,5 +155,122 @@ class HomePostCard extends StatelessWidget {
     newL[0] = "600x600bb";
     list.add(newL.join('.'));
     return list.join("/");
+  }
+}
+
+class HomePostActions extends StatefulWidget {
+  const HomePostActions({
+    Key key,
+    @required this.post,
+  }) : super(key: key);
+
+  final Chune post;
+
+  @override
+  State<HomePostActions> createState() => _HomePostActionsState();
+}
+
+class _HomePostActionsState extends State<HomePostActions> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const HeightSpace(),
+        const buttomSheetHeader(),
+        const HeightSpace(20),
+        ListTile(
+          leading: Icon(Icons.disabled_visible_outlined),
+          title: MText('Hide Post'),
+          onTap: () async {
+            final result = await AppCubits.hiddenPostsCubit.addId(
+              id: widget.post.id,
+            );
+
+            if (result) {
+              if (mounted) {
+                Navigator.pop(context);
+              }
+              Fluttertoast.showToast(
+                msg: 'Hide success',
+              );
+            } else {
+              Fluttertoast.showToast(
+                msg: 'something went worng',
+              );
+            }
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.volume_off_rounded),
+          title: MText('Mute @${widget.post.username}'),
+          onTap: () async {
+            final result = await AppCubits.mutedUsersCubit.addId(
+              id: widget.post.userId,
+            );
+
+            if (result) {
+              if (mounted) {
+                Navigator.pop(context);
+              }
+              Fluttertoast.showToast(
+                msg: 'Muted @${widget.post.username} successfully',
+              );
+            } else {
+              Fluttertoast.showToast(
+                msg: 'something went worng',
+              );
+            }
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.volume_off_rounded),
+          title: MText('Mute this artist'),
+          onTap: () async {
+            final result = await AppCubits.blockedArtistsCubit.addId(
+              id: widget.post.artistName,
+            );
+
+            if (result) {
+              if (mounted) {
+                Navigator.pop(context);
+              }
+              Fluttertoast.showToast(
+                msg: 'Muted @${widget.post.artistName} successfully',
+              );
+            } else {
+              Fluttertoast.showToast(
+                msg: 'something went worng',
+              );
+            }
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.flag_outlined),
+          title: MText('Flag this post'),
+          onTap: () async {
+            final userId = context.read<AppBloc>().state.user.id;
+
+            final result = await context
+                .read<ReportCubit>()
+                .reportPost(postId: widget.post.id, myID: userId);
+
+            if (result) {
+              if (mounted) {
+                Navigator.pop(context);
+              }
+              Fluttertoast.showToast(
+                msg: 'Reported successfully',
+              );
+            } else {
+              Fluttertoast.showToast(
+                msg: 'something went worng',
+              );
+            }
+          },
+        ),
+        HeightSpace(),
+      ],
+    );
   }
 }

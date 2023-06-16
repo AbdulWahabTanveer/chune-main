@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:newapp/Useful_Code/entity.dart';
 
-class ProfileModel {
+class ProfileModel extends Entity{
   final String id;
 
   // final String name;
@@ -158,6 +159,9 @@ class ProfileModel {
       sharedChunes: List<String>.from((map['chunes'] ?? <String>[])),
     );
   }
+
+  @override
+  String get getId => id;
 
 //</editor-fold>
 }

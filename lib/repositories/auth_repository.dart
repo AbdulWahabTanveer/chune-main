@@ -26,7 +26,8 @@ abstract class AuthRepository {
 }
 
 class AuthRepoImpl extends AuthRepository {
-  static const CLIENT_ID = '2410f3e1923f472095a62ebf4792e638';// '5f70513e09194d8489541fa36fa452c8';
+  static const CLIENT_ID =
+      '2410f3e1923f472095a62ebf4792e638'; // '5f70513e09194d8489541fa36fa452c8';
   static const REDIRECT_URL = 'chune://chuneApp.com/callback';
 
   final prefs = GetIt.I.get<SharedPreferences>();
@@ -51,7 +52,6 @@ class AuthRepoImpl extends AuthRepository {
     } on PlatformException catch (e) {
       print("Code -------> $e");
       if (e.code == 'CouldNotFindSpotifyApp') {
-
         LaunchReview.launch(
             iOSAppId: 'id324684580', androidAppId: 'com.spotify.music');
 
@@ -69,26 +69,42 @@ class AuthRepoImpl extends AuthRepository {
   Future<MusicSourceModel> loginWithApple() async {
     final _musicKitPlugin = MusicKit();
 
-    final token = //TODO: GET FROM API
+    final developerToken = //TODO: GET FROM API
         'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjlSVUxNTDRVMlUifQ.eyJpc3MiOiJEWlE2U1JaWEtRIiwiZXhwIjoxNjc5NTk4MDA5LCJpYXQiOjE2NjM4MjEwMDl9.o35PTIc1QY_C_AdOp0ziaD2cCuTyTRvwLntz0I4uSTwXxli3WpnH2qE-NW_ZlvWTwRHDItjkLuVik5OOUQkutA';
     if (Platform.isIOS) {
       await _musicKitPlugin.requestAuthorizationStatus(
           // token,
           );
+
+      final devToken = await _musicKitPlugin.requestDeveloperToken();
+      final userToken = await _musicKitPlugin.requestUserToken(devToken);
+      final storeFront = await GetIt.I
+          .get<AppleRepository>()
+          .getStoreFront(devToken, userToken);
+      final currentUser = MusicSourceModel(
+        token: userToken,
+        type: MusicSourceType.apple,
+        storeFront: storeFront,
+        appleDevToken: devToken,
+      );
+      await _saveUser(currentUser);
+      return currentUser;
     } else {
-      await _musicKitPlugin.initialize(token);
+      await _musicKitPlugin.initialize(developerToken);
+
+      final userToken = await _musicKitPlugin.requestUserToken(developerToken);
+      final storeFront = await GetIt.I
+          .get<AppleRepository>()
+          .getStoreFront(developerToken, userToken);
+      final currentUser = MusicSourceModel(
+        token: userToken,
+        type: MusicSourceType.apple,
+        storeFront: storeFront,
+        appleDevToken: developerToken,
+      );
+      await _saveUser(currentUser);
+      return currentUser;
     }
-    final userToken = await _musicKitPlugin.requestUserToken(token);
-    final storeFront =
-        await GetIt.I.get<AppleRepository>().getStoreFront(token, userToken);
-    final currentUser = MusicSourceModel(
-      token: userToken,
-      type: MusicSourceType.apple,
-      storeFront: storeFront,
-      appleDevToken: token,
-    );
-    await _saveUser(currentUser);
-    return currentUser;
   }
 
   _saveUser(MusicSourceModel currentUser) {

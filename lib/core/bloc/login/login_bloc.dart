@@ -29,6 +29,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   FutureOr<void> _onLoginWithSpotify(
       LoginWithSpotifyEvent event, Emitter<LoginState> emit) async {
     try {
+      emit(LoginLoading());
       final user = await authRepo.loginWithSpotify();
       emit(LoginSuccessState(user));
     } catch (e) {}
@@ -37,6 +38,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   FutureOr<void> _onLoginWithApple(
       LoginWithAppleEvent event, Emitter<LoginState> emit) async {
     try {
+      emit(LoginLoading());
       final user = await authRepo.loginWithApple();
       print("USer TOKEN +> ${user.token}");
       emit(LoginSuccessState(user));
@@ -46,7 +48,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         'trace': '$trace',
         'time': DateTime.now().toString()
       });
-      emit(LoginErrorState("$e"));
+      emit(LoginErrorState("Error: You don't have an Apple Music account"));
     }
   }
 

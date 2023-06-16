@@ -1,6 +1,7 @@
 ///To God be the Glory
 
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -11,12 +12,14 @@ import 'package:newapp/core/bloc/music_player/music_player_bloc.dart';
 import 'package:newapp/core/bloc/nav_bloc/nav_bloc.dart';
 import 'package:newapp/repositories/auth_repository.dart';
 import 'package:newapp/responsive.dart';
-import 'package:newapp/screens/Home.dart';
 import 'package:newapp/screens/splash_screen.dart';
 import 'package:newapp/services/injector.dart';
+import 'auth_flow/delete_account/delete_account_cubit.dart';
 import 'core/bloc/notification_counter/notification_counter_bloc.dart';
 import 'core/bloc/profile/profile_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'core/bloc/report_cubit.dart';
 
 Future<void> main() async {
   // await dotenv.load(fileName: '.env');
@@ -55,7 +58,16 @@ class MyApp extends StatelessWidget {
           create: (_) => AppBloc(
             authenticationRepository: GetIt.I.get<AuthenticationRepository>(),
           ),
-        )
+        ),
+        BlocProvider(
+          create: (context) => DeleteAccountCubit(
+            null,
+            GetIt.I.get<AuthenticationRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ReportCubit(FirebaseFirestore.instance),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -66,8 +78,12 @@ class MyApp extends StatelessWidget {
               cursorColor: Colors.white,
             ),
             bottomSheetTheme: BottomSheetThemeData(
-              backgroundColor: Colors.transparent
-            ),
+                shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+              ),
+            )),
             inputDecorationTheme: InputDecorationTheme(
               labelStyle: TextStyle(color: Colors.white),
               border: OutlineInputBorder(

@@ -259,6 +259,21 @@ class AuthenticationRepository {
     }
   }
 
+  Future<String?> deleteMyAccount() async {
+    try {
+      await _firebaseAuth.currentUser!.delete();
+      return null;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        return 'This action needs you to be recently signed in, please re-sign in and try again';
+      }
+
+      return e.message ?? 'Error ${e.code}';
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
   /// Signs out the current user which will emit
   /// [User.empty] from the [user] Stream.
   ///

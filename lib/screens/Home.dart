@@ -72,6 +72,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 }
 
+
+
 /*
 *    ///The lists are declared one for the Home posts and one for the user accounts
 

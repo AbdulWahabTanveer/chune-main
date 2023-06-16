@@ -11,6 +11,7 @@ import 'package:newapp/core/bloc/music_player/music_player_bloc.dart';
 import 'package:newapp/core/bloc/nav_bloc/nav_bloc.dart';
 import 'package:newapp/repositories/auth_repository.dart';
 import 'package:newapp/responsive.dart';
+import 'package:newapp/screens/Home.dart';
 import 'package:newapp/screens/splash_screen.dart';
 import 'package:newapp/services/injector.dart';
 import 'core/bloc/notification_counter/notification_counter_bloc.dart';

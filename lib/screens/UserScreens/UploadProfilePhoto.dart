@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:newapp/Useful_Code/utils.dart';
-import 'package:newapp/core/bloc/choose_photo_bloc/choose_photo_bloc.dart';
-import 'package:newapp/core/bloc/profile/profile_bloc.dart';
+import '../../Useful_Code/utils.dart';
+import '../../core/bloc/choose_photo_bloc/choose_photo_bloc.dart';
+import '../../core/bloc/profile/profile_bloc.dart';
 
 import '../../auth_flow/app/bloc/app_bloc.dart';
 

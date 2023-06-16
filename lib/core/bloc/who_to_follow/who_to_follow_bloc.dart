@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/repositories/home_page_repo.dart';
-import 'package:newapp/services/cloud_functions_service.dart';
+import '../../../repositories/home_page_repo.dart';
+import '../../../services/cloud_functions_service.dart';
 
 import '../../../models/profile_model.dart';
 

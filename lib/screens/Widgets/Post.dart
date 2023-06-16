@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/Useful_Code/utils.dart';
-import 'package:newapp/models/chune.dart';
+import '../../Useful_Code/utils.dart';
+import '../../models/chune.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/bloc/home_post/home_post_bloc.dart';

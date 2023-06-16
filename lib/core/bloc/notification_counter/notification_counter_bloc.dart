@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/Useful_Code/constants.dart';
+import '../../../Useful_Code/constants.dart';
 
 import '../../../repositories/profile_repository.dart';
 

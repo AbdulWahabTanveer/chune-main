@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newapp/screens/Player.dart';
-import 'package:newapp/screens/Widgets/player_panel.dart';
+import 'Player.dart';
+import 'Widgets/player_panel.dart';
 import 'globalvariables.dart';
 
 class SearchScreen extends StatefulWidget {

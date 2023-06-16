@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/Useful_Code/utils.dart';
+import '../../Useful_Code/utils.dart';
 
 import '../../core/bloc/music_player/music_player_bloc.dart';
 import '../Notifications.dart';

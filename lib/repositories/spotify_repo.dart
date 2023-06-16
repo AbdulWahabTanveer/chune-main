@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:get_it/get_it.dart';
-import 'package:newapp/repositories/auth_repository.dart';
-import 'package:newapp/services/http_service.dart';
+import 'auth_repository.dart';
+import '../services/http_service.dart';
 
 import '../models/spotify_model.dart';
 

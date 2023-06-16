@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/Useful_Code/utils.dart';
-import 'package:newapp/auth_flow/app/app.dart';
-import 'package:newapp/models/profile_model.dart';
-import 'package:newapp/screens/Profile.dart';
+import '../../Useful_Code/utils.dart';
+import '../../auth_flow/app/app.dart';
+import '../../models/profile_model.dart';
+import '../Profile.dart';
 
 import '../../core/bloc/follow_card/follow_card_bloc.dart';
 

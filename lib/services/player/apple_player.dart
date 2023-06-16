@@ -5,9 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:music_kit/music_kit.dart';
-import 'package:newapp/models/chune.dart';
-import 'package:newapp/models/current_user.dart';
-import 'package:newapp/services/player/audio_player.dart';
+import '../../models/chune.dart';
+import '../../models/current_user.dart';
+import 'audio_player.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../Useful_Code/constants.dart';

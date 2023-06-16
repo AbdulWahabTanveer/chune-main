@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/Useful_Code/constants.dart';
-import 'package:newapp/models/chune.dart';
-import 'package:newapp/models/profile_model.dart';
+import '../Useful_Code/constants.dart';
+import '../models/chune.dart';
+import '../models/profile_model.dart';
 
 import '../services/cloud_functions_service.dart';
 

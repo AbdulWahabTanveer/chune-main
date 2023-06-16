@@ -4,9 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/Useful_Code/constants.dart';
-import 'package:newapp/models/profile_model.dart';
-import 'package:newapp/repositories/profile_repository.dart';
+import '../../../Useful_Code/constants.dart';
+import '../../../models/profile_model.dart';
+import '../../../repositories/profile_repository.dart';
 
 part 'profile_event.dart';
 

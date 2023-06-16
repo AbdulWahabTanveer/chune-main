@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/models/current_user.dart';
-import 'package:newapp/repositories/apple_repo.dart';
-import 'package:newapp/repositories/auth_repository.dart';
-import 'package:newapp/repositories/spotify_repo.dart';
-import 'package:newapp/services/http_service.dart';
+import '../models/current_user.dart';
+import 'apple_repo.dart';
+import 'auth_repository.dart';
+import 'spotify_repo.dart';
+import '../services/http_service.dart';
 
 import '../Useful_Code/constants.dart';
 import '../models/chune.dart';

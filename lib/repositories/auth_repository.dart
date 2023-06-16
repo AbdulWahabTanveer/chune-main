@@ -7,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:music_kit/music_kit.dart';
-import 'package:newapp/repositories/apple_repo.dart';
+import 'apple_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 

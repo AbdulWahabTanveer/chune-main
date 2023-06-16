@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/services/player/audio_player.dart';
+import 'player/audio_player.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../models/chune.dart';

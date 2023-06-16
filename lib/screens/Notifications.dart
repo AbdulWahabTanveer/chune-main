@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/Useful_Code/utils.dart';
-import 'package:newapp/screens/Profile.dart';
+import '../Useful_Code/utils.dart';
+import 'Profile.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import '../models/notification_model.dart';
 import '../repositories/profile_repository.dart';

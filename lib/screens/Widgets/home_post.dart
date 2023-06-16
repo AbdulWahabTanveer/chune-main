@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:newapp/Useful_Code/utils.dart';
-import 'package:newapp/models/current_user.dart';
-import 'package:newapp/screens/Profile.dart';
-import 'package:newapp/screens/Widgets/FollowCard.dart';
+import '../../Useful_Code/utils.dart';
+import '../../models/current_user.dart';
+import '../Profile.dart';
+import 'FollowCard.dart';
 
 import '../../models/chune.dart';
 

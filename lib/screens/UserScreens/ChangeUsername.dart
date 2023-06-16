@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:newapp/core/bloc/profile/profile_bloc.dart';
+import '../../core/bloc/profile/profile_bloc.dart';
 import '../../auth_flow/app/bloc/app_bloc.dart';
 import '../../repositories/profile_repository.dart';
 import 'package:get_it/get_it.dart';

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/models/profile_model.dart';
+import '../../../models/profile_model.dart';
 
 import '../../../repositories/profile_repository.dart';
 

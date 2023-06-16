@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:newapp/models/current_user.dart';
+import 'current_user.dart';
 
 class Chune extends Equatable {
   final String id;

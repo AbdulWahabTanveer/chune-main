@@ -1,5 +1,5 @@
-import 'package:newapp/screens/Widgets/FollowCard.dart';
-import 'package:newapp/screens/Widgets/Post.dart';
+import 'Widgets/FollowCard.dart';
+import 'Widgets/Post.dart';
 
 bool audioPlaying = false;
 bool homePage = false;

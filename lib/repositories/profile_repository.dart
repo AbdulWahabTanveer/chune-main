@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/models/profile_model.dart';
+import '../models/profile_model.dart';
 
 import '../Useful_Code/constants.dart';
 import '../services/cloud_functions_service.dart';
@@ -42,7 +42,7 @@ abstract class ProfileRepository {
   Future<String> updateUsername(String text);
 
   Future<void> deleteChune(String id);
- 
+
   void addNewChune();
 }
 
@@ -219,7 +219,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
         .delete();
     updateChuneCount(false);
   }
-  
+
 
   @override
   void addNewChune() {

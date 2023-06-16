@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/repositories/profile_repository.dart';
+import '../../repositories/profile_repository.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 
 import '../../models/chune.dart';

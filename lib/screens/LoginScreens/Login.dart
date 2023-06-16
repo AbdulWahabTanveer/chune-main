@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/auth_flow/app/app.dart';
-import 'package:newapp/models/current_user.dart';
+import '../../auth_flow/app/app.dart';
+import '../../models/current_user.dart';
 
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:newapp/screens/NavScreen.dart';

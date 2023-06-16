@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/models/chune.dart';
-import 'package:newapp/services/player/audio_player.dart';
+import '../../models/chune.dart';
+import 'audio_player.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:spotify_sdk/models/player_state.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';

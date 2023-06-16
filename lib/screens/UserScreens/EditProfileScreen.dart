@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/screens/Player.dart';
-import 'package:newapp/screens/UserScreens/ChangeUsername.dart';
-import 'package:newapp/screens/UserScreens/UploadProfilePhoto.dart';
-import 'package:newapp/screens/globalvariables.dart';
-import 'package:newapp/screens/UserScreens/LikedChunes.dart';
+import '../Player.dart';
+import 'ChangeUsername.dart';
+import 'UploadProfilePhoto.dart';
+import '../globalvariables.dart';
+import 'LikedChunes.dart';
 
 import '../../auth_flow/app/bloc/app_bloc.dart';
 

@@ -4,8 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
-import 'package:newapp/models/current_user.dart';
-import 'package:newapp/repositories/auth_repository.dart';
+import '../../../models/current_user.dart';
+import '../../../repositories/auth_repository.dart';
 
 part 'login_event.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/core/bloc/profile/profile_bloc.dart';
-import 'package:newapp/screens/LoginScreens/Login.dart';
-import 'package:newapp/screens/NavScreen.dart';
+import '../../../core/bloc/profile/profile_bloc.dart';
+import '../../../screens/LoginScreens/Login.dart';
+import '../../../screens/NavScreen.dart';
 
 import '../../../screens/LoginScreens/CreateUsername.dart';
 import '../bloc/app_bloc.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newapp/screens/Profile.dart';
-import 'package:newapp/screens/Widgets/FollowCard.dart';
-import 'package:newapp/screens/globalvariables.dart';
+import 'Profile.dart';
+import 'Widgets/FollowCard.dart';
+import 'globalvariables.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import '../models/profile_model.dart';
 // import 'UserScreens/Userprofile.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:newapp/responsive.dart';
+import '../../../responsive.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../sign_up/view/sign_up_page.dart';

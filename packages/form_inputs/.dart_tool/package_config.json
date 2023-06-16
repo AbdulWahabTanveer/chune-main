@@ -1,0 +1,26 @@
+{
+  "configVersion": 2,
+  "packages": [
+    {
+      "name": "formz",
+      "rootUri": "file:///Users/dadev/.pub-cache/hosted/pub.dartlang.org/formz-0.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "very_good_analysis",
+      "rootUri": "file:///Users/dadev/.pub-cache/hosted/pub.dartlang.org/very_good_analysis-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "form_inputs",
+      "rootUri": "../",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    }
+  ],
+  "generated": "2023-06-16T19:06:06.850306Z",
+  "generator": "pub",
+  "generatorVersion": "2.18.2"
+}

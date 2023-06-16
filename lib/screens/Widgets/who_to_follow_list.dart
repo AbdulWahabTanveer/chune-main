@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/Useful_Code/utils.dart';
-import 'package:newapp/core/bloc/who_to_follow/who_to_follow_bloc.dart';
+import '../../Useful_Code/utils.dart';
+import '../../core/bloc/who_to_follow/who_to_follow_bloc.dart';
 
 import '../ViewAllAccounts.dart';
 import 'FollowCard.dart';

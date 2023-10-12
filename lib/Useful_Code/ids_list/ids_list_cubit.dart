@@ -81,7 +81,8 @@ class IDsListCubit<Item extends Entity> extends Cubit<IDsListState<Item>> {
                 (doc.data() as Map<String, dynamic>)[idsFieldNameInDoc] ?? [])
             .toList();
 
-        emit(state.changeIds(ids));
+        // emit(state.changeIds(ids));
+        emit(IDsDataLoading(ids));
       },
       onError: (error) {
         emit(

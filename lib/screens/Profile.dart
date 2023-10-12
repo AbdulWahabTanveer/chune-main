@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
+import 'package:newapp/Useful_Code/constants.dart';
 import 'package:newapp/Useful_Code/utils.dart';
 import 'package:newapp/core/bloc/follow_card/follow_card_bloc.dart';
 import 'package:newapp/models/chune.dart';
 import 'package:newapp/models/profile_model.dart';
-import 'package:newapp/screens/UserProfile.dart';
 import 'package:newapp/screens/UserScreens/LikedChunes.dart';
 import 'package:newapp/screens/Widgets/FollowCard.dart';
-import 'package:newapp/screens/Widgets/Post.dart';
 import 'package:newapp/screens/Widgets/player_panel.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 
@@ -34,7 +33,6 @@ class UserProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       create: (context) => UserProfileBloc()..add(LoadUserProfileEvent(userId)),
       child: _UserProfileContent(),
@@ -89,14 +87,14 @@ class __UserProfileState extends State<_UserProfileContent> {
                         SizedBox(height: 30),
                         Column(
                           children: [
-                                Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CupertinoButton(
                                   disabledColor: Colors.white,
                                   child: Icon(
                                     Icons.mail,
-                                    color: Colors.white,
+                                    color: Colors.transparent,
                                   ),
                                   onPressed: null,
                                 ),
@@ -111,6 +109,8 @@ class __UserProfileState extends State<_UserProfileContent> {
                                   ),
                                   onPressed: () {
                                     showModalBottomSheet(
+                                      shape: mainButtomSheetShape,
+                                      backgroundColor: Colors.white,
                                       context: context,
                                       builder: (context) =>
                                           _UserProfileActions(profile: profile),
@@ -222,28 +222,29 @@ class __UserProfileState extends State<_UserProfileContent> {
                             );
                           }),
                         ),
-                        if(myId!=profile.id)SizedBox(height: 20),
-                        if(myId!=profile.id)Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 30),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: Colors.blue,
+                        if (myId != profile.id) SizedBox(height: 20),
+                        if (myId != profile.id)
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 30),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.blue,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                      const Radius.circular(100),
+                                    ),
                                   ),
-                                  borderRadius: const BorderRadius.all(
-                                    const Radius.circular(100),
+                                  child: _FollowButton(
+                                    card: profile,
                                   ),
-                                ),
-                                child: _FollowButton(
-                                  card: profile,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
                         SizedBox(height: 20),
                         _ChuneList(profile.id)
                       ]),
@@ -317,11 +318,10 @@ class _ChuneList extends StatelessWidget {
   }
 }
 
-
 class _UserProfileActions extends StatefulWidget {
   const _UserProfileActions({
     Key key,
-     this.profile,
+    this.profile,
   }) : super(key: key);
 
   final ProfileModel profile;
@@ -345,8 +345,8 @@ class _UserProfileActionsState extends State<_UserProfileActions> {
               Navigator.pop(context);
             }
             return isAdd
-                ? 'Muted @${widget.profile.username} successfully'
-                : 'Unmuted @${widget.profile.username} successfully';
+                ? 'Blocked @${widget.profile.username} successfully'
+                : 'Unblocked @${widget.profile.username} successfully';
           },
           cubit: AppCubits.mutedUsersCubit,
           id: widget.profile.id,
@@ -355,7 +355,7 @@ class _UserProfileActionsState extends State<_UserProfileActions> {
                 ? Icon(Icons.volume_up_rounded)
                 : Icon(Icons.volume_off_rounded),
             title: MText(
-              '${isAdded ? 'Unmute' : 'Mute'} @${widget.profile.username}',
+              '${isAdded ? 'Unblock' : 'Block'} @${widget.profile.username}',
             ),
           ),
         ),
@@ -363,7 +363,7 @@ class _UserProfileActionsState extends State<_UserProfileActions> {
           leading: Icon(Icons.flag_outlined),
           title: MText('Report this user'),
           onTap: () async {
-             final userId = context.read<AppBloc>().state.user.id;
+            final userId = context.read<AppBloc>().state.user.id;
 
             final result = await context
                 .read<ReportCubit>()

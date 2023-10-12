@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../Useful_Code/app_cubits.dart';
+import '../../Useful_Code/constants.dart';
 import '../../Useful_Code/utils.dart';
 import '../../Useful_Code/widgets.dart';
 import '../../auth_flow/app/bloc/app_bloc.dart';
@@ -58,6 +59,8 @@ class HomePostCard extends StatelessWidget {
                   ),
                   onPressed: () {
                     showModalBottomSheet(
+                      backgroundColor: Colors.white,
+                      shape: mainButtomSheetShape,
                       context: context,
                       builder: (context) => HomePostActions(post: post),
                     );

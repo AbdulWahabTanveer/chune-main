@@ -77,13 +77,8 @@ class MyApp extends StatelessWidget {
             textSelectionTheme: TextSelectionThemeData(
               cursorColor: Colors.white,
             ),
-            bottomSheetTheme: BottomSheetThemeData(
-                shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              ),
-            )),
+            bottomSheetTheme:
+                BottomSheetThemeData(backgroundColor: Colors.transparent),
             inputDecorationTheme: InputDecorationTheme(
               labelStyle: TextStyle(color: Colors.white),
               border: OutlineInputBorder(

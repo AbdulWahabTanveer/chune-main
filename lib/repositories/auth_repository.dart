@@ -115,10 +115,13 @@ class AuthRepoImpl extends AuthRepository {
   @override
   MusicSourceModel getLoggedInUser() {
     try {
-      final user = MusicSourceModel.fromMap(
-        jsonDecode(
+      var userString;
+      if(prefs.getString('currentUser') != null)
+        userString=jsonDecode(
           prefs.getString('currentUser'),
-        ),
+        );
+      final user = MusicSourceModel.fromMap(
+          userString ?? {'token': '', 'type': MusicSourceType.spotify}
       );
       super.user = user;
       return user;

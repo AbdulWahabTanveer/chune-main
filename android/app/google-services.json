@@ -7,12 +7,28 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:276112452493:android:eb991e796afff5c1816bc4",
+        "mobilesdk_app_id": "1:276112452493:android:f19c6ba8aeee290d816bc4",
         "android_client_info": {
-          "package_name": "com.example.newapp"
+          "package_name": "com.chune.app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "276112452493-57qddgq228sbhv4eu1v25mmnsdipc5c1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chune.app",
+            "certificate_hash": "215e6de127c0ca3d9733064b8188740a8b369b74"
+          }
+        },
+        {
+          "client_id": "276112452493-jhtrsnqeqbhviajgns41i743bcgi2r2p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chune.app",
+            "certificate_hash": "5c50c4fef7f21e0fb8d703dc36e74e65560c88b7"
+          }
+        },
         {
           "client_id": "276112452493-h0ck49knh3qm9mnstg85k777fvc0vas5.apps.googleusercontent.com",
           "client_type": 3
@@ -29,6 +45,89 @@
             {
               "client_id": "276112452493-h0ck49knh3qm9mnstg85k777fvc0vas5.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "276112452493-hvcfn5cgmediq5jims991a5fsjvb5l5p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "chune.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276112452493:android:eb991e796afff5c1816bc4",
+        "android_client_info": {
+          "package_name": "com.example.newapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276112452493-4b1mimb1k7t7t2barpb4dm9kd3pu29hu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newapp",
+            "certificate_hash": "7642d605fd82201791a6ed4da52d9a8a8f93ecf2"
+          }
+        },
+        {
+          "client_id": "276112452493-5paaavmmq79vv8rfdqk1k5pkhgdhq2pl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newapp",
+            "certificate_hash": "215e6de127c0ca3d9733064b8188740a8b369b74"
+          }
+        },
+        {
+          "client_id": "276112452493-gf7f70sm8ceb2q9pqiulvdikesc9lrdl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newapp",
+            "certificate_hash": "962b11b2d5a1956821e73e26f4c9da857fa39dbf"
+          }
+        },
+        {
+          "client_id": "276112452493-rembe8sen3qpd8h1fi3vomnk42om3ehp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newapp",
+            "certificate_hash": "381e71b2b8d7361f5c663bfb139a14eead0eb02d"
+          }
+        },
+        {
+          "client_id": "276112452493-vd4t1i686iiq8e5mcn0uv6d392qrtafg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newapp",
+            "certificate_hash": "5c50c4fef7f21e0fb8d703dc36e74e65560c88b7"
+          }
+        },
+        {
+          "client_id": "276112452493-h0ck49knh3qm9mnstg85k777fvc0vas5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLc--bF1ka5iJWenYXXi8CbeyEcieqqcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276112452493-h0ck49knh3qm9mnstg85k777fvc0vas5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "276112452493-hvcfn5cgmediq5jims991a5fsjvb5l5p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "chune.app"
+              }
             }
           ]
         }

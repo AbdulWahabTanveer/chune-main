@@ -83,6 +83,7 @@ class _NavScreen extends State<NavScreen> {
               PlayerPanel()
             ],
           ),
+          
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           floatingActionButton: FloatingActionButton(
             elevation: 10,

@@ -50,8 +50,10 @@ class _MusicSourceState extends State<MusicSource> {
         }
       },
       builder: (context, state) {
+        if (state is LoginSuccessState) {
         return AuthenticatedScreen();
-        if (state is LoginSuccessState) {}
+
+        }
         final isLoading = state is LoginLoading;
         return Scaffold(
           body: Container(
@@ -75,21 +77,21 @@ class _MusicSourceState extends State<MusicSource> {
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 16),
-                // ElevatedButton.icon(
-                //     style: ButtonStyle(
-                //       backgroundColor: MaterialStateProperty.resolveWith(
-                //           (states) => Color(0xff00d157)),
-                //       foregroundColor: MaterialStateProperty.resolveWith(
-                //           (states) => Colors.white),
-                //     ),
-                //     onPressed: () {
-                //       context.read<LoginBloc>().add(LoginWithSpotifyEvent());
-                //     },
-                //     icon: Image.asset(
-                //       'images/spotify.png',
-                //       height: 24,
-                //     ),
-                //     label: Text('LOGIN WITH SPOTIFY')),
+                ElevatedButton.icon(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith(
+                          (states) => Color(0xff00d157)),
+                      foregroundColor: MaterialStateProperty.resolveWith(
+                          (states) => Colors.white),
+                    ),
+                    onPressed: () {
+                      context.read<LoginBloc>().add(LoginWithSpotifyEvent());
+                    },
+                    icon: Image.asset(
+                      'images/spotify.png',
+                      height: 24,
+                    ),
+                    label: Text('LOGIN WITH SPOTIFY')),
                 SizedBox(
                   height: 16,
                 ),

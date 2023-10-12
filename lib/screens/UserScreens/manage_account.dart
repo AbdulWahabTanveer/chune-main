@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../Useful_Code/constants.dart';
 import '../../Useful_Code/widgets.dart';
 import '../../auth_flow/app/bloc/app_bloc.dart';
 import '../../auth_flow/delete_account/delete_account_cubit.dart';
@@ -88,6 +89,8 @@ class ManageAccount extends StatelessWidget {
 
   showConfirm(BuildContext context, VoidCallback onConfirm) {
     showModalBottomSheet(
+                                      shape: mainButtomSheetShape,
+    backgroundColor: Colors.white,
       context: context,
       builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,

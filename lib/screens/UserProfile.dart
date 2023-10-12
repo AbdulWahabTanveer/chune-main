@@ -1,19 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import '../Useful_Code/constants.dart';
 import '../Useful_Code/utils.dart';
 import '../core/bloc/nav_bloc/nav_bloc.dart';
-import '../repositories/profile_repository.dart';
 import 'Widgets/FollowCard.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import '../auth_flow/app/bloc/app_bloc.dart';
 import '../core/bloc/profile/profile_bloc.dart';
 import '../models/chune.dart';
 import 'ShareAChune.dart';
-import 'UserScreens/EditProfileScreen.dart';
 import 'UserScreens/LikedChunes.dart';
 
 class MyProfileScreen extends StatefulWidget {
@@ -48,7 +44,7 @@ class _MyProfileState extends State<MyProfileScreen> {
               if (state is ProfileLoadedState && state.profile != null) {
                 print(">>>>>>>>>>>>>>>${state.profile}");
                 return Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: [
@@ -110,7 +106,7 @@ class _MyProfileState extends State<MyProfileScreen> {
                                     borderRadius: const BorderRadius.all(
                                         const Radius.circular(100))),
                                 child: TextButton(
-                                  child: Text('Edit Profile',
+                                  child: Text('Account',
                                       style: TextStyle(
                                           fontSize: 21, color: Colors.blue)),
                                   onPressed: () {

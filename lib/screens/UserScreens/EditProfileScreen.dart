@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../Useful_Code/constants.dart';
 import '../../Useful_Code/widgets.dart';
 import '../Player.dart';
 import 'ChangeUsername.dart';
@@ -122,6 +123,9 @@ class _EditProfile extends State<EditProfile> {
 
   showConfirm(BuildContext context, VoidCallback onConfirm) {
     showModalBottomSheet(
+                                      shape: mainButtomSheetShape,
+    backgroundColor: Colors.white,
+
       context: context,
       builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,
